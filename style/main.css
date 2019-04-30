@@ -196,8 +196,6 @@ html.light-theme .video-list-container .video-entry {
       -ms-flex-pack: start;
           justify-content: start;
   overflow: hidden;
-  -webkit-animation: fade-up-in 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-          animation: fade-up-in 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
 }
 
 @media screen and (max-width: 480px) {
@@ -374,6 +372,9 @@ html.light-theme .view-panel .video-infobox {
   padding: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  opacity: 1;
+  -webkit-transition: opacity 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: opacity 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
 }
 
 html.light-theme .view-panel .video-infobox .video-infobox-title {
@@ -481,6 +482,12 @@ html.light-theme .view-panel .video-infobox .video-infobox-description {
 html.light-theme .view-panel .video-infobox .video-infobox-description a {
   text-decoration: underline;
   color: #080808;
+}
+
+html.light-theme .view-panel .video-infobox.loading {
+  opacity: 0;
+  -webkit-transition: opacity 0ms;
+  transition: opacity 0ms;
 }
 
 html.dark-theme {
@@ -643,8 +650,6 @@ html.dark-theme .video-list-container .video-entry {
       -ms-flex-pack: start;
           justify-content: start;
   overflow: hidden;
-  -webkit-animation: fade-up-in 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-          animation: fade-up-in 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
 }
 
 @media screen and (max-width: 480px) {
@@ -821,6 +826,9 @@ html.dark-theme .view-panel .video-infobox {
   padding: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  opacity: 1;
+  -webkit-transition: opacity 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: opacity 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
 }
 
 html.dark-theme .view-panel .video-infobox .video-infobox-title {
@@ -928,5 +936,11 @@ html.dark-theme .view-panel .video-infobox .video-infobox-description {
 html.dark-theme .view-panel .video-infobox .video-infobox-description a {
   text-decoration: underline;
   color: #ebebeb;
+}
+
+html.dark-theme .view-panel .video-infobox.loading {
+  opacity: 0;
+  -webkit-transition: opacity 0ms;
+  transition: opacity 0ms;
 }
 /*# sourceMappingURL=main.css.map */

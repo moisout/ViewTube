@@ -99,7 +99,6 @@ a {
         margin: 10px;
         justify-content: start;
         overflow: hidden;
-        animation: fade-up-in 300ms $intro-easing;
 
         @media screen and (max-width: 480px) {
             width: calc(100vw - 20px);
@@ -252,6 +251,8 @@ a {
         flex-direction: column;
         padding: 10px;
         box-sizing: border-box;
+        opacity: 1;
+        transition: opacity 300ms $intro-easing;
 
         .video-infobox-title {
             color: $title-color;
@@ -334,6 +335,11 @@ a {
                 text-decoration: underline;
                 color: $title-color;
             }
+        }
+
+        &.loading{
+            opacity: 0;
+            transition: opacity 0ms;
         }
     }
 }

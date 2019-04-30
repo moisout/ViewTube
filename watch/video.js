@@ -16,6 +16,7 @@ function loadInfo(data) {
     $(video).find('.infobox-views').text(viewCountString);
     $(video).find('.video-infobox-description').html(data.descriptionHtml);
     $('#channel-img').attr('src', data.authorThumbnails[4].url);
+    $(video).removeClass('loading');
 }
 
 function loadVideo() {
