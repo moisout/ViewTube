@@ -41,6 +41,16 @@ a {
         }
     }
 
+    .search-box{
+        display: flex;
+        flex-direction: row;
+        display: none;
+
+        #search{
+
+        }
+    }
+
     .nav {
         margin: auto 20px auto 0;
         color: $theme-color;
@@ -48,6 +58,7 @@ a {
         #theme-change {
             text-decoration: none;
             color: $theme-color;
+            margin: 0 10px 0 0;
         }
     }
 }
@@ -296,12 +307,12 @@ a {
             display: flex;
             flex-direction: row;
 
-            .infobox-channel-image{
+            .infobox-channel-image {
                 width: 50px;
                 height: 50px;
                 margin: 0 10px 0 0;
 
-                img{
+                img {
                     width: 100%;
                     height: 100%;
                 }
@@ -325,21 +336,25 @@ a {
             }
         }
 
-        .video-infobox-description{
+        .video-infobox-description {
             margin: 20px 0 0 0;
             color: $title-color;
             font-family: $default-font;
             line-height: 1.2rem;
 
-            a{
+            a {
                 text-decoration: underline;
                 color: $title-color;
             }
+
+            .favicon-link {
+                height: 13px;
+                margin: 0 4px;
+            }
         }
 
-        &.loading{
+        &.loading {
             opacity: 0;
-            transition: opacity 0ms;
         }
     }
 }

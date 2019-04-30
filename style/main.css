@@ -115,6 +115,17 @@ html.light-theme .header .logo-link .logo {
   color: #f57c00;
 }
 
+html.light-theme .header .search-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: none;
+}
+
 html.light-theme .header .nav {
   margin: auto 20px auto 0;
   color: #f57c00;
@@ -123,6 +134,7 @@ html.light-theme .header .nav {
 html.light-theme .header .nav #theme-change {
   text-decoration: none;
   color: #f57c00;
+  margin: 0 10px 0 0;
 }
 
 html.light-theme .video-list-container {
@@ -484,10 +496,13 @@ html.light-theme .view-panel .video-infobox .video-infobox-description a {
   color: #080808;
 }
 
+html.light-theme .view-panel .video-infobox .video-infobox-description .favicon-link {
+  height: 13px;
+  margin: 0 4px;
+}
+
 html.light-theme .view-panel .video-infobox.loading {
   opacity: 0;
-  -webkit-transition: opacity 0ms;
-  transition: opacity 0ms;
 }
 
 html.dark-theme {
@@ -569,6 +584,17 @@ html.dark-theme .header .logo-link .logo {
   color: #f57c00;
 }
 
+html.dark-theme .header .search-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: none;
+}
+
 html.dark-theme .header .nav {
   margin: auto 20px auto 0;
   color: #f57c00;
@@ -577,6 +603,7 @@ html.dark-theme .header .nav {
 html.dark-theme .header .nav #theme-change {
   text-decoration: none;
   color: #f57c00;
+  margin: 0 10px 0 0;
 }
 
 html.dark-theme .video-list-container {
@@ -938,9 +965,12 @@ html.dark-theme .view-panel .video-infobox .video-infobox-description a {
   color: #ebebeb;
 }
 
+html.dark-theme .view-panel .video-infobox .video-infobox-description .favicon-link {
+  height: 13px;
+  margin: 0 4px;
+}
+
 html.dark-theme .view-panel .video-infobox.loading {
   opacity: 0;
-  -webkit-transition: opacity 0ms;
-  transition: opacity 0ms;
 }
 /*# sourceMappingURL=main.css.map */

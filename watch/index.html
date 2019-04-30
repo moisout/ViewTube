@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-theme">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="ViewTube"/>
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="../bin/jquery-3.4.0.min.js"></script>
     <script src="../bin/js.cookie.js"></script>
     <script src="../bin/mustache.js"></script>
     <script src="../main.js"></script>
@@ -54,11 +54,11 @@
                 <p class="infobox-views"></p>
                 <div class="infobox-likes">
                     <i class="material-icons">thumb_up</i>
-                    <p>{{ likeCount }}</p>
+                    <p class="like-count"></p>
                 </div>
                 <div class="infobox-dislikes">
                     <i class="material-icons">thumb_down</i>
-                    <p>{{ dislikeCount }}</p>
+                    <p class="dislike-count"></p></p>
                 </div>
             </div>
             <div class="video-infobox-channel">
