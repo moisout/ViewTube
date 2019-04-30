@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="images/icon-192.png" type="image/x-icon">
+    <meta property="og:title" content="ViewTube">
+    <meta property="og:type" content="website">
+    <meta property="og:image:secure_url" itemprop="image" content="https://maurice.oeger.li/ViewTube/images/icon-256.png">
+    <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
+    <meta property="og:locale" content="en_US">
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="bin/js.cookie.js"></script>
+    <script src="bin/mustache.js"></script>
+    <script src="main.js"></script>
+    <script src="index.js"></script>
+    <title>ViewTube</title>
+</head>
+
+<body>
+    <div class="header">
+        <a class="logo-link" href="index.html"><h1 class="logo">ViewTube</h1></a>
+        <div class="nav">
+            <a href="#" id="theme-change"><i class="material-icons">invert_colors</i></a>
+            <i class="material-icons">settings</i>
+        </div>
+    </div>
+    <div class="video-list-container">
+        <div class="video-section-title">
+            <h2>Top</h2>
+            <span class="video-section-separator"></span>
+        </div>
+    </div>
+    <template class="video-entry-template">
+        <div class="video-entry">
+            <a class="video-entry-thmb" href="#">
+                <img class="video-entry-thmb-image" src="" alt="Thumbnail">
+                <span class="video-entry-length"></span>
+            </a>
+            <div class="video-entry-info">
+                <a class="video-entry-title" href="#" title="{{ title }}">{{ title }}</a>
+                <a class="video-entry-channel" href="#" title="{{ author }}">{{ author }}</a>
+                <div class="video-entry-stats">
+                    <p class="video-entry-views">{{ viewCount }} Views</p>
+                    <p class="video-entry-timestamp">{{ publishedText }}</p>
+                </div>
+            </div>
+        </div>
+    </template>
+</body>
+
+</html>

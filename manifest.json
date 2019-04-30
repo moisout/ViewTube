@@ -1,0 +1,24 @@
+{
+    "short_name": "PrivatePlayer",
+    "name": "PrivatePlayer",
+    "description": "An alternative YouTube-frontend",
+    "icons": [
+      {
+        "src": "images/icon-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "images/icon-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/ViewTube/index.html",
+    "background_color": "#121212",
+    "display": "standalone",
+    "scope": "/ViewTube/",
+    "theme_color": "#272727",
+    "dir": "ltr",
+    "lang": "en"
+  }

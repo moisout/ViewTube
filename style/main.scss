@@ -1,0 +1,21 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html.light-theme {
+  @import "light-theme";
+  display: block;
+
+  @import "style";
+}
+
+html.dark-theme {
+  @import "dark-theme";
+  display: block;
+
+  @import "style";
+}
