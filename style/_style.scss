@@ -19,6 +19,22 @@ a {
     margin: 0;
 }
 
+@media screen and (max-width: 480px) {
+    .video-entry {
+        width: calc(100vw - 20px) !important;
+        height: calc(100vw - 80px) !important;
+    }
+
+    .logo-link{
+        .logo{
+            display: none !important;
+        }
+        .logo-small{
+            display: block !important;
+        }
+    }
+}
+
 .header {
     height: $header-height;
     width: 100%;
@@ -33,27 +49,51 @@ a {
     .logo-link {
         text-decoration: none;
         margin: auto 0 auto 20px;
+        height: $header-height;
+        padding: 10px 0;
+        box-sizing: border-box;
 
         .logo {
             font-family: $header-font;
             font-size: 1.5rem;
             color: $theme-color;
         }
+
+        .logo-small{
+            display: none;
+            margin: auto;
+            height: 100%;
+        }
     }
 
-    .search-box{
+    .search-box {
         display: flex;
         flex-direction: row;
-        display: none;
+        height: 50%;
+        margin: auto 20px;
+        width: 100%;
+        max-width: $search-box-width;
+        justify-content: center;
+        border-bottom: $theme-color 2px solid;
 
-        #search{
+        #search {
+            width: 100%;
+            background: none;
+            border: none;
+            color: $title-color;
+        }
 
+        .search-btn {
+            text-decoration: none;
+            color: $theme-color;
         }
     }
 
     .nav {
         margin: auto 20px auto 0;
         color: $theme-color;
+        display: flex;
+        flex-direction: row;
 
         #theme-change {
             text-decoration: none;
@@ -64,7 +104,7 @@ a {
 }
 
 .video-list-container {
-    width: $main-width;
+    width: 100%;
     max-width: $main-width;
     height: 100%;
     margin: auto;
@@ -110,11 +150,6 @@ a {
         margin: 10px;
         justify-content: start;
         overflow: hidden;
-
-        @media screen and (max-width: 480px) {
-            width: calc(100vw - 20px);
-            height: calc(100vw - 80px);
-        }
 
         .video-entry-thmb {
             width: 100%;

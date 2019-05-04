@@ -1,8 +1,5 @@
 $(function () {
     initTheme();
-    $('#theme-change').on('click', function () {
-        toggleTheme();
-    });
     loadVideo();
 });
 

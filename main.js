@@ -1,5 +1,30 @@
 let baseUrl = 'https://invidio.us/api/v1/';
 let defaultRegion = 'US';
+let components = [
+    'vt-header'
+];
+
+$(async function () {
+    await loadComponents(components);
+
+    $('#theme-change').on('click', function () {
+        toggleTheme();
+    });
+});
+
+function loadComponents(components) {
+    return new Promise((resolve, reject) => {
+        components.forEach((element, index) => {
+            $.get(`components/${element}.html`, function (template) {
+                $(element).replaceWith(template);
+
+                if(index == components.length - 1){
+                    resolve(true);
+                }
+            });
+        });
+    });
+}
 
 function loadTopVideos() {
     $.ajax({
@@ -29,11 +54,11 @@ function loadTopVideos() {
     });
 }
 
-function initTheme(){
-    if(Cookies.get('theme') == undefined){
-        Cookies.set('theme', 'light-theme', {expires: 365});
+function initTheme() {
+    if (Cookies.get('theme') == undefined) {
+        Cookies.set('theme', 'light-theme', { expires: 365 });
     }
-    else{
+    else {
         $('html').removeClass();
         $('html').addClass(Cookies.get('theme'));
     }
@@ -44,7 +69,7 @@ function toggleTheme() {
         $('html').removeClass('light-theme');
         $('html').addClass('dark-theme');
         Cookies.set('theme', 'dark-theme', { expires: 365 });
-    } else if($('html').hasClass('dark-theme')){
+    } else if ($('html').hasClass('dark-theme')) {
         $('html').removeClass('dark-theme');
         $('html').addClass('light-theme');
         Cookies.set('theme', 'light-theme', { expires: 365 });
@@ -55,20 +80,20 @@ function numberWithSeparators(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function formattedTime(seconds){
+function formattedTime(seconds) {
     let ms = seconds * 1000;
     let date = new Date(ms);
-    if(date.getHours() - 1 > 0){
+    if (date.getHours() - 1 > 0) {
         return `${date.getHours() - 1}:${date.getMinutes()}:${addZero(date.getSeconds())}`;
     }
-    else{
+    else {
         return `${date.getMinutes()}:${addZero(date.getSeconds())}`;
     }
 }
 
 function addZero(i) {
     if (i < 10) {
-      i = "0" + i;
+        i = "0" + i;
     }
     return i;
-  }
+}
