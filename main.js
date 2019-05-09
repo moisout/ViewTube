@@ -1,4 +1,5 @@
 let baseUrl = 'https://invidio.us/api/v1/';
+let rootUrl = getRootUrl();
 let defaultRegion = 'US';
 let components = [
     'vt-header'
@@ -10,15 +11,17 @@ $(async function () {
     $('#theme-change').on('click', function () {
         toggleTheme();
     });
+
+    initSearchBar();
 });
 
 function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach((element, index) => {
-            $.get(`components/${element}.html`, function (template) {
+            $.get(`${rootUrl}components/${element}.html`, function (template) {
                 $(element).replaceWith(template);
 
-                if(index == components.length - 1){
+                if (index == components.length - 1) {
                     resolve(true);
                 }
             });
@@ -73,6 +76,59 @@ function toggleTheme() {
         $('html').removeClass('dark-theme');
         $('html').addClass('light-theme');
         Cookies.set('theme', 'light-theme', { expires: 365 });
+    }
+}
+
+function initSearchBar() {
+    $('.search-btn').on('click', function () {
+        toggleSearch(true);
+    });
+
+    $('#search').on('keypress', function (e) {
+        if (e.which == 13) {
+            let searchValue = $('#search').val();
+
+            searchRedirect(searchValue);
+        }
+    });
+
+    $('#search').on("focusout", function () {
+        if ($(this).val().length <= 0) {
+            toggleSearch(false);
+        }
+    });
+
+    if (typeof insertSearchQuery === "function") { 
+        insertSearchQuery();
+    }
+}
+
+function toggleSearch(value) {
+    if (value) {
+        $('.search-box').addClass('active');
+        $('.search-btn').addClass('searching');
+        $('#search').focus();
+    } else {
+        $('.search-box').removeClass('active');
+        $('.search-btn').removeClass('searching');
+
+        $('.search-btn').css('left', '');
+    }
+}
+
+function searchRedirect(searchValue) {
+    let searchUrl = `${rootUrl}results?search_query=${searchValue}`;
+
+    window.location.href = searchUrl;
+}
+
+function getRootUrl() {
+    let location = window.location.href;
+    if (location.match(/^(.*localhost.*)$/)) {
+        return 'http://localhost/ViewTube/';
+    }
+    else {
+        return '/';
     }
 }
 
