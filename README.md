@@ -1,8 +1,8 @@
 # ViewTube
 
-ViewTube is an alternative YouTube frontend using the [invidious](https://github.com/omarroth/invidious) API.
+Current Stage: Alpha
 
-It is currently limited in functionality due to the project being very young.
+ViewTube is an alternative YouTube frontend using the [invidious](https://github.com/omarroth/invidious) API.
 
 Unique features include:
 - High Quality Playback up to 8k
