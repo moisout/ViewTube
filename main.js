@@ -1,9 +1,10 @@
-let baseUrl = 'https://invidio.us/api/v1/';
+let baseUrl = `https://invidio.us/api/v1/`;
 let rootUrl = getRootUrl();
 let defaultRegion = 'US';
 let components = [
     'vt-header'
 ];
+let proxyUrl = 'https://viewtube.eu/proxy/?q=';
 
 $(async function () {
     await loadComponents(components);
@@ -13,6 +14,9 @@ $(async function () {
     });
 
     initSearchBar();
+    if (typeof loadSearchResultPage === "function") {
+        loadSearchResultPage();
+    }
 });
 
 function loadComponents(components) {
@@ -35,23 +39,23 @@ function loadTopVideos() {
         url: `${baseUrl}top`,
         dataType: "JSON",
         success: function (response) {
-            let template = $('.video-entry-template').html();
+            $.get(`${rootUrl}components/vt-video-entry.html`, function (template) {
+                response.forEach(element => {
+                    let html = Mustache.to_html(template, element);
+                    let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
+                    let linkUrl = `watch?v=${element.videoId}`;
+                    let channelUrl = element.authorUrl;
+                    let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
+                    let videoLength = formattedTime(element.lengthSeconds);
 
-            response.forEach(element => {
-                let html = Mustache.to_html(template, element);
-                let imgSrc = element.videoThumbnails[4].url;
-                let linkUrl = `watch?v=${element.videoId}`;
-                let channelUrl = element.authorUrl;
-                let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
-                let videoLength = formattedTime(element.lengthSeconds);
-
-                let videoEntry = $(html).appendTo('.video-list-container');
-                $(videoEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
-                $(videoEntry).find('.video-entry-thmb').attr('href', linkUrl);
-                $(videoEntry).find('.video-entry-title').attr('href', linkUrl);
-                $(videoEntry).find('.video-entry-channel').attr('href', channelUrl);
-                $(videoEntry).find('.video-entry-views').text(viewCountString);
-                $(videoEntry).find('.video-entry-length').text(videoLength);
+                    let videoEntry = $(html).appendTo('.video-list-container');
+                    $(videoEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
+                    $(videoEntry).find('.video-entry-thmb').attr('href', linkUrl);
+                    $(videoEntry).find('.video-entry-title').attr('href', linkUrl);
+                    $(videoEntry).find('.video-entry-channel').attr('href', channelUrl);
+                    $(videoEntry).find('.video-entry-views').text(viewCountString);
+                    $(videoEntry).find('.video-entry-length').text(videoLength);
+                });
             });
         }
     });
@@ -97,10 +101,6 @@ function initSearchBar() {
             toggleSearch(false);
         }
     });
-
-    if (typeof insertSearchQuery === "function") { 
-        insertSearchQuery();
-    }
 }
 
 function toggleSearch(value) {
