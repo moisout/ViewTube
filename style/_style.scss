@@ -1,5 +1,6 @@
 @import "variables";
 @import "animations";
+@import "header";
 
 body {
     display: flex;
@@ -18,9 +19,15 @@ a {
 }
 
 @media screen and (max-width: 480px) {
-    .video-entry {
+    .video-entry,
+    .channel-entry,
+    .playlist-entry {
         width: calc(100vw - 20px) !important;
         height: calc(100vw - 80px) !important;
+    }
+
+    .channel-entry-thmb {
+        height: calc(((100vw - 80px) * 9) / 16) !important;
     }
 
     .logo-link {
@@ -33,86 +40,8 @@ a {
     }
 }
 
-.header {
-    height: $header-height;
-    width: 100%;
-    position: fixed;
-    box-shadow: $low-shadow;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    z-index: 100;
-    background-color: $header-bgcolor;
-
-    .logo-link {
-        text-decoration: none;
-        margin: auto 0 auto 20px;
-        height: $header-height;
-        padding: 10px 0;
-        box-sizing: border-box;
-
-        .logo {
-            font-family: $header-font;
-            font-size: 1.5rem;
-            color: $theme-color;
-        }
-
-        .logo-small {
-            display: none;
-            margin: auto;
-            height: 100%;
-        }
-    }
-
-    .search-box {
-        display: flex;
-        flex-direction: row;
-        height: 50%;
-        margin: auto 20px;
-        width: 100%;
-        max-width: $search-box-width;
-        justify-content: center;
-        border-bottom: $theme-color 2px solid;
-        transform: scale(1, 0);
-        transition: transform 300ms $intro-easing;
-
-        #search {
-            width: 100%;
-            background: none;
-            border: none;
-            color: $title-color;
-        }
-
-        &.active {
-            transform: scale(1, 1);
-        }
-    }
-
-    .nav {
-        margin: auto 20px auto 0;
-        color: $theme-color;
-        display: flex;
-        flex-direction: row;
-
-        a {
-            text-decoration: none;
-            color: $theme-color;
-            margin: 0 10px 0 0;
-        }
-
-        .search-btn{
-            opacity: 1;
-            transition: opacity 300ms $dynamic-easing, transform 300ms $dynamic-easing;
-
-            &.searching{
-                opacity: 0;
-                transform: scale(0);
-            }
-        }
-    }
-}
-
-.video-list-container {
+.video-list-container,
+.results-panel {
     width: 100%;
     max-width: $main-width;
     height: 100%;
@@ -170,13 +99,13 @@ a {
 
             .video-entry-length {
                 text-decoration: none;
-                color: #fff;
+                color: $video-thmb-overlay-textcolor;
                 position: absolute;
                 right: 0;
                 bottom: 0;
                 padding: 2px 4px;
                 margin: 8px 4px;
-                background-color: rgba(0, 0, 0, 0.714);
+                background-color: $video-thmb-overlay-bgcolor;
                 box-sizing: border-box;
                 border-radius: 2px;
                 font-family: $default-font;
@@ -218,6 +147,119 @@ a {
                 flex-direction: row;
                 font-size: 0.8rem;
                 margin: 5px 0 0 0;
+            }
+        }
+    }
+
+    .playlist-entry {
+        width: 220px;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        justify-content: start;
+        overflow: hidden;
+
+        .playlist-entry-thmb {
+            width: 100%;
+            position: relative;
+
+            .playlist-entry-thmb-image {
+                width: 100%;
+            }
+
+            .playlist-entry-count {
+                text-decoration: none;
+                color: $video-thmb-overlay-textcolor;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                padding: 2px 4px;
+                margin: 8px 4px;
+                background-color: $video-thmb-overlay-bgcolor;
+                box-sizing: border-box;
+                border-radius: 2px;
+                font-family: $default-font;
+            }
+        }
+
+        .playlist-entry-info {
+            padding: 10px 0;
+            font-family: $default-font;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+
+            .playlist-entry-title {
+                text-decoration: none;
+                margin: 0;
+                font-size: 0.9rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: $title-color;
+            }
+
+            .playlist-entry-channel {
+                text-decoration: none;
+                margin: 8px 0 0 0;
+                font-size: 0.8rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: $subtitle-color;
+            }
+        }
+    }
+
+    .channel-entry {
+        width: 220px;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        justify-content: start;
+        overflow: hidden;
+
+        .channel-entry-thmb {
+            height: calc((220px * 9) / 16);
+            position: relative;
+            margin: 0 auto;
+
+            .channel-entry-thmb-image {
+                height: 100%;
+            }
+        }
+
+        .channel-entry-info {
+            padding: 10px 0;
+            font-family: $default-font;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+
+            .channel-entry-title {
+                text-decoration: none;
+                margin: 0;
+                font-size: 0.9rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: $title-color;
+            }
+
+            .channel-entry-stats {
+                color: $subtitle-color-light;
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                flex-direction: column;
+                font-size: 0.8rem;
+                margin: 5px 0 0 0;
+
+                p {
+                    margin: 0 0 5px 0;
+                }
             }
         }
     }

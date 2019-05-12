@@ -17,7 +17,7 @@ function loadInfo(data) {
     $(video).find('.dislike-count').text(dislikeString);
     
     $(video).find('.video-infobox-description').html(data.descriptionHtml);
-    $('#channel-img').attr('src', data.authorThumbnails[4].url);
+    $('#channel-img').attr('src', `${proxyUrl}${data.authorThumbnails[4].url}`);
     $(video).removeClass('loading');
 
     $(video).find('.video-infobox-description').find('a').each((index, element) => {
@@ -26,7 +26,7 @@ function loadInfo(data) {
             let url = urlParams.get('q')
             $(element).attr('href', url);
             let originalHTML = $(element).html();
-            $(element).html(`<img class="favicon-link" src="https://www.google.com/s2/favicons?domain=${url}" ></img>${originalHTML}`);
+            $(element).html(`<img class="favicon-link" src="${proxyUrl}https://www.google.com/s2/favicons?domain=${url}" ></img>${originalHTML}`);
         }
     });
 }
@@ -86,7 +86,7 @@ function syncAudioVideo() {
                 let currentTime = video.currentTime;
                 audio.currentTime = currentTime;
             }
-            if (Math.abs(audio.currentTime - video.currentTime) > 0.5) {
+            if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
                 let currentTime = video.currentTime;
                 audio.currentTime = currentTime;
             }

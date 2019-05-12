@@ -4,7 +4,7 @@ let defaultRegion = 'US';
 let components = [
     'vt-header'
 ];
-let proxyUrl = 'https://viewtube.eu/proxy/?q=';
+let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(async function () {
     await loadComponents(components);
@@ -13,7 +13,7 @@ $(async function () {
         toggleTheme();
     });
 
-    initSearchBar();
+    initHeader();
     if (typeof loadSearchResultPage === "function") {
         loadSearchResultPage();
     }
@@ -83,7 +83,7 @@ function toggleTheme() {
     }
 }
 
-function initSearchBar() {
+function initHeader() {
     $('.search-btn').on('click', function () {
         toggleSearch(true);
     });
@@ -101,6 +101,9 @@ function initSearchBar() {
             toggleSearch(false);
         }
     });
+
+    $('.logo-link').attr('href', `${rootUrl}`);
+    $('.logo-small').attr('src', `${rootUrl}images/icon-192.png`);
 }
 
 function toggleSearch(value) {

@@ -1,23 +1,23 @@
-@import url("https://viewtube.eu/proxy/?q=https://fonts.googleapis.com/css?family=Righteous");
-@import url("https://viewtube.eu/proxy/?q=https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://proxy.mcdn.ch/?q=https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://proxy.mcdn.ch/?q=https://fonts.googleapis.com/icon?family=Material+Icons");
 html,
 body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 html.light-theme {
-  @import "light-theme";
-  display: block;
+    @import "light-theme";
+    display: block;
 
-  @import "style";
+    @import "style";
 }
 
 html.dark-theme {
-  @import "dark-theme";
-  display: block;
+    @import "dark-theme";
+    display: block;
 
-  @import "style";
+    @import "style";
 }

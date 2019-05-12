@@ -1,0 +1,83 @@
+.header {
+    height: $header-height;
+    width: 100%;
+    position: fixed;
+    box-shadow: $low-shadow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 100;
+    background-color: $header-bgcolor;
+
+    .logo-link {
+        text-decoration: none;
+        margin: auto 0 auto 20px;
+        height: $header-height;
+        padding: 10px 0;
+        box-sizing: border-box;
+
+        .logo {
+            font-family: $header-font;
+            font-size: 1.5rem;
+            color: $theme-color;
+        }
+
+        .logo-small {
+            display: none;
+            margin: auto;
+            height: 100%;
+        }
+    }
+
+    .search-box {
+        display: flex;
+        flex-direction: row;
+        height: 50%;
+        margin: auto 20px;
+        width: 100%;
+        max-width: $search-box-width;
+        justify-content: center;
+        border-bottom: $theme-color 2px solid;
+        transform: scale(1, 0);
+        transition: transform 300ms $intro-easing;
+
+        #search {
+            width: 100%;
+            background: none;
+            border: none;
+            color: $title-color;
+            font-size: 1rem;
+        }
+
+        &.active {
+            transform: scale(1, 1);
+        }
+    }
+
+    .nav {
+        margin: auto 20px auto 0;
+        color: $theme-color;
+        display: flex;
+        flex-direction: row;
+
+        a {
+            text-decoration: none;
+            color: $theme-color;
+            margin: 0 10px 0 0;
+        }
+
+        .search-btn{
+            opacity: 1;
+            transition: opacity 300ms $dynamic-easing, transform 300ms $dynamic-easing;
+
+            &.searching{
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        #settings-btn{
+            display: none;
+        }
+    }
+}
