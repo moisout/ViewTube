@@ -1,6 +1,3 @@
 language: minimal
 after_success:
-- find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec
-
-- curl --ftp-create-dirs
-       -T {} -u $SFTP_USER:$SFTP_PASSWORD ftp://www.sl261.web.hostpoint.ch/www/viewtube.eu/{} \\;
+    "find public -type f -exec curl --ftp-create-dirs -T {} -u $SFTP_USER:$SFTP_PASSWORD ftp://www.sl261.web.hostpoint.ch/www/viewtube.eu/{} \\;"
