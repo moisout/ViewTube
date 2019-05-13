@@ -1,3 +1,7 @@
 language: minimal
 after_success:
-- find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl --ftp-create-dirs -T {} ftp://www.sl261.web.hostpoint.ch/www/viewtube.eu/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+- find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec
+
+- curl --ftp-create-dirs
+       -T filename
+       ftp://${SFTP_USER}:${SFTP_PASSWORD}@www.sl261.web.hostpoint.ch/www/viewtube.eu/filename
