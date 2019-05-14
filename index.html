@@ -23,28 +23,14 @@
 
 <body>
     <vt-header></vt-header>
+    <vt-loader-overlay></vt-loader-overlay>
     <div class="video-list-container">
         <div class="video-section-title">
             <h2>Top</h2>
             <span class="video-section-separator"></span>
         </div>
     </div>
-    <template class="video-entry-template">
-        <div class="video-entry">
-            <a class="video-entry-thmb" href="#">
-                <img class="video-entry-thmb-image" src="" alt="Thumbnail">
-                <span class="video-entry-length"></span>
-            </a>
-            <div class="video-entry-info">
-                <a class="video-entry-title" href="#" title="{{ title }}">{{ title }}</a>
-                <a class="video-entry-channel" href="#" title="{{ author }}">{{ author }}</a>
-                <div class="video-entry-stats">
-                    <p class="video-entry-views">{{ viewCount }} Views</p>
-                    <p class="video-entry-timestamp">{{ publishedText }}</p>
-                </div>
-            </div>
-        </div>
-    </template>
+    <vt-loader></vt-loader>
 </body>
 
 </html>

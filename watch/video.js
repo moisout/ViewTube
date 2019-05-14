@@ -104,10 +104,10 @@ function syncAudioVideo() {
         }
 
         if (buffering == true) {
-            $('.video-buffer').addClass('buffering');
+            $('.loader-buffer').addClass('buffering');
         }
         else {
-            $('.video-buffer').removeClass('buffering');
+            $('.loader-buffer').removeClass('buffering');
         }
     }, 100);
 

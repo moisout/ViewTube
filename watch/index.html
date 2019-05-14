@@ -12,7 +12,7 @@
     <meta property="og:image" content="../images/icon-192.png">
     <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
     <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="ViewTube"/>
+    <meta property="og:site_name" content="ViewTube" />
     <script src="../bin/jquery-3.4.0.min.js"></script>
     <script src="../bin/js.cookie.js"></script>
     <script src="../bin/mustache.js"></script>
@@ -30,15 +30,7 @@
             </video>
             <video id="audio">
             </video>
-            <div class="video-buffer buffering">
-                <div class="spinner">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </div>
+            <vt-loader-overlay></vt-loader-overlay>
         </div>
         <div class="video-infobox loading">
             <h1 class="video-infobox-title">{{ title }}</h1>
@@ -50,7 +42,8 @@
                 </div>
                 <div class="infobox-dislikes">
                     <i class="material-icons">thumb_down</i>
-                    <p class="dislike-count"></p></p>
+                    <p class="dislike-count"></p>
+                    </p>
                 </div>
             </div>
             <div class="video-infobox-channel">

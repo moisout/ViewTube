@@ -2,7 +2,9 @@ let baseUrl = `https://invidio.us/api/v1/`;
 let rootUrl = getRootUrl();
 let defaultRegion = 'US';
 let components = [
-    'vt-header'
+    'vt-header',
+    'vt-loader-overlay',
+    'vt-loader'
 ];
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
@@ -23,8 +25,9 @@ function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach((element, index) => {
             $.get(`${rootUrl}components/${element}.html`, function (template) {
-                $(element).replaceWith(template);
-
+                $(element).each(function (index, currentElement) {
+                    $(currentElement).replaceWith(template);
+                });
                 if (index == components.length - 1) {
                     resolve(true);
                 }
