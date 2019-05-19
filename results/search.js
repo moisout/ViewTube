@@ -4,8 +4,6 @@ function loadSearchResultPage() {
     if (urlParams.has('search_query')) {
         let searchString = urlParams.getAll('search_query');
 
-        toggleSearch(true);
-
         $('#search').val(searchString[0]);
         document.title = `${searchString[0]} - ViewTube`;
         let searchParamManager = new SearchParamManager(urlParams);

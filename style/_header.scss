@@ -11,8 +11,7 @@
 
     .logo-link {
         text-decoration: none;
-        margin: auto 0 auto 20px;
-        height: $header-height;
+        margin: auto 0 auto 10px;
         padding: 10px 0;
         box-sizing: border-box;
 
@@ -25,7 +24,7 @@
         .logo-small {
             display: none;
             margin: auto;
-            height: 100%;
+            height: calc(#{$header-height} - 20px);
         }
     }
 
@@ -38,8 +37,12 @@
         max-width: $search-box-width;
         justify-content: center;
         border-bottom: $theme-color 2px solid;
-        transform: scale(1, 0);
-        transition: transform 300ms $intro-easing;
+
+        .search-btn{
+            text-decoration: none;
+            color: $theme-color;
+            margin: 0;
+        }
 
         #search {
             width: 100%;
@@ -48,32 +51,19 @@
             color: $title-color;
             font-size: 1rem;
         }
-
-        &.active {
-            transform: scale(1, 1);
-        }
     }
 
     .nav {
-        margin: auto 20px auto 0;
+        margin: auto 10px auto 0;
         color: $theme-color;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
 
         a {
             text-decoration: none;
             color: $theme-color;
             margin: 0 10px 0 0;
-        }
-
-        .search-btn{
-            opacity: 1;
-            transition: opacity 300ms $dynamic-easing, transform 300ms $dynamic-easing;
-
-            &.searching{
-                opacity: 0;
-                transform: scale(0);
-            }
         }
 
         #settings-btn{

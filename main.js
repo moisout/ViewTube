@@ -9,26 +9,27 @@ let components = [
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(async function () {
-    await loadComponents(components);
+    loadComponents(components).then(function () {
+        $('#theme-change').on('click', function (e) {
+            toggleTheme();
+            e.preventDefault();
+        });
 
-    $('#theme-change').on('click', function () {
-        toggleTheme();
+        initHeader();
+        if (typeof loadSearchResultPage === "function") {
+            loadSearchResultPage();
+        }
     });
-
-    initHeader();
-    if (typeof loadSearchResultPage === "function") {
-        loadSearchResultPage();
-    }
 });
 
 function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach((element, index) => {
             $.get(`${rootUrl}components/${element}.html`, function (template) {
-                $(element).each(function (index, currentElement) {
+                $(element).each((index, currentElement) => {
                     $(currentElement).replaceWith(template);
                 });
-                if (index == components.length - 1) {
+                if (index === components.length - 1) {
                     resolve(true);
                 }
             });
@@ -87,39 +88,29 @@ function toggleTheme() {
 }
 
 function initHeader() {
-    $('.search-btn').on('click', function () {
-        toggleSearch(true);
+    $('.search-btn').on('click', function (e) {
+        let searchValue = $('#search').val();
+
+        if (searchValue.length > 0) {
+            searchRedirect(searchValue);
+        }
+
+        e.preventDefault();
     });
 
     $('#search').on('keypress', function (e) {
         if (e.which == 13) {
             let searchValue = $('#search').val();
 
-            searchRedirect(searchValue);
-        }
-    });
-
-    $('#search').on("focusout", function () {
-        if ($(this).val().length <= 0) {
-            toggleSearch(false);
+            if (searchValue.length > 0) {
+                searchRedirect(searchValue);
+            }
+            e.preventDefault();
         }
     });
 
     $('.logo-link').attr('href', `${rootUrl}`);
     $('.logo-small').attr('src', `${rootUrl}images/icon-192.png`);
-}
-
-function toggleSearch(value) {
-    if (value) {
-        $('.search-box').addClass('active');
-        $('.search-btn').addClass('searching');
-        $('#search').focus();
-    } else {
-        $('.search-box').removeClass('active');
-        $('.search-btn').removeClass('searching');
-
-        $('.search-btn').css('left', '');
-    }
 }
 
 function searchRedirect(searchValue) {

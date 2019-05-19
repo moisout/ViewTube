@@ -140,8 +140,7 @@ html.light-theme .header {
 
 html.light-theme .header .logo-link {
   text-decoration: none;
-  margin: auto 0 auto 20px;
-  height: 60px;
+  margin: auto 0 auto 10px;
   padding: 10px 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -156,7 +155,7 @@ html.light-theme .header .logo-link .logo {
 html.light-theme .header .logo-link .logo-small {
   display: none;
   margin: auto;
-  height: 100%;
+  height: calc(60px - 20px);
 }
 
 html.light-theme .header .search-box {
@@ -175,12 +174,12 @@ html.light-theme .header .search-box {
       -ms-flex-pack: center;
           justify-content: center;
   border-bottom: #f57c00 2px solid;
-  -webkit-transform: scale(1, 0);
-          transform: scale(1, 0);
-  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97), -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.light-theme .header .search-box .search-btn {
+  text-decoration: none;
+  color: #f57c00;
+  margin: 0;
 }
 
 html.light-theme .header .search-box #search {
@@ -191,13 +190,8 @@ html.light-theme .header .search-box #search {
   font-size: 1rem;
 }
 
-html.light-theme .header .search-box.active {
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
-}
-
 html.light-theme .header .nav {
-  margin: auto 20px auto 0;
+  margin: auto 10px auto 0;
   color: #f57c00;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -206,26 +200,15 @@ html.light-theme .header .nav {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 html.light-theme .header .nav a {
   text-decoration: none;
   color: #f57c00;
   margin: 0 10px 0 0;
-}
-
-html.light-theme .header .nav .search-btn {
-  opacity: 1;
-  -webkit-transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-}
-
-html.light-theme .header .nav .search-btn.searching {
-  opacity: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
 }
 
 html.light-theme .header .nav #settings-btn {
@@ -236,6 +219,10 @@ html.light-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background-color: #fff;
 }
 
@@ -272,7 +259,6 @@ html.light-theme .video-list-container,
 html.light-theme .results-panel {
   width: 100%;
   max-width: 1200px;
-  height: 100%;
   margin: auto;
   z-index: 10;
   margin-top: 120px;
@@ -853,8 +839,7 @@ html.dark-theme .header {
 
 html.dark-theme .header .logo-link {
   text-decoration: none;
-  margin: auto 0 auto 20px;
-  height: 60px;
+  margin: auto 0 auto 10px;
   padding: 10px 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -869,7 +854,7 @@ html.dark-theme .header .logo-link .logo {
 html.dark-theme .header .logo-link .logo-small {
   display: none;
   margin: auto;
-  height: 100%;
+  height: calc(60px - 20px);
 }
 
 html.dark-theme .header .search-box {
@@ -888,12 +873,12 @@ html.dark-theme .header .search-box {
       -ms-flex-pack: center;
           justify-content: center;
   border-bottom: #f57c00 2px solid;
-  -webkit-transform: scale(1, 0);
-          transform: scale(1, 0);
-  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
-  transition: transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97), -webkit-transform 300ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.dark-theme .header .search-box .search-btn {
+  text-decoration: none;
+  color: #f57c00;
+  margin: 0;
 }
 
 html.dark-theme .header .search-box #search {
@@ -904,13 +889,8 @@ html.dark-theme .header .search-box #search {
   font-size: 1rem;
 }
 
-html.dark-theme .header .search-box.active {
-  -webkit-transform: scale(1, 1);
-          transform: scale(1, 1);
-}
-
 html.dark-theme .header .nav {
-  margin: auto 20px auto 0;
+  margin: auto 10px auto 0;
   color: #f57c00;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -919,26 +899,15 @@ html.dark-theme .header .nav {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 html.dark-theme .header .nav a {
   text-decoration: none;
   color: #f57c00;
   margin: 0 10px 0 0;
-}
-
-html.dark-theme .header .nav .search-btn {
-  opacity: 1;
-  -webkit-transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-  transition: opacity 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89), -webkit-transform 300ms cubic-bezier(0.76, 0.09, 0.3, 0.89);
-}
-
-html.dark-theme .header .nav .search-btn.searching {
-  opacity: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
 }
 
 html.dark-theme .header .nav #settings-btn {
@@ -949,6 +918,10 @@ html.dark-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background-color: #121212;
 }
 
@@ -985,7 +958,6 @@ html.dark-theme .video-list-container,
 html.dark-theme .results-panel {
   width: 100%;
   max-width: 1200px;
-  height: 100%;
   margin: auto;
   z-index: 10;
   margin-top: 120px;
