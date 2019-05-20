@@ -10,6 +10,7 @@ let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(async function () {
     loadComponents(components).then(() => {
+        debugger;
         $('#theme-change').on('click', function (e) {
             toggleTheme();
             e.preventDefault();
@@ -25,7 +26,7 @@ $(async function () {
 function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach((element, index) => {
-            $.get(`${rootUrl}components/${element}.html`, function (template) {
+            $.get(`${rootUrl}components/${element}.html`, (template) => {
                 $(element).each((index, currentElement) => {
                     $(currentElement).replaceWith(template);
                 });
@@ -67,9 +68,10 @@ function loadTopVideos() {
 
 function initTheme() {
     if (Cookies.get('theme') == undefined) {
-        Cookies.set('theme', 'light-theme', { expires: 365 });
-    }
-    else {
+        Cookies.set('theme', 'light-theme', {
+            expires: 365
+        });
+    } else {
         $('html').removeClass();
         $('html').addClass(Cookies.get('theme'));
     }
@@ -79,11 +81,15 @@ function toggleTheme() {
     if ($('html').hasClass('light-theme')) {
         $('html').removeClass('light-theme');
         $('html').addClass('dark-theme');
-        Cookies.set('theme', 'dark-theme', { expires: 365 });
+        Cookies.set('theme', 'dark-theme', {
+            expires: 365
+        });
     } else if ($('html').hasClass('dark-theme')) {
         $('html').removeClass('dark-theme');
         $('html').addClass('light-theme');
-        Cookies.set('theme', 'light-theme', { expires: 365 });
+        Cookies.set('theme', 'light-theme', {
+            expires: 365
+        });
     }
 }
 
@@ -123,8 +129,7 @@ function getRootUrl() {
     let location = window.location.href;
     if (location.match(/^(.*localhost.*)$/)) {
         return 'http://localhost/ViewTube/';
-    }
-    else {
+    } else {
         return '/';
     }
 }
@@ -138,8 +143,7 @@ function formattedTime(seconds) {
     let date = new Date(ms);
     if (date.getHours() - 1 > 0) {
         return `${date.getHours() - 1}:${date.getMinutes()}:${addZero(date.getSeconds())}`;
-    }
-    else {
+    } else {
         return `${date.getMinutes()}:${addZero(date.getSeconds())}`;
     }
 }
