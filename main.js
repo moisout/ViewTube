@@ -9,7 +9,7 @@ let components = [
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(async function () {
-    loadComponents(components).then(function () {
+    loadComponents(components).then(() => {
         $('#theme-change').on('click', function (e) {
             toggleTheme();
             e.preventDefault();
