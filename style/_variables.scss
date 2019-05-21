@@ -15,7 +15,10 @@ $dynamic-easing: cubic-bezier(.76,.09,.3,.89);
 
 $theme-color: #f57c00;
 $theme-color-light: #ffad42;
-$theme-color-dark: #bb4d00;
+$theme-color-dark: #bb3500;
+
+$theme-color-gradient: linear-gradient(to left, $theme-color-light, $theme-color-dark);
+$theme-color-gradient-vertical: linear-gradient(to top, $theme-color-light, $theme-color-dark);
 
 $video-thmb-overlay-bgcolor: rgba(0, 0, 0, 0.714);
 $video-thmb-overlay-textcolor: #fff;

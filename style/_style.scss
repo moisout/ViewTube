@@ -6,6 +6,7 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     background-color: $bgcolor-main;
 }
 
@@ -20,7 +21,7 @@ a {
     margin: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
     .video-entry,
     .channel-entry,
     .playlist-entry {
@@ -46,7 +47,7 @@ a {
 .results-panel {
     width: 100%;
     max-width: $main-width;
-    margin: auto;
+    margin: 0 auto;
     z-index: 10;
     margin-top: #{$header-height + 60px};
     display: flex;

@@ -18,7 +18,14 @@
         .logo {
             font-family: $header-font;
             font-size: 1.5rem;
-            color: $theme-color;
+            color: $subtitle-color;
+
+            .logo-colored{
+                color: transparent;
+                background-image: $theme-color-gradient;
+                background-clip: text;
+                -webkit-background-clip: text;
+            }
         }
 
         .logo-small {

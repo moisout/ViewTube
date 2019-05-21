@@ -38,7 +38,10 @@ html.light-theme .spinner {
 }
 
 html.light-theme .spinner div {
-  background-color: #ffffff;
+  background-image: -webkit-gradient(linear, right top, left top, from(#ffad42), to(#bb3500));
+  background-image: linear-gradient(to left, #ffad42, #bb3500);
+  background-size: 30px;
+  background-position: 0;
   height: 100%;
   width: 6px;
   display: inline-block;
@@ -49,21 +52,25 @@ html.light-theme .spinner div {
 html.light-theme .spinner .rect2 {
   -webkit-animation-delay: -1.1s;
           animation-delay: -1.1s;
+  background-position: -6px;
 }
 
 html.light-theme .spinner .rect3 {
   -webkit-animation-delay: -1s;
           animation-delay: -1s;
+  background-position: -12px;
 }
 
 html.light-theme .spinner .rect4 {
   -webkit-animation-delay: -0.9s;
           animation-delay: -0.9s;
+  background-position: -18px;
 }
 
 html.light-theme .spinner .rect5 {
   -webkit-animation-delay: -0.8s;
           animation-delay: -0.8s;
+  background-position: -24px;
 }
 
 @-webkit-keyframes fade-up-in {
@@ -149,7 +156,15 @@ html.light-theme .header .logo-link {
 html.light-theme .header .logo-link .logo {
   font-family: "Righteous", "Open Sans", sans-serif;
   font-size: 1.5rem;
-  color: #f57c00;
+  color: #333333;
+}
+
+html.light-theme .header .logo-link .logo .logo-colored {
+  color: transparent;
+  background-image: -webkit-gradient(linear, right top, left top, from(#ffad42), to(#bb3500));
+  background-image: linear-gradient(to left, #ffad42, #bb3500);
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 html.light-theme .header .logo-link .logo-small {
@@ -223,6 +238,9 @@ html.light-theme body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   background-color: #fff;
 }
 
@@ -237,7 +255,7 @@ html.light-theme a {
   margin: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   html.light-theme .video-entry,
   html.light-theme .channel-entry,
   html.light-theme .playlist-entry {
@@ -259,7 +277,7 @@ html.light-theme .video-list-container,
 html.light-theme .results-panel {
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   z-index: 10;
   margin-top: 120px;
   display: -webkit-box;
@@ -763,7 +781,10 @@ html.dark-theme .spinner {
 }
 
 html.dark-theme .spinner div {
-  background-color: #ffffff;
+  background-image: -webkit-gradient(linear, right top, left top, from(#ffad42), to(#bb3500));
+  background-image: linear-gradient(to left, #ffad42, #bb3500);
+  background-size: 30px;
+  background-position: 0;
   height: 100%;
   width: 6px;
   display: inline-block;
@@ -774,21 +795,25 @@ html.dark-theme .spinner div {
 html.dark-theme .spinner .rect2 {
   -webkit-animation-delay: -1.1s;
           animation-delay: -1.1s;
+  background-position: -6px;
 }
 
 html.dark-theme .spinner .rect3 {
   -webkit-animation-delay: -1s;
           animation-delay: -1s;
+  background-position: -12px;
 }
 
 html.dark-theme .spinner .rect4 {
   -webkit-animation-delay: -0.9s;
           animation-delay: -0.9s;
+  background-position: -18px;
 }
 
 html.dark-theme .spinner .rect5 {
   -webkit-animation-delay: -0.8s;
           animation-delay: -0.8s;
+  background-position: -24px;
 }
 
 @keyframes fade-up-in {
@@ -848,7 +873,15 @@ html.dark-theme .header .logo-link {
 html.dark-theme .header .logo-link .logo {
   font-family: "Righteous", "Open Sans", sans-serif;
   font-size: 1.5rem;
-  color: #f57c00;
+  color: #afafaf;
+}
+
+html.dark-theme .header .logo-link .logo .logo-colored {
+  color: transparent;
+  background-image: -webkit-gradient(linear, right top, left top, from(#ffad42), to(#bb3500));
+  background-image: linear-gradient(to left, #ffad42, #bb3500);
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 html.dark-theme .header .logo-link .logo-small {
@@ -922,6 +955,9 @@ html.dark-theme body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   background-color: #121212;
 }
 
@@ -936,7 +972,7 @@ html.dark-theme a {
   margin: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   html.dark-theme .video-entry,
   html.dark-theme .channel-entry,
   html.dark-theme .playlist-entry {
@@ -958,7 +994,7 @@ html.dark-theme .video-list-container,
 html.dark-theme .results-panel {
   width: 100%;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   z-index: 10;
   margin-top: 120px;
   display: -webkit-box;

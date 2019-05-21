@@ -8,31 +8,26 @@ let components = [
 ];
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
-$(async function () {
+$(function () {
     loadComponents(components).then(() => {
-        debugger;
-        $('#theme-change').on('click', function (e) {
-            toggleTheme();
-            e.preventDefault();
-        });
-
-        initHeader();
-        if (typeof loadSearchResultPage === "function") {
-            loadSearchResultPage();
-        }
     });
 });
 
 function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach((element, index) => {
-            $.get(`${rootUrl}components/${element}.html`, (template) => {
-                $(element).each((index, currentElement) => {
-                    $(currentElement).replaceWith(template);
-                });
-                if (index === components.length - 1) {
+            $.ajax({
+                type: "GET",
+                url: `${rootUrl}components/${element}.html`,
+                dataType: "html"
+            }).done((response) => {
+                $(element).replaceWith(response);
+                if (index === components.length) {
+                    console.log($('#theme-change'));
                     resolve(true);
                 }
+            }).fail((jqhxr, settings, exception) => {
+                reject(exception);
             });
         });
     });
@@ -66,6 +61,41 @@ function loadTopVideos() {
     });
 }
 
+function initHeader() {
+    $('.search-btn').on('click', function (e) {
+        let searchValue = $('#search').val();
+
+        if (searchValue.length > 0) {
+            searchRedirect(searchValue);
+        }
+
+        e.preventDefault();
+    });
+
+    $('#search').on('keypress', function (e) {
+        if (e.which == 13) {
+            let searchValue = $('#search').val();
+
+            if (searchValue.length > 0) {
+                searchRedirect(searchValue);
+            }
+            e.preventDefault();
+        }
+    });
+
+    $('#theme-change').on('click', function (e) {
+        toggleTheme();
+        e.preventDefault();
+    });
+
+    $('.logo-link').attr('href', `${rootUrl}`);
+    $('.logo-small').attr('src', `${rootUrl}images/icon-192.png`);
+
+    if (typeof loadSearchResultPage === "function") {
+        loadSearchResultPage();
+    }
+}
+
 function initTheme() {
     if (Cookies.get('theme') == undefined) {
         Cookies.set('theme', 'light-theme', {
@@ -93,32 +123,6 @@ function toggleTheme() {
     }
 }
 
-function initHeader() {
-    $('.search-btn').on('click', function (e) {
-        let searchValue = $('#search').val();
-
-        if (searchValue.length > 0) {
-            searchRedirect(searchValue);
-        }
-
-        e.preventDefault();
-    });
-
-    $('#search').on('keypress', function (e) {
-        if (e.which == 13) {
-            let searchValue = $('#search').val();
-
-            if (searchValue.length > 0) {
-                searchRedirect(searchValue);
-            }
-            e.preventDefault();
-        }
-    });
-
-    $('.logo-link').attr('href', `${rootUrl}`);
-    $('.logo-small').attr('src', `${rootUrl}images/icon-192.png`);
-}
-
 function searchRedirect(searchValue) {
     let searchUrl = `${rootUrl}results?search_query=${searchValue}`;
 
@@ -126,12 +130,15 @@ function searchRedirect(searchValue) {
 }
 
 function getRootUrl() {
-    let location = window.location.href;
-    if (location.match(/^(.*localhost.*)$/)) {
+    if (isLocalHost()) {
         return 'http://localhost/ViewTube/';
     } else {
         return '/';
     }
+}
+
+function isLocalHost() {
+    return window.location.href.match(/^(.*localhost.*)$/);
 }
 
 function numberWithSeparators(x) {
