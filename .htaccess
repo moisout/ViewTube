@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^/user/(.*)$ [NC]
+RewriteRule .* /channel/$1 [L,R=301]
