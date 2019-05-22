@@ -51,4 +51,8 @@
         animation-delay: -0.8s;
         background-position: -$rectangle-width * 4;
     }
+
+    &.invisible{
+        display: none;
+    }
 }

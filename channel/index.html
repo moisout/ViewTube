@@ -13,6 +13,7 @@
     <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="ViewTube" />
+    <meta name="theme-color" content="#121212">
     <script src="../bin/jquery-3.4.0.min.js"></script>
     <script src="../bin/js.cookie.js"></script>
     <script src="../bin/mustache.js"></script>
@@ -24,9 +25,28 @@
 <body>
     <vt-header></vt-header>
     <div class="channel-panel">
-
+        <div class="channel-banner">
+            <img id="channel-banner-image" src="#" alt="Channel banner image">
+        </div>
+        <div class="channel-title">
+            <div class="channel-thmb">
+                <img id="channel-thmb-image" src="#" alt="Channel profile image">
+            </div>
+            <div class="channel-info">
+                <h1 class="channel-info-name">{{ author }}</h1>
+                <span class="channel-info-subcount"></span>
+                <span class="channel-info-viewcount"></span>
+            </div>
+        </div>
+        <div class="channel-description">
+            {{ description }}
+        </div>
+        <div class="channel-videos-container">
+            
+        </div>
     </div>
     <vt-loader></vt-loader>
+    <vt-tooltip></vt-tooltip>
 </body>
 
 </html>

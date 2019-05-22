@@ -4,7 +4,8 @@ let defaultRegion = 'US';
 let components = [
     'vt-header',
     'vt-loader-overlay',
-    'vt-loader'
+    'vt-loader',
+    'vt-tooltip'
 ];
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
@@ -45,7 +46,7 @@ function loadTopVideos() {
                     let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
                     let linkUrl = `watch?v=${element.videoId}`;
                     let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
-                    let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
+                    let viewCountString = `${numberWithSeparators(element.viewCount)} views`;
                     let videoLength = formattedTime(element.lengthSeconds);
 
                     let videoEntry = $(html).appendTo('.video-list-container');

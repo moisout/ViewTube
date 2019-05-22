@@ -13,6 +13,7 @@
     <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="ViewTube" />
+    <meta name="theme-color" content="#121212">
     <script src="../bin/jquery-3.4.0.min.js"></script>
     <script src="../bin/js.cookie.js"></script>
     <script src="../bin/mustache.js"></script>
@@ -48,10 +49,10 @@
             </div>
             <div class="video-infobox-channel">
                 <div class="infobox-channel-image">
-                    <a href="{{ authorUrl }}"><img id="channel-img" src="#" alt="channel image"></a>
+                    <a href="#"><img id="channel-img" src="#" alt="channel image"></a>
                 </div>
                 <div class="infobox-channel-info">
-                    <a href="{{ authorUrl }}" class="infobox-channel-name">{{ author }}</a>
+                    <a href="#" class="infobox-channel-name">{{ author }}</a>
                     <p class="infobox-channel-subcount">{{ subCountText }} Subscribers</p>
                 </div>
             </div>
@@ -59,6 +60,7 @@
             </div>
         </div>
     </div>
+    <vt-tooltip></vt-tooltip>
 </body>
 
 </html>

@@ -9,11 +9,14 @@ function loadInfo(data) {
     let viewCountString = `${numberWithSeparators(data.viewCount)} Views`;
     let likeString = numberWithSeparators(data.likeCount);
     let dislikeString = numberWithSeparators(data.dislikeCount);
+    let channelUrl = `${rootUrl}channel?id=${data.authorId}`;
 
     let video = $('.video-infobox').html(html);
     $(video).find('.infobox-views').text(viewCountString);
     $(video).find('.like-count').text(likeString);
     $(video).find('.dislike-count').text(dislikeString);
+    $(video).find('#channel-img').attr('href', channelUrl);
+    $(video).find('.infobox-channel-name').attr('href', channelUrl);
     
     $(video).find('.video-infobox-description').html(data.descriptionHtml);
     $('#channel-img').attr('src', `${proxyUrl}${data.authorThumbnails[4].url}`);

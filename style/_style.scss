@@ -1,5 +1,5 @@
 @import "variables";
-@import 'spinner';
+@import "spinner";
 @import "animations";
 @import "header";
 
@@ -44,7 +44,8 @@ a {
 }
 
 .video-list-container,
-.results-panel {
+.results-panel,
+.channel-videos-container {
     width: 100%;
     max-width: $main-width;
     margin: 0 auto;
