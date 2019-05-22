@@ -1,4 +1,3 @@
 $(function () {
-    initTheme();
     loadTopVideos();
 });

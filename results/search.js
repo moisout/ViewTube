@@ -58,7 +58,7 @@ function loadSearchResults(params) {
 
                     let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
                     let linkUrl = `${rootUrl}watch?v=${element.videoId}`;
-                    let channelUrl = element.authorUrl;
+                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
                     let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
                     let videoLength = formattedTime(element.lengthSeconds);
 
@@ -76,7 +76,7 @@ function loadSearchResults(params) {
 
                     let imgSrc = `${proxyUrl}${element.videos[0].videoThumbnails[4].url}`;
                     let linkUrl = `${rootUrl}watch?v=${element.videos[0].videoId}&list=${element.playlistId}`;
-                    let channelUrl = element.authorUrl;
+                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
 
                     let searchResultEntry = $(html).appendTo('.results-panel');
 
@@ -89,7 +89,7 @@ function loadSearchResults(params) {
                     let html = Mustache.to_html(channelTemplate, element);
 
                     let imgSrc = `${proxyUrl}${element.authorThumbnails[4].url}`;
-                    let linkUrl = `${rootUrl}channel/${element.authorId}`;
+                    let linkUrl = `${rootUrl}channel?id=${element.authorId}`;
                     let subCountString = `${numberWithSeparators(element.subCount)} subscribers`;
 
                     let searchResultEntry = $(html).appendTo('.results-panel');

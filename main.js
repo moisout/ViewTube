@@ -9,8 +9,8 @@ let components = [
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(function () {
-    loadComponents(components).then(() => {
-    });
+    loadComponents(components);
+    initTheme();
 });
 
 function loadComponents(components) {
@@ -44,7 +44,7 @@ function loadTopVideos() {
                     let html = Mustache.to_html(template, element);
                     let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
                     let linkUrl = `watch?v=${element.videoId}`;
-                    let channelUrl = element.authorUrl;
+                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
                     let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
                     let videoLength = formattedTime(element.lengthSeconds);
 
@@ -93,6 +93,9 @@ function initHeader() {
 
     if (typeof loadSearchResultPage === "function") {
         loadSearchResultPage();
+    }
+    if (typeof loadChannelContent === "function") {
+        loadChannelContent();
     }
 }
 
