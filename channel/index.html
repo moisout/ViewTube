@@ -24,7 +24,7 @@
 
 <body>
     <vt-header></vt-header>
-    <div class="channel-panel">
+    <div class="channel-panel loading">
         <div class="channel-banner">
             <img id="channel-banner-image" src="#" alt="Channel banner image">
         </div>
@@ -34,15 +34,19 @@
             </div>
             <div class="channel-info">
                 <h1 class="channel-info-name">{{ author }}</h1>
-                <span class="channel-info-subcount"></span>
-                <span class="channel-info-viewcount"></span>
+                <div class="channel-info-numbers">
+                    <span class="channel-info-subcount"></span>
+                    <span class="channel-info-viewcount"></span>
+                </div>
             </div>
         </div>
         <div class="channel-description">
-            {{ description }}
+        </div>
+        <div class="video-section-title">
+            <h2>Uploads</h2>
+            <span class="video-section-separator"></span>
         </div>
         <div class="channel-videos-container">
-            
         </div>
     </div>
     <vt-loader></vt-loader>

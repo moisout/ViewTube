@@ -2,6 +2,7 @@
 @import "spinner";
 @import "animations";
 @import "header";
+@import 'channel';
 
 body {
     display: flex;
@@ -26,7 +27,8 @@ a {
     .channel-entry,
     .playlist-entry {
         width: calc(100vw - 20px) !important;
-        height: calc(100vw - 80px) !important;
+        // height: calc(100vw - 120px) !important;
+        height: unset !important;
     }
 
     .channel-entry-thmb {
@@ -55,33 +57,6 @@ a {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
-    .video-section-title {
-        position: absolute;
-        top: $header-height;
-        padding: 0 0 0 10px;
-        font-family: $default-font;
-        display: flex;
-        flex-direction: row;
-        height: 60px;
-        width: 100%;
-        max-width: $main-width;
-        justify-content: space-between;
-        box-sizing: border-box;
-        font-size: 0.8rem;
-
-        .video-section-separator {
-            background-color: $theme-color;
-            height: 1px;
-            width: 100%;
-            margin: auto 20px auto 20px;
-        }
-
-        h2 {
-            margin: auto 0;
-            color: $title-color;
-        }
-    }
 
     .video-entry {
         width: 220px;
@@ -265,6 +240,36 @@ a {
                 }
             }
         }
+    }
+}
+
+.video-section-title {
+    position: sticky;
+    top: $header-height;
+    background-color: $bgcolor-main;
+    padding: 0 0 0 10px;
+    font-family: $default-font;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    width: 100%;
+    max-width: $main-width;
+    justify-content: space-between;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    margin: 0 auto;
+    z-index: 20;
+
+    .video-section-separator {
+        background-color: $theme-color;
+        height: 1px;
+        width: 100%;
+        margin: auto 20px auto 20px;
+    }
+
+    h2 {
+        margin: auto 0;
+        color: $title-color;
     }
 }
 

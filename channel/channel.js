@@ -23,11 +23,13 @@ function loadChannel(channelId) {
             let channelThmb = `${proxyUrl}${response.authorThumbnails[1].url}`;
             let subCountString = `${numberWithSeparators(response.subCount)} subscribers`;
             let viewCountString = `${numberWithSeparators(response.totalViews)} total views`;
+            let descriptionHtml = response.descriptionHtml;
 
             $('#channel-banner-image').attr('src', channelBanner);
             $('#channel-thmb-image').attr('src', channelThmb);
             $('.channel-info-subcount').text(subCountString);
             $('.channel-info-viewcount').text(viewCountString);
+            $('.channel-description').html(descriptionHtml);
 
             response.latestVideos.forEach((element, index) => {
                 let videoHtml = Mustache.to_html(videoTemplate, element);
@@ -49,6 +51,7 @@ function loadChannel(channelId) {
             });
 
             $('.spinner').addClass('invisible');
+            $('.channel-panel').removeClass('loading');
         }
     });
 }

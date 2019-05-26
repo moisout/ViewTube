@@ -43,12 +43,18 @@
         width: 100%;
         max-width: $search-box-width;
         justify-content: center;
-        border-bottom: $theme-color 2px solid;
+        background-color: rgba(128, 128, 128, 0.37);
 
         .search-btn{
             text-decoration: none;
             color: $theme-color;
-            margin: 0;
+            width: 30px;
+            text-align: center;
+            display: flex;
+            
+            i{
+                margin: auto;
+            }
         }
 
         #search {
@@ -57,6 +63,7 @@
             border: none;
             color: $title-color;
             font-size: 1rem;
+            margin: 0 0 0 10px;
         }
     }
 
@@ -71,6 +78,11 @@
             text-decoration: none;
             color: $theme-color;
             margin: 0 10px 0 0;
+            display: flex;
+
+            i{
+                margin: auto;
+            }
         }
 
         #settings-btn{
