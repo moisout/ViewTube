@@ -4,7 +4,6 @@ function loadChannelContent() {
     if (urlParams.has('id')) {
         let channelId = urlParams.getAll('id');
 
-        document.title = `${channelId[0]} - ViewTube`;
         loadChannel(channelId[0]);
     }
 }
@@ -30,6 +29,7 @@ function loadChannel(channelId) {
             $('.channel-info-subcount').text(subCountString);
             $('.channel-info-viewcount').text(viewCountString);
             $('.channel-description').html(descriptionHtml);
+            document.title = `${response.author} - ViewTube`;
 
             response.latestVideos.forEach((element, index) => {
                 let videoHtml = Mustache.to_html(videoTemplate, element);
