@@ -1,12 +1,27 @@
 $(function () {
     loadVideo();
+
+    setInterval(() => {
+        $('.video-player-overlay').removeClass('hovering');
+
+        if ($('.player-viewport').is(":hover")) {
+            $('.player-viewport').css('cursor', 'none');
+        }
+        else {
+            $('.player-viewport').css('cursor', 'auto');
+        }
+    }, 4000);
+    $('.player-viewport').on('mousemove', (e) => {
+        $('.video-player-overlay').addClass('hovering');
+        $('.player-viewport').css('cursor', 'auto');
+    });
 });
 
 function loadInfo(data) {
     let template = $('.video-infobox').html();
 
     let html = Mustache.to_html(template, data);
-    let viewCountString = `${numberWithSeparators(data.viewCount)} Views`;
+    let viewCountString = `${numberWithSeparators(data.viewCount)} views`;
     let likeString = numberWithSeparators(data.likeCount);
     let dislikeString = numberWithSeparators(data.dislikeCount);
     let channelUrl = `${rootUrl}channel?id=${data.authorId}`;
@@ -17,7 +32,7 @@ function loadInfo(data) {
     $(video).find('.dislike-count').text(dislikeString);
     $(video).find('#channel-img').attr('href', channelUrl);
     $(video).find('.infobox-channel-name').attr('href', channelUrl);
-    
+
     $(video).find('.video-infobox-description').html(data.descriptionHtml);
     $('#channel-img').attr('src', `${proxyUrl}${data.authorThumbnails[4].url}`);
     $(video).removeClass('loading');

@@ -26,7 +26,14 @@
     <vt-header></vt-header>
     <div class="view-panel">
         <div class="player-viewport">
-            <video id="video" controls>
+            <div class="video-player-overlay">
+                <div class="bottom-overlay">
+                    <div class="video-seekbar">
+                        <span class="seekbar-line"></span>
+                    </div>
+                </div>
+            </div>
+            <video id="video">
                 <source class="video-mp4" src="#" type="video/mp4">
             </video>
             <video id="audio">

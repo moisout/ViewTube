@@ -189,9 +189,9 @@ html.light-theme .header .search-box {
   margin: auto 20px;
   width: 100%;
   max-width: 800px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   background-color: rgba(128, 128, 128, 0.37);
 }
 
@@ -345,6 +345,36 @@ html.light-theme .channel-panel .channel-videos-container {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
+}
+
+html.light-theme .video-player-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: opacity 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.light-theme .video-player-overlay .bottom-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  pointer-events: visibleStroke;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.692)));
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.692));
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html.light-theme .video-player-overlay.hovering {
+  opacity: 1;
 }
 
 html.light-theme body {
@@ -740,11 +770,11 @@ html.light-theme .view-panel .player-viewport {
   width: 100%;
   height: calc((9 / 16) * 100vw);
   max-height: calc(100vh - 169px);
-  min-height: 300px;
   background-color: #000;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 html.light-theme .view-panel .player-viewport #video {
@@ -1047,9 +1077,9 @@ html.dark-theme .header .search-box {
   margin: auto 20px;
   width: 100%;
   max-width: 800px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   background-color: rgba(128, 128, 128, 0.37);
 }
 
@@ -1203,6 +1233,36 @@ html.dark-theme .channel-panel .channel-videos-container {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
+}
+
+html.dark-theme .video-player-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: opacity 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.dark-theme .video-player-overlay .bottom-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  pointer-events: visibleStroke;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.692)));
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.692));
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html.dark-theme .video-player-overlay.hovering {
+  opacity: 1;
 }
 
 html.dark-theme body {
@@ -1598,11 +1658,11 @@ html.dark-theme .view-panel .player-viewport {
   width: 100%;
   height: calc((9 / 16) * 100vw);
   max-height: calc(100vh - 169px);
-  min-height: 300px;
   background-color: #000;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 html.dark-theme .view-panel .player-viewport #video {

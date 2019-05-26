@@ -42,7 +42,7 @@
         margin: auto 20px;
         width: 100%;
         max-width: $search-box-width;
-        justify-content: center;
+        justify-content: flex-end;
         background-color: rgba(128, 128, 128, 0.37);
 
         .search-btn{
