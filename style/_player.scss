@@ -19,12 +19,34 @@
         padding: 0 20px;
         box-sizing: border-box;
 
-        .seekbar-line{
+        .video-seekbar {
+            width: 100%;
+            padding: 0 20px;
+            height: 5px;
+            display: flex;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
 
+            .seekbar-line-progress {
+                width: 100%;
+                height: 5px;
+                position: absolute;
+                background-color: $theme-color;
+                z-index: 21;
+            }
+
+            .seekbar-line {
+                width: 100%;
+                height: 5px;
+                position: absolute;
+                background-color: rgba(128, 128, 128, 0.5);
+                z-index: 20;
+            }
         }
     }
 
-    &.hovering{
+    &.hovering {
         opacity: 1;
     }
 }
