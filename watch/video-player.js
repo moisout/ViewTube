@@ -1,20 +1,27 @@
 $(function () {
     loadVideo();
 
-    setInterval(() => {
-        $('.video-player-overlay').removeClass('hovering');
-
-        if ($('.player-viewport').is(":hover")) {
-            $('.player-viewport').css('cursor', 'none');
-        }
-        else {
-            $('.player-viewport').css('cursor', 'auto');
-        }
-    }, 4000);
+    let moved = false;
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
         $('.player-viewport').css('cursor', 'auto');
+        updateVideoOverlay();
+
+        if (moved == false) {
+            setTimeout(() => {
+                $('.video-player-overlay').removeClass('hovering');
+                $('.player-viewport').css('cursor', 'none');
+                moved = false;
+            }, 5000);
+            moved = true;
+        }
     });
+
+    progressBarSelection();
+
+    setInterval(() => {
+        updateVideoOverlay();
+    }, 1000);
 });
 
 function loadInfo(data) {
@@ -85,6 +92,23 @@ function loadVideo() {
     }
 }
 
+function progressBarSelection() {
+    let progressSelection = false;
+    $('.seekbar-line').on('mousedown', function () {
+        progressSelection = true;
+    });
+    $('.seekbar-line').on('mousemove', function (e) {
+        if (progressSelection) {
+            let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
+            console.log(progressPos);
+            $('.seekbar-line-progress').css('width', `${progressPos}%`);
+        }
+    });
+    $('.seekbar-line').on('mouseup', function () {
+        progressSelection = false;
+    });
+}
+
 function syncAudioVideo() {
     let me = this;
     let playingBefore = false;
@@ -127,6 +151,19 @@ function syncAudioVideo() {
             $('.loader-buffer').removeClass('buffering');
         }
     }, 100);
+
+}
+
+function updateVideoOverlay() {
+    let video = $('#video')[0];
+    if ($('.video-player-overlay').hasClass('hovering')) {
+        let videoLength = video.duration;
+        let videoProgress = video.currentTime;
+        let videoProgressPercentage = (videoProgress / videoLength) * 100;
+        if (!isNaN(videoProgressPercentage)) {
+            $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
+        }
+    }
 
 }
 
