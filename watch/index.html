@@ -30,6 +30,7 @@
                 <div class="bottom-overlay">
                     <div class="video-seekbar">
                         <span class="seekbar-line-progress"></span>
+                        <span class="seekbar-line-loaded"></span>
                         <span class="seekbar-line"></span>
                     </div>
                 </div>
@@ -39,7 +40,9 @@
             </video>
             <video id="audio">
             </video>
-            <vt-loader-overlay></vt-loader-overlay>
+            <div class="video-buffer">
+                <vt-loader></vt-loader>
+            </div>
         </div>
         <div class="video-infobox loading">
             <h1 class="video-infobox-title">{{ title }}</h1>

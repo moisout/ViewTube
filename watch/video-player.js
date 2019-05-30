@@ -1,6 +1,8 @@
 $(function () {
     loadVideo();
 
+    $('.video-buffer').addClass('buffering');
+
     let moved = false;
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
@@ -94,17 +96,18 @@ function loadVideo() {
 
 function progressBarSelection() {
     let progressSelection = false;
-    $('.seekbar-line').on('mousedown', function () {
+    $('.video-seekbar').on('mousedown', function () {
         progressSelection = true;
     });
-    $('.seekbar-line').on('mousemove', function (e) {
+    $('body').on('mousemove', function (e) {
         if (progressSelection) {
+            let video = $('#video')[0];
             let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
-            console.log(progressPos);
             $('.seekbar-line-progress').css('width', `${progressPos}%`);
+            video.currentTime = (video.duration / 100) * progressPos;
         }
     });
-    $('.seekbar-line').on('mouseup', function () {
+    $('body').on('mouseup', function () {
         progressSelection = false;
     });
 }
@@ -114,43 +117,66 @@ function syncAudioVideo() {
     let playingBefore = false;
     let playingAfter = false;
     let buffering = true;
+    let audioBuffering = true;
+    let videoWaitingForAudio = false;
+
+    let video = document.getElementById('video');
+    let audio = document.getElementById('audio');
     setInterval(() => {
-        let video = document.getElementById('video');
-        let audio = document.getElementById('audio');
+        if (videoWaitingForAudio && !buffering && !audioBuffering) {
+            video.play();
+            videoWaitingForAudio = false;
+        }
         if (video.playing) {
-            buffering = false;
-            playingAfter = true;
-            if (playingAfter == playingBefore) { }
+            if (audioBuffering) {
+                videoWaitingForAudio = true;
+                video.pause();
+            }
             else {
-                audio.play();
-                playingBefore = true;
-                let currentTime = video.currentTime;
-                audio.currentTime = currentTime;
+                buffering = false;
+                playingAfter = true;
+                if (playingAfter == playingBefore) { }
+                else {
+                    audio.play();
+                    playingBefore = true;
+                    let currentTime = video.currentTime;
+                    audio.currentTime = currentTime;
+                }
+                if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
+                    let currentTime = video.currentTime;
+                    audio.currentTime = currentTime;
+                }
             }
-            if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
-                let currentTime = video.currentTime;
-                audio.currentTime = currentTime;
-            }
+
         }
         else if (!video.playing) {
             playingBefore = false;
             audio.pause();
         }
 
-        if (!audio.readyState < audio.HAVE_FUTURE_DATA || !video.readyState < video.HAVE_FUTURE_DATA) {
-            buffering = false;
-        }
-        else if (audio.readyState < audio.HAVE_FUTURE_DATA || video.readyState < video.HAVE_FUTURE_DATA) {
-            buffering = true;
-        }
-
         if (buffering == true) {
-            $('.loader-buffer').addClass('buffering');
+            $('.video-buffer').addClass('buffering');
         }
         else {
-            $('.loader-buffer').removeClass('buffering');
+            $('.video-buffer').removeClass('buffering');
         }
     }, 100);
+
+    video.onwaiting = function () {
+        buffering = true;
+    }
+
+    video.oncanplay = function () {
+        buffering = false;
+    }
+
+    audio.onwaiting = function () {
+        audioBuffering = true;
+    }
+
+    audio.oncanplay = function () {
+        audioBuffering = false;
+    }
 
 }
 

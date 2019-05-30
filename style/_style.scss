@@ -295,6 +295,21 @@ a {
             position: absolute;
             visibility: hidden;
         }
+
+        .video-buffer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #0000008a;
+            display: none;
+            z-index: 200;
+
+            &.buffering {
+                display: flex;
+            }
+        }
     }
 
     .video-infobox {
