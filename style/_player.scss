@@ -79,6 +79,12 @@
     height: 100%;
     opacity: 1;
     z-index: 400;
+    display: flex;
+
+    .video-play-btn-svg{
+        margin: auto;
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.24));
+    }
 }
 
 .video-thumbnail {

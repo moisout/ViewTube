@@ -28,7 +28,6 @@ a {
     .channel-entry,
     .playlist-entry {
         width: calc(100vw - 20px) !important;
-        // height: calc(100vw - 120px) !important;
         height: unset !important;
     }
 
@@ -304,7 +303,7 @@ a {
             width: 100%;
             background-color: #0000008a;
             display: none;
-            z-index: 200;
+            z-index: 400;
 
             &.buffering {
                 display: flex;
