@@ -24,7 +24,21 @@ $(function () {
     setInterval(() => {
         updateVideoOverlay();
     }, 1000);
+
+    $('.video-play-btn').on('click', (e) => {
+        let video = $('#video')[0];
+        if (video.playing) {
+            video.pause();
+            animatePlayButton("paused");
+        }
+        else {
+            video.play();
+            animatePlayButton("playing");
+        }
+
+    });
 });
+
 
 function loadInfo(data) {
     let template = $('.video-infobox').html();
@@ -34,6 +48,7 @@ function loadInfo(data) {
     let likeString = numberWithSeparators(data.likeCount);
     let dislikeString = numberWithSeparators(data.dislikeCount);
     let channelUrl = `${rootUrl}channel?id=${data.authorId}`;
+    let thumbnailSrc = data.videoThumbnails[2].url;
 
     let video = $('.video-infobox').html(html);
     $(video).find('.infobox-views').text(viewCountString);
@@ -41,6 +56,7 @@ function loadInfo(data) {
     $(video).find('.dislike-count').text(dislikeString);
     $(video).find('#channel-img').attr('href', channelUrl);
     $(video).find('.infobox-channel-name').attr('href', channelUrl);
+    $('.video-thumbnail').css('background-image', `url(${thumbnailSrc})`);
 
     $(video).find('.video-infobox-description').html(data.descriptionHtml);
     $('#channel-img').attr('src', `${proxyUrl}${data.authorThumbnails[4].url}`);
@@ -126,11 +142,13 @@ function syncAudioVideo() {
         if (videoWaitingForAudio && !buffering && !audioBuffering) {
             video.play();
             videoWaitingForAudio = false;
+            audio.volume = me.audioVolume;
         }
         if (video.playing) {
             if (audioBuffering) {
                 videoWaitingForAudio = true;
                 video.pause();
+                audio.volume = 0;
             }
             else {
                 buffering = false;
@@ -181,14 +199,73 @@ function syncAudioVideo() {
 }
 
 function updateVideoOverlay() {
-    let video = $('#video')[0];
     if ($('.video-player-overlay').hasClass('hovering')) {
+        let video = $('#video')[0];
         let videoLength = video.duration;
         let videoProgress = video.currentTime;
         let videoProgressPercentage = (videoProgress / videoLength) * 100;
         if (!isNaN(videoProgressPercentage)) {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
         }
+        let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
+        $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
+    }
+
+}
+
+function animatePlayButton(state) {
+    let animationTime = 200;
+    let animationSteps = 7;
+    if (state == "playing") {
+        setTimeout(() => {
+            $(".video-play-btn-paused")
+                .hide();
+            $(".video-play-btn-1")
+                .show();
+        }, animationTime * (1 / animationSteps));
+
+        for (let i = 1; i < animationSteps; i++) {
+            setTimeout(() => {
+                $(`.video-play-btn-${i}`)
+                    .hide();
+                $(`.video-play-btn-${i + 1}`)
+                    .show();
+            }, animationTime * ((i + 1) / animationSteps));
+        }
+
+        setTimeout(() => {
+            $(`.video-play-btn-${animationSteps - 1}`)
+                .hide();
+            $(".video-play-btn-playing")
+                .show();
+        }, animationTime);
+
+    } else if (state == "paused") {
+        setTimeout(() => {
+            $(".video-play-btn-playing")
+                .hide();
+            $(`.video-play-btn-${animationSteps - 1}`)
+                .show();
+        }, animationTime * (1 / animationSteps));
+
+        let index = 2;
+        for (let i = animationSteps - 1; i > 1; i--) {
+            setTimeout(() => {
+                $(`.video-play-btn-${i}`)
+                    .hide();
+                $(`.video-play-btn-${i - 1}`)
+                    .show();
+            }, animationTime * (index / animationSteps));
+            console.log(i);
+            index++;
+        }
+
+        setTimeout(() => {
+            $(".video-play-btn-1")
+                .hide();
+            $(".video-play-btn-paused")
+                .show();
+        }, animationTime);
     }
 
 }

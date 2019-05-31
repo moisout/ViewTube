@@ -5,7 +5,8 @@ let components = [
     'vt-header',
     'vt-loader-overlay',
     'vt-loader',
-    'vt-tooltip'
+    'vt-tooltip',
+    'vt-play-btn'
 ];
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
