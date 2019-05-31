@@ -35,10 +35,32 @@ $(function () {
             video.play();
             animatePlayButton("playing");
         }
+    });
 
+    let videoInitialized = false;
+    $('.play-click-area').on('click', (e) => {
+        if (!videoInitialized) {
+            $('.video-thumbnail').fadeOut(300);
+            setTimeout(() => {
+                $('.play-click-area').addClass('zoom-out');
+                $('.play-click-area').fadeOut(300);
+                $('.video-buffer').css('z-index', 200);
+            }, 400);
+            let video = $('#video')[0];
+            let audio = $('#audio')[0];
+            video.load();
+            audio.load();
+            syncAudioVideo();
+            video.play();
+            videoInitialized = true;
+            animatePlayButton("playing");
+        }
+        else {
+            video.play();
+            animatePlayButton("playing");
+        }
     });
 });
-
 
 function loadInfo(data) {
     let template = $('.video-infobox').html();
@@ -100,11 +122,7 @@ function loadVideo() {
                     currentVideo = videoUrls[0].url;
                 }
                 $('.video-mp4').attr('src', currentVideo);
-                let video = document.getElementById('video');
-                let audio = document.getElementById('audio');
-                video.load();
-                audio.load();
-                syncAudioVideo();
+                $('.video-buffer').removeClass('buffering');
             }
         });
     }
@@ -135,14 +153,15 @@ function syncAudioVideo() {
     let buffering = true;
     let audioBuffering = true;
     let videoWaitingForAudio = false;
+    let audioVolume = 1;
 
-    let video = document.getElementById('video');
-    let audio = document.getElementById('audio');
+    let video = $('#video')[0];
+    let audio = $('#audio')[0];
     setInterval(() => {
         if (videoWaitingForAudio && !buffering && !audioBuffering) {
             video.play();
             videoWaitingForAudio = false;
-            audio.volume = me.audioVolume;
+            audio.volume = audioVolume;
         }
         if (video.playing) {
             if (audioBuffering) {
@@ -195,7 +214,6 @@ function syncAudioVideo() {
     audio.oncanplay = function () {
         audioBuffering = false;
     }
-
 }
 
 function updateVideoOverlay() {

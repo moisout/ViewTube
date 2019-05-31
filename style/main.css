@@ -374,7 +374,7 @@ html.light-theme .video-player-overlay {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  z-index: 200;
+  z-index: 205;
 }
 
 html.light-theme .video-player-overlay .bottom-overlay {
@@ -467,12 +467,25 @@ html.light-theme .play-click-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
 }
 
 html.light-theme .play-click-area .video-play-btn-svg {
   margin: auto;
-  -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.24));
-          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.24));
+  height: 60%;
+  width: 60%;
+  -webkit-filter: drop-shadow(0 0 20px #000);
+          filter: drop-shadow(0 0 20px #000);
+}
+
+html.light-theme .play-click-area.zoom-out .video-play-btn-svg {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
+  -webkit-transition: opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46), opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46), opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
 }
 
 html.light-theme .video-thumbnail {
@@ -1409,7 +1422,7 @@ html.dark-theme .video-player-overlay {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  z-index: 200;
+  z-index: 205;
 }
 
 html.dark-theme .video-player-overlay .bottom-overlay {
@@ -1502,12 +1515,25 @@ html.dark-theme .play-click-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
 }
 
 html.dark-theme .play-click-area .video-play-btn-svg {
   margin: auto;
-  -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.24));
-          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.24));
+  height: 60%;
+  width: 60%;
+  -webkit-filter: drop-shadow(0 0 20px #000);
+          filter: drop-shadow(0 0 20px #000);
+}
+
+html.dark-theme .play-click-area.zoom-out .video-play-btn-svg {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
+  -webkit-transition: opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46), opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
+  transition: transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46), opacity 300ms cubic-bezier(0.71, 0.21, 1, 0.46), -webkit-transform 300ms cubic-bezier(0.71, 0.21, 1, 0.46);
 }
 
 html.dark-theme .video-thumbnail {
