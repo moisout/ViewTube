@@ -50,7 +50,7 @@ function loadChannel(channelId) {
                 $(searchResultEntry).find('.video-entry-length').text(videoLength);
             });
 
-            $('.spinner').addClass('invisible');
+            $('.loader-buffer').removeClass('buffering');
             $('.channel-panel').removeClass('loading');
         }
     });
