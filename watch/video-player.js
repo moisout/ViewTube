@@ -49,6 +49,10 @@ $(function () {
             setVideo('pause');
         }
     });
+
+    $('#video').on('touchstart', (e) => {
+        e.preventDefault();
+    });
 });
 
 function setVideo(state) {
