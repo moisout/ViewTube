@@ -87,13 +87,13 @@
         height: 60%;
         width: 60%;
         filter: drop-shadow(0 0 20px #000);
+        transition: transform 300ms $outro-easing, opacity 300ms $outro-easing;
     }
 
     &.zoom-out {
         .video-play-btn-svg {
             transform: scale(0);
             opacity: 0;
-            transition: transform 300ms $outro-easing, opacity 300ms $outro-easing;
         }
     }
 }

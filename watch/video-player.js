@@ -26,41 +26,49 @@ $(function () {
     }, 1000);
 
     $('.video-play-btn').on('click', (e) => {
-        let video = $('#video')[0];
-        if (video.playing) {
-            video.pause();
-            animatePlayButton("paused");
-        }
-        else {
-            video.play();
-            animatePlayButton("playing");
-        }
+        setVideo('toggle');
     });
 
     let videoInitialized = false;
     $('.play-click-area').on('click', (e) => {
         if (!videoInitialized) {
             $('.video-thumbnail').fadeOut(300);
-            setTimeout(() => {
-                $('.play-click-area').addClass('zoom-out');
-                $('.play-click-area').fadeOut(300);
-                $('.video-buffer').css('z-index', 200);
-            }, 400);
+            $('.video-buffer').css('z-index', 200);
             let video = $('#video')[0];
             let audio = $('#audio')[0];
             video.load();
             audio.load();
             syncAudioVideo();
-            video.play();
             videoInitialized = true;
-            animatePlayButton("playing");
         }
-        else {
-            video.play();
-            animatePlayButton("playing");
+        setVideo('play');
+    });
+
+    $('#video').on('mousedown', (e) => {
+        if (video.playing) {
+            setVideo('pause');
         }
     });
 });
+
+function setVideo(state) {
+    let video = $('#video')[0];
+    if (state === 'play' || (!video.playing && state === 'toggle')) {
+        video.play();
+        animatePlayButton("playing");
+        setTimeout(() => {
+            $('.play-click-area').addClass('zoom-out');
+            $('.play-click-area').fadeOut(300);
+        }, 300);
+    } else if (state === 'pause' || (video.playing && state === 'toggle')) {
+        video.pause();
+        $('.play-click-area').removeClass('zoom-out');
+        $('.play-click-area').fadeIn(300);
+        setTimeout(() => {
+            animatePlayButton("paused");
+        }, 300);
+    }
+}
 
 function loadInfo(data) {
     let template = $('.video-infobox').html();
@@ -130,20 +138,26 @@ function loadVideo() {
 
 function progressBarSelection() {
     let progressSelection = false;
-    $('.video-seekbar').on('mousedown', function () {
+    $('.video-seekbar').on('mousedown', (e) => {
         progressSelection = true;
+    }).on('click', (e) => {
+        seekVideo(e);
     });
-    $('body').on('mousemove', function (e) {
+
+    $('body').on('mousemove', (e) => {
         if (progressSelection) {
-            let video = $('#video')[0];
-            let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
-            $('.seekbar-line-progress').css('width', `${progressPos}%`);
-            video.currentTime = (video.duration / 100) * progressPos;
+            seekVideo(e);
         }
-    });
-    $('body').on('mouseup', function () {
+    }).on('mouseup', function () {
         progressSelection = false;
     });
+
+    function seekVideo(e) {
+        let video = $('#video')[0];
+        let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
+        $('.seekbar-line-progress').css('width', `${progressPos}%`);
+        video.currentTime = (video.duration / 100) * progressPos;
+    }
 }
 
 function syncAudioVideo() {
@@ -158,35 +172,35 @@ function syncAudioVideo() {
     let video = $('#video')[0];
     let audio = $('#audio')[0];
     setInterval(() => {
+        console.log(audio.playing);
         if (videoWaitingForAudio && !buffering && !audioBuffering) {
-            video.play();
             videoWaitingForAudio = false;
             audio.volume = audioVolume;
+            buffering = false;
+            console.log('audioNotBuffering');
+        }
+        if (audioBuffering) {
+            videoWaitingForAudio = true;
+            audio.volume = 0;
+            buffering = true;
+            console.log('audioBuffering');
         }
         if (video.playing) {
-            if (audioBuffering) {
-                videoWaitingForAudio = true;
-                video.pause();
-                audio.volume = 0;
-            }
+            buffering = false;
+            playingAfter = true;
+            if (playingAfter == playingBefore) { }
             else {
-                buffering = false;
-                playingAfter = true;
-                if (playingAfter == playingBefore) { }
-                else {
-                    audio.play();
-                    playingBefore = true;
-                    let currentTime = video.currentTime;
-                    audio.currentTime = currentTime;
-                }
-                if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
-                    let currentTime = video.currentTime;
-                    audio.currentTime = currentTime;
-                }
+                audio.play();
+                playingBefore = true;
+                let currentTime = video.currentTime;
+                audio.currentTime = currentTime;
             }
-
+            if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
+                let currentTime = video.currentTime;
+                audio.currentTime = currentTime;
+            }
         }
-        else if (!video.playing) {
+        else if (!video.playing && !videoWaitingForAudio) {
             playingBefore = false;
             audio.pause();
         }
@@ -224,7 +238,7 @@ function updateVideoOverlay() {
         let videoProgressPercentage = (videoProgress / videoLength) * 100;
         if (!isNaN(videoProgressPercentage)) {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
-        }
+        } 
         let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
         $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
     }
