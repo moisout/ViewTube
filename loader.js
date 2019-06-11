@@ -1,3 +1,27 @@
+const baseUrl = `https://invidio.us/api/v1/`;
+const rootUrl = getRootUrl();
+const defaultRegion = 'US';
+const components = [
+    'vt-header',
+    'vt-loader-overlay',
+    'vt-loader',
+    'vt-tooltip',
+    'vt-play-btn'
+];
+const proxyUrl = 'https://proxy.mcdn.ch/?q=';
+
+$(() => {
+    $.ajax({
+        url: `${rootUrl}main.js`,
+        crossDomain: true,
+        dataType: "script",
+    }).done(async () => {
+        await loadComponents(components);
+
+        initMain();
+    });
+});
+
 function loadComponents(components) {
     return new Promise((resolve, reject) => {
         components.forEach(async (element, index) => {
@@ -27,4 +51,16 @@ function getComponent(name) {
             reject(exception);
         });
     });
+}
+
+function getRootUrl() {
+    if (isLocalhost()) {
+        return 'http://localhost/ViewTube/';
+    } else {
+        return '/';
+    }
+}
+
+function isLocalhost() {
+    return window.location.href.match(/^(.*localhost.*)$/);
 }

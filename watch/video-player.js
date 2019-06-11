@@ -117,7 +117,8 @@ function loadVideo() {
             type: "GET",
             url: `${baseUrl}videos/${videoId}`,
             data: {
-                region: defaultRegion
+                region: defaultRegion,
+                fields: 'title,videoId,videoThumbnails,descriptionHtml,viewCount,likeCount,dislikeCount,author,authorId,authorThumbnails,subCountText,lengthSeconds,adaptiveFormats,formatStreams'
             },
             dataType: "JSON",
             success: function (response) {
@@ -192,8 +193,7 @@ function syncAudioVideo() {
         if (video.playing) {
             buffering = false;
             playingAfter = true;
-            if (playingAfter == playingBefore) { }
-            else {
+            if (playingAfter == playingBefore) {} else {
                 audio.play();
                 playingBefore = true;
                 let currentTime = video.currentTime;
@@ -203,16 +203,14 @@ function syncAudioVideo() {
                 let currentTime = video.currentTime;
                 audio.currentTime = currentTime;
             }
-        }
-        else if (!video.playing && !videoWaitingForAudio) {
+        } else if (!video.playing && !videoWaitingForAudio) {
             playingBefore = false;
             audio.pause();
         }
 
         if (buffering == true) {
             $('.video-buffer').addClass('buffering');
-        }
-        else {
+        } else {
             $('.video-buffer').removeClass('buffering');
         }
     }, 100);
@@ -242,7 +240,7 @@ function updateVideoOverlay() {
         let videoProgressPercentage = (videoProgress / videoLength) * 100;
         if (!isNaN(videoProgressPercentage)) {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
-        } 
+        }
         let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
         $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
     }

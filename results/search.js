@@ -42,6 +42,7 @@ function SearchParamManager(urlParams) {
 }
 
 function loadSearchResults(params) {
+    params.fields = 'type,title,videoId,author,authorId,videoThumbnails,viewCount,publishedText,lengthSeconds,videoCount,videos,authorThumbnails,subCount,videoCount'
     $.ajax({
         type: "GET",
         url: `${baseUrl}search`,

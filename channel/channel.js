@@ -12,6 +12,9 @@ function loadChannel(channelId) {
     $.ajax({
         type: "GET",
         url: `${baseUrl}channels/${channelId}`,
+        data: {
+            fields: 'author,authorId,authorBanners,authorThumbnails,subCount,totalViews,joined,descriptionHtml,latestVideos'
+        },
         dataType: "JSON",
         success: async function (response) {
             let html = Mustache.to_html($('.channel-panel')[0].outerHTML, response);

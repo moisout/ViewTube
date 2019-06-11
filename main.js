@@ -1,52 +1,6 @@
-let baseUrl = `https://invidio.us/api/v1/`;
-let rootUrl = getRootUrl();
-let defaultRegion = 'US';
-let components = [
-    'vt-header',
-    'vt-loader-overlay',
-    'vt-loader',
-    'vt-tooltip',
-    'vt-play-btn'
-];
-let proxyUrl = 'https://proxy.mcdn.ch/?q=';
-
-$(function () {
-    $.ajax({
-        url: `component-loader.js`,
-        crossDomain: true,
-        dataType: "script",
-    }).done(() => {
-        loadComponents(components);
-    });
+function initMain() {
+    loadComponents(components);
     initTheme();
-});
-
-function loadTopVideos() {
-    $.ajax({
-        type: "GET",
-        url: `${baseUrl}top`,
-        dataType: "JSON",
-        success: function (response) {
-            $.get(`${rootUrl}components/vt-video-entry.html`, function (template) {
-                response.forEach(element => {
-                    let html = Mustache.to_html(template, element);
-                    let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
-                    let linkUrl = `watch?v=${element.videoId}`;
-                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
-                    let viewCountString = `${numberWithSeparators(element.viewCount)} views`;
-                    let videoLength = formattedTime(element.lengthSeconds);
-
-                    let videoEntry = $(html).appendTo('.video-list-container');
-                    $(videoEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
-                    $(videoEntry).find('.video-entry-thmb').attr('href', linkUrl);
-                    $(videoEntry).find('.video-entry-title').attr('href', linkUrl);
-                    $(videoEntry).find('.video-entry-channel').attr('href', channelUrl);
-                    $(videoEntry).find('.video-entry-views').text(viewCountString);
-                    $(videoEntry).find('.video-entry-length').text(videoLength);
-                });
-            });
-        }
-    });
 }
 
 function initHeader() {
@@ -91,6 +45,9 @@ function initHeader() {
     if (typeof loadChannelContent === "function") {
         loadChannelContent();
     }
+    if(typeof loadTopVideos === "function"){
+        loadTopVideos();
+    }
 }
 
 function initTheme() {
@@ -124,18 +81,6 @@ function searchRedirect(searchValue) {
     let searchUrl = `${rootUrl}results?search_query=${searchValue}`;
 
     window.location.href = searchUrl;
-}
-
-function getRootUrl() {
-    if (isLocalHost()) {
-        return 'http://localhost/ViewTube/';
-    } else {
-        return '/';
-    }
-}
-
-function isLocalHost() {
-    return window.location.href.match(/^(.*localhost.*)$/);
 }
 
 function numberWithSeparators(x) {
