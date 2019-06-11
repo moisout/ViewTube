@@ -101,8 +101,8 @@ function loadSearchResults(params) {
                     $(searchResultEntry).find('.channel-entry-subcount').text(subCountString);
 
                 }
-
             });
+            initTooltips();
         }
     });
 }

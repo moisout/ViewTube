@@ -136,6 +136,7 @@ function loadVideo() {
                 }
                 $('.video-mp4').attr('src', currentVideo);
                 $('.video-buffer').removeClass('buffering');
+                initTooltips();
             }
         });
     }

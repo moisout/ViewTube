@@ -1,5 +1,4 @@
 function initMain() {
-    loadComponents(components);
     initTheme();
 }
 
@@ -45,8 +44,62 @@ function initHeader() {
     if (typeof loadChannelContent === "function") {
         loadChannelContent();
     }
-    if(typeof loadTopVideos === "function"){
+    if (typeof loadTopVideos === "function") {
         loadTopVideos();
+    }
+}
+
+function initTooltips() {
+    $('[vt-tooltip]').on('mouseenter', (e) => {
+        let tooltip = new Tooltip(e.currentTarget);
+        tooltip.show();
+    });
+}
+
+function Tooltip(target) {
+    this.target = target;
+    this.tooltipText = $(this.target).attr('vt-tooltip');
+
+    this.show = async () => {
+        const me = this;
+        const tooltip = await getComponent('vt-tooltip');
+        let tooltipHtml = $(tooltip).appendTo('body');
+        $(tooltipHtml).find('.tooltip-title').text(this.tooltipText);
+
+        let offsetTop = $(this.target).offset().top + $(tooltipHtml).outerHeight();
+        let offsetLeft = $(this.target).offset().left + ($(this.target).outerWidth() / 2) - ($(tooltipHtml).outerWidth() / 2);
+        if ((offsetLeft + $(tooltipHtml).outerWidth()) > $(window).width()) {
+            offsetLeft = $(window).width() - $(tooltipHtml).outerWidth();
+        }
+        if (offsetLeft < 0) {
+            offsetLeft = 0;
+        }
+        if ($(tooltipHtml).outerWidth() > $(window).width()) {
+            $(tooltipHtml).css(width, )
+        }
+
+        $(tooltipHtml).css({
+            top: offsetTop,
+            left: offsetLeft
+        });
+        setTimeout(() => {
+            $(tooltipHtml).addClass('visible');
+        }, 600);
+
+        $(target).on('mouseleave', (e) => {
+            me.destroy(tooltipHtml);
+        });
+
+        $(tooltipHtml).on('click', (e) => {
+            me.destroy(e.currentTarget);
+        });
+    }
+
+    this.destroy = (targetHtml) => {
+        $(targetHtml).removeClass('visible');
+        setTimeout(() => {
+            $(targetHtml).remove();
+        }, 200);
     }
 }
 

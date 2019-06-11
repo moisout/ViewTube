@@ -27,7 +27,7 @@ function loadComponents(components) {
         components.forEach(async (element, index) => {
             const component = await getComponent(element);
             $(element).replaceWith(component);
-            if (index === components.length) {
+            if (index === components.length - 1) {
                 resolve(true);
             }
         });

@@ -45,6 +45,36 @@ a {
     }
 }
 
+.tooltip-overlay{
+    background-color: $bgcolor-main;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    border-radius: 3px;
+    left: 0;
+    top: 0;
+    z-index: 800;
+    display: flex;
+    padding: 3px 10px;
+    box-shadow: $max-shadow;
+    opacity: 0;
+    transition: opacity 200ms $intro-easing;
+    user-select: none;
+
+    .tooltip-content{
+        margin: auto;
+        color: $theme-color;
+        font-family: $default-font;
+        .tooltip-title{
+
+        }
+    }
+
+    &.visible{
+        opacity: 1;
+    }
+}
+
 .video-list-container,
 .results-panel,
 .channel-videos-container {
