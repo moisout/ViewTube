@@ -4,6 +4,7 @@
 @import "header";
 @import "channel";
 @import "player";
+@import "ripple";
 
 body {
     display: flex;
@@ -45,7 +46,7 @@ a {
     }
 }
 
-.tooltip-overlay{
+.tooltip-overlay {
     background-color: $bgcolor-main;
     overflow: hidden;
     white-space: nowrap;
@@ -61,16 +62,19 @@ a {
     transition: opacity 200ms $intro-easing;
     user-select: none;
 
-    .tooltip-content{
+    .tooltip-content {
         margin: auto;
         color: $theme-color;
         font-family: $default-font;
-        .tooltip-title{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
+        .tooltip-title {
         }
     }
 
-    &.visible{
+    &.visible {
         opacity: 1;
     }
 }

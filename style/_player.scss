@@ -63,6 +63,10 @@
             display: flex;
             flex-direction: column;
             height: $video-seekbar-height - $video-seekbar-line-height;
+
+            .video-time-display{
+                
+            }
         }
     }
 

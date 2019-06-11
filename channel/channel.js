@@ -55,7 +55,7 @@ function loadChannel(channelId) {
 
             $('.loader-buffer').removeClass('buffering');
             $('.channel-panel').removeClass('loading');
-            initTooltips();
+            onSiteLoaded();
         }
     });
 }

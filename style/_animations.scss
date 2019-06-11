@@ -19,3 +19,9 @@
         transform: scaleY(1);
     }
 }
+
+@keyframes ripple{
+    0%{
+        opacity: 0;
+    }
+}

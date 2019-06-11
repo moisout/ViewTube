@@ -45,8 +45,7 @@ html.light-theme .spinner {
 }
 
 html.light-theme .spinner div {
-  background-image: -webkit-gradient(linear, right top, left top, from(#ff7b3b), to(#bb3500));
-  background-image: linear-gradient(to left, #ff7b3b, #bb3500);
+  background-image: linear-gradient(53deg, #fe7e13 0%, #e08c70 33%, #59c1ba 78%, #00d4ff 100%);
   background-size: 30px;
   background-position: 0;
   height: 100%;
@@ -136,6 +135,18 @@ html.light-theme .spinner.invisible {
   }
 }
 
+@-webkit-keyframes ripple {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0;
+  }
+}
+
 html.light-theme .header {
   height: 60px;
   width: 100%;
@@ -172,8 +183,7 @@ html.light-theme .header .logo-link .logo {
 
 html.light-theme .header .logo-link .logo .logo-colored {
   color: transparent;
-  background-image: -webkit-gradient(linear, right top, left top, from(#ff7b3b), to(#bb3500));
-  background-image: linear-gradient(to left, #ff7b3b, #bb3500);
+  background-image: linear-gradient(53deg, #fe7e13 0%, #e08c70 33%, #59c1ba 78%, #00d4ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -231,7 +241,7 @@ html.light-theme .header .search-box #search:target {
 }
 
 html.light-theme .header .nav {
-  margin: auto 10px auto 0;
+  margin: auto 10px auto 5px;
   color: #ff7b3b;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -248,10 +258,15 @@ html.light-theme .header .nav {
 html.light-theme .header .nav a {
   text-decoration: none;
   color: #ff7b3b;
-  margin: 0 10px;
+  margin: 0 6px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 50%;
 }
 
 html.light-theme .header .nav a i {
@@ -519,6 +534,30 @@ html.light-theme svg.video-play-btn-svg .video-play-btn-paused {
   display: initial;
 }
 
+html.light-theme .ripple {
+  overflow: hidden !important;
+  position: relative;
+}
+
+html.light-theme .ripple .rippleContainer {
+  display: block;
+  height: 200px !important;
+  width: 200px !important;
+  padding: 0px 0px 0px 0px;
+  border-radius: 50%;
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  background-color: transparent;
+}
+
+html.light-theme .ripple * {
+  pointer-events: none !important;
+}
+
 html.light-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -590,6 +629,9 @@ html.light-theme .tooltip-overlay .tooltip-content {
   margin: auto;
   color: #ff7b3b;
   font-family: Roboto, Arial, sans-serif;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 html.light-theme .tooltip-overlay.visible {
@@ -1153,8 +1195,7 @@ html.dark-theme .spinner {
 }
 
 html.dark-theme .spinner div {
-  background-image: -webkit-gradient(linear, right top, left top, from(#ff7b3b), to(#bb3500));
-  background-image: linear-gradient(to left, #ff7b3b, #bb3500);
+  background-image: linear-gradient(53deg, #fe7e13 0%, #e08c70 33%, #59c1ba 78%, #00d4ff 100%);
   background-size: 30px;
   background-position: 0;
   height: 100%;
@@ -1218,6 +1259,12 @@ html.dark-theme .spinner.invisible {
   }
 }
 
+@keyframes ripple {
+  0% {
+    opacity: 0;
+  }
+}
+
 html.dark-theme .header {
   height: 60px;
   width: 100%;
@@ -1254,8 +1301,7 @@ html.dark-theme .header .logo-link .logo {
 
 html.dark-theme .header .logo-link .logo .logo-colored {
   color: transparent;
-  background-image: -webkit-gradient(linear, right top, left top, from(#ff7b3b), to(#bb3500));
-  background-image: linear-gradient(to left, #ff7b3b, #bb3500);
+  background-image: linear-gradient(53deg, #fe7e13 0%, #e08c70 33%, #59c1ba 78%, #00d4ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
 }
@@ -1313,7 +1359,7 @@ html.dark-theme .header .search-box #search:target {
 }
 
 html.dark-theme .header .nav {
-  margin: auto 10px auto 0;
+  margin: auto 10px auto 5px;
   color: #ff7b3b;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1330,10 +1376,15 @@ html.dark-theme .header .nav {
 html.dark-theme .header .nav a {
   text-decoration: none;
   color: #ff7b3b;
-  margin: 0 10px;
+  margin: 0 6px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 50%;
 }
 
 html.dark-theme .header .nav a i {
@@ -1601,6 +1652,30 @@ html.dark-theme svg.video-play-btn-svg .video-play-btn-paused {
   display: initial;
 }
 
+html.dark-theme .ripple {
+  overflow: hidden !important;
+  position: relative;
+}
+
+html.dark-theme .ripple .rippleContainer {
+  display: block;
+  height: 200px !important;
+  width: 200px !important;
+  padding: 0px 0px 0px 0px;
+  border-radius: 50%;
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  transform: translate(-50%, -50%) scale(0);
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
+  background-color: transparent;
+}
+
+html.dark-theme .ripple * {
+  pointer-events: none !important;
+}
+
 html.dark-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1672,6 +1747,9 @@ html.dark-theme .tooltip-overlay .tooltip-content {
   margin: auto;
   color: #ff7b3b;
   font-family: Roboto, Arial, sans-serif;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 html.dark-theme .tooltip-overlay.visible {

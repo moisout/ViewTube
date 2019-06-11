@@ -7,19 +7,26 @@ $main-width: 1200px;
 $header-font: "Righteous", "Open Sans", sans-serif;
 $default-font: Roboto, Arial, sans-serif;
 
-$max-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-$medium-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-$low-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$max-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+$medium-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$low-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-$intro-easing: cubic-bezier(.31,.65,.26,.97);
-$outro-easing: cubic-bezier(.71,.21,1,.46);
-$dynamic-easing: cubic-bezier(.76,.09,.3,.89);
+$intro-easing: cubic-bezier(0.31, 0.65, 0.26, 0.97);
+$outro-easing: cubic-bezier(0.71, 0.21, 1, 0.46);
+$dynamic-easing: cubic-bezier(0.76, 0.09, 0.3, 0.89);
 
 $theme-color: #ff7b3b;
 $theme-color-light: #ff7b3b;
 $theme-color-dark: #bb3500;
+$theme-color-alt: #108dc7;
 
-$theme-color-gradient: linear-gradient(to left, $theme-color-light, $theme-color-dark);
+$theme-color-gradient: linear-gradient(
+    53deg,
+    rgba(254, 126, 19, 1) 0%,
+    rgba(224, 140, 112, 1) 33%,
+    rgba(89, 193, 186, 1) 78%,
+    rgba(0, 212, 255, 1) 100%
+);
 $theme-color-gradient-vertical: linear-gradient(to top, $theme-color-light, $theme-color-dark);
 
 $video-thmb-overlay-bgcolor: rgba(0, 0, 0, 0.714);

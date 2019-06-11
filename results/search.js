@@ -102,7 +102,7 @@ function loadSearchResults(params) {
 
                 }
             });
-            initTooltips();
+            onSiteLoaded();
         }
     });
 }

@@ -49,6 +49,11 @@ function initHeader() {
     }
 }
 
+function onSiteLoaded() {
+    initTooltips();
+    initRippleEffect();
+}
+
 function initTooltips() {
     $('[vt-tooltip]').on('mouseenter', (e) => {
         let tooltip = new Tooltip(e.currentTarget);
@@ -75,7 +80,7 @@ function Tooltip(target) {
             offsetLeft = 0;
         }
         if ($(tooltipHtml).outerWidth() > $(window).width()) {
-            $(tooltipHtml).css(width, )
+            $(tooltipHtml).css('width', `${$(window).width() - 20}px`);
         }
 
         $(tooltipHtml).css({
@@ -93,6 +98,12 @@ function Tooltip(target) {
         $(tooltipHtml).on('click', (e) => {
             me.destroy(e.currentTarget);
         });
+
+        setInterval(() => {
+            if (!$(target).is(':hover')) {
+                me.destroy(tooltipHtml);
+            }
+        }, 500);
     }
 
     this.destroy = (targetHtml) => {

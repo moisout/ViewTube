@@ -82,7 +82,7 @@ function loadInfo(data) {
     let likeString = numberWithSeparators(data.likeCount);
     let dislikeString = numberWithSeparators(data.dislikeCount);
     let channelUrl = `${rootUrl}channel?id=${data.authorId}`;
-    let thumbnailSrc = data.videoThumbnails[2].url;
+    let thumbnailSrc = `${proxyUrl}${data.videoThumbnails[2].url}`;
 
     let video = $('.video-infobox').html(html);
     $(video).find('.infobox-views').text(viewCountString);
@@ -136,7 +136,7 @@ function loadVideo() {
                 }
                 $('.video-mp4').attr('src', currentVideo);
                 $('.video-buffer').removeClass('buffering');
-                initTooltips();
+                onSiteLoaded();
             }
         });
     }

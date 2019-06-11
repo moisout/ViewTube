@@ -20,7 +20,7 @@
             font-size: 1.5rem;
             color: $subtitle-color;
 
-            .logo-colored{
+            .logo-colored {
                 color: transparent;
                 background-image: $theme-color-gradient;
                 background-clip: text;
@@ -45,14 +45,14 @@
         justify-content: flex-end;
         background-color: rgba(128, 128, 128, 0.37);
 
-        .search-btn{
+        .search-btn {
             text-decoration: none;
             color: $theme-color;
             width: 30px;
             text-align: center;
             display: flex;
-            
-            i{
+
+            i {
                 margin: auto;
             }
         }
@@ -66,14 +66,14 @@
             margin: 0 0 0 10px;
             min-width: 0px;
 
-            &:target{
+            &:target {
                 all: unset;
             }
         }
     }
 
     .nav {
-        margin: auto 10px auto 0;
+        margin: auto 10px auto 5px;
         color: $theme-color;
         display: flex;
         flex-direction: row;
@@ -82,15 +82,17 @@
         a {
             text-decoration: none;
             color: $theme-color;
-            margin: 0 10px;
+            margin: 0 6px;
             display: flex;
+            user-select: none;
+            border-radius: 50%;
 
-            i{
+            i {
                 margin: auto;
             }
         }
 
-        #settings-btn{
+        #settings-btn {
             display: none;
         }
     }

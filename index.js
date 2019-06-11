@@ -24,7 +24,8 @@ function loadTopVideos() {
                 $(videoEntry).find('.video-entry-views').text(viewCountString);
                 $(videoEntry).find('.video-entry-length').text(videoLength);
             });
-            initTooltips();
+            onSiteLoaded();
+            $('.spinner').hide();
         }
     });
 }
