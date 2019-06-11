@@ -11,29 +11,15 @@ let components = [
 let proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 $(function () {
-    loadComponents(components);
+    $.ajax({
+        url: `component-loader.js`,
+        crossDomain: true,
+        dataType: "script",
+    }).done(() => {
+        loadComponents(components);
+    });
     initTheme();
 });
-
-function loadComponents(components) {
-    return new Promise((resolve, reject) => {
-        components.forEach((element, index) => {
-            $.ajax({
-                type: "GET",
-                url: `${rootUrl}components/${element}.html`,
-                dataType: "html"
-            }).done((response) => {
-                $(element).replaceWith(response);
-                if (index === components.length) {
-                    console.log($('#theme-change'));
-                    resolve(true);
-                }
-            }).fail((jqhxr, settings, exception) => {
-                reject(exception);
-            });
-        });
-    });
-}
 
 function loadTopVideos() {
     $.ajax({
@@ -85,6 +71,12 @@ function initHeader() {
         }
     });
 
+    $('#reload-btn').on('click', function () {
+        localStorage.clear();
+        Cookies.remove('theme');
+        window.location.reload(true);
+    });
+
     $('#theme-change').on('click', function (e) {
         toggleTheme();
         e.preventDefault();
@@ -103,7 +95,7 @@ function initHeader() {
 
 function initTheme() {
     if (Cookies.get('theme') == undefined) {
-        Cookies.set('theme', 'light-theme', {
+        Cookies.set('theme', 'dark-theme', {
             expires: 365
         });
     } else {
