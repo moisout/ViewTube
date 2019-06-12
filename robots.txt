@@ -3,4 +3,3 @@ Disallow: /watch/
 Disallow: /results/
 Disallow: /components/
 Disallow: /channel/
-Disallow: /bin/

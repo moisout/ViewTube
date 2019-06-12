@@ -10,6 +10,19 @@ const components = [
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/worker.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+  
+
 $(() => {
     $.ajax({
         url: `${rootUrl}main.js`,
@@ -17,7 +30,6 @@ $(() => {
         dataType: "script",
     }).done(async () => {
         await loadComponents(components);
-
         initMain();
     });
 });
