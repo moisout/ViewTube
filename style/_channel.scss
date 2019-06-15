@@ -1,5 +1,6 @@
 .content-container {
     overflow: auto;
+    margin-top: $header-height;
 
     .channel-panel {
         display: flex;
@@ -14,7 +15,6 @@
             width: 100%;
             height: calc(100vw / 6);
             min-height: 150px;
-            margin-top: $header-height;
             overflow: hidden;
 
             #channel-banner-image {
@@ -80,6 +80,10 @@
                 margin: unset;
                 white-space: pre-wrap;
             }
+        }
+
+        .video-section-title {
+            top: 0;
         }
 
         .channel-videos-container {

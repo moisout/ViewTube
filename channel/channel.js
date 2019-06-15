@@ -56,7 +56,7 @@ function loadChannel(channelId) {
             $('.loader-buffer').removeClass('buffering');
             $('.channel-panel').removeClass('loading');
 
-            loadShowMore('.channel-description');
+            await loadShowMore('.channel-description');
 
             onSiteLoaded();
         }

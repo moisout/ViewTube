@@ -48,7 +48,7 @@ a {
         position: relative;
     }
 
-    &:visited:not(.ripple){
+    &:visited:not(.ripple) {
         color: $subtitle-color-light !important;
     }
 
@@ -109,6 +109,26 @@ a {
 
     &.visible {
         opacity: 1;
+    }
+}
+
+.show-more {
+    width: 100%;
+    display: flex;
+    margin: 10px 0 0 0;
+    transition: transform 200ms $intro-easing;
+
+    .show-more-btn {
+        margin: auto;
+        text-decoration: none;
+        color: $title-color;
+        font-family: $default-font;
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    &.hidden {
+        transform: scale(1, 0);
     }
 }
 

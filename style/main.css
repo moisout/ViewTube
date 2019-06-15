@@ -285,6 +285,7 @@ html.light-theme .header .nav #settings-btn {
 
 html.light-theme .content-container {
   overflow: auto;
+  margin-top: 60px;
 }
 
 html.light-theme .content-container .channel-panel {
@@ -306,7 +307,6 @@ html.light-theme .content-container .channel-panel .channel-banner {
   width: 100%;
   height: calc(100vw / 6);
   min-height: 150px;
-  margin-top: 60px;
   overflow: hidden;
 }
 
@@ -385,6 +385,10 @@ html.light-theme .content-container .channel-panel .channel-description pre {
   padding: unset;
   margin: unset;
   white-space: pre-wrap;
+}
+
+html.light-theme .content-container .channel-panel .video-section-title {
+  top: 0;
 }
 
 html.light-theme .content-container .channel-panel .channel-videos-container {
@@ -687,6 +691,32 @@ html.light-theme .tooltip-overlay .tooltip-content {
 
 html.light-theme .tooltip-overlay.visible {
   opacity: 1;
+}
+
+html.light-theme .show-more {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 0 0 0;
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97), -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.light-theme .show-more .show-more-btn {
+  margin: auto;
+  text-decoration: none;
+  color: #080808;
+  font-family: Roboto, Arial, sans-serif;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+html.light-theme .show-more.hidden {
+  -webkit-transform: scale(1, 0);
+          transform: scale(1, 0);
 }
 
 html.light-theme .video-list-container,
@@ -1454,6 +1484,7 @@ html.dark-theme .header .nav #settings-btn {
 
 html.dark-theme .content-container {
   overflow: auto;
+  margin-top: 60px;
 }
 
 html.dark-theme .content-container .channel-panel {
@@ -1475,7 +1506,6 @@ html.dark-theme .content-container .channel-panel .channel-banner {
   width: 100%;
   height: calc(100vw / 6);
   min-height: 150px;
-  margin-top: 60px;
   overflow: hidden;
 }
 
@@ -1554,6 +1584,10 @@ html.dark-theme .content-container .channel-panel .channel-description pre {
   padding: unset;
   margin: unset;
   white-space: pre-wrap;
+}
+
+html.dark-theme .content-container .channel-panel .video-section-title {
+  top: 0;
 }
 
 html.dark-theme .content-container .channel-panel .channel-videos-container {
@@ -1856,6 +1890,32 @@ html.dark-theme .tooltip-overlay .tooltip-content {
 
 html.dark-theme .tooltip-overlay.visible {
   opacity: 1;
+}
+
+html.dark-theme .show-more {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 0 0 0;
+  -webkit-transition: -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+  transition: transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97), -webkit-transform 200ms cubic-bezier(0.31, 0.65, 0.26, 0.97);
+}
+
+html.dark-theme .show-more .show-more-btn {
+  margin: auto;
+  text-decoration: none;
+  color: #ebebeb;
+  font-family: Roboto, Arial, sans-serif;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+html.dark-theme .show-more.hidden {
+  -webkit-transform: scale(1, 0);
+          transform: scale(1, 0);
 }
 
 html.dark-theme .video-list-container,

@@ -60,6 +60,8 @@ function onSiteLoaded() {
     }
     initRippleEffect();
     initParallax();
+
+    $('.ripple').on('dragstart', (e) => e.preventDefault());
 }
 
 function hasTouch() {
@@ -80,7 +82,6 @@ function initParallax() {
         $('.parallax').each((index, element) => {
             if (isVisible(element)) {
                 let offsetTop = ($(element).parent('.parallax-container').offset().top - 60) / -2;
-                console.log(offsetTop);
                 $(element).css('transform', `translateY(${offsetTop}px)`);
             }
         });
@@ -91,7 +92,8 @@ async function loadShowMore(target) {
     let compontent = await getComponent('vt-show-more');
     let showMoreBtn = $(compontent).insertAfter(target);
     $(showMoreBtn).find('.show-more-btn').on('click', (e) => {
-        $(target).css('height', '100%');
+        let height = $(target).children().outerHeight();
+        $(target).css('height', `${height}px`);
         $(showMoreBtn).addClass('hidden');
         e.preventDefault();
     });
