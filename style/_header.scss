@@ -48,9 +48,10 @@
         .search-btn {
             text-decoration: none;
             color: $theme-color;
-            width: 30px;
+            width: 50px;
             text-align: center;
             display: flex;
+            user-select: none;
 
             i {
                 margin: auto;
@@ -86,9 +87,11 @@
             display: flex;
             user-select: none;
             border-radius: 50%;
+            padding: 3px;
 
             i {
                 margin: auto;
+                height: 100%;
             }
         }
 

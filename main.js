@@ -3,7 +3,7 @@ function initMain() {
 }
 
 function initHeader() {
-    $('.search-btn').on('click', function (e) {
+    $('.search-btn').on('click', (e) => {
         let searchValue = $('#search').val();
 
         if (searchValue.length > 0) {
@@ -13,24 +13,27 @@ function initHeader() {
         e.preventDefault();
     });
 
-    $('#search').on('keypress', function (e) {
+    $('#search').on('keypress', (e) => {
+        let searchValue = $('#search').val();
         if (e.which == 13) {
-            let searchValue = $('#search').val();
 
             if (searchValue.length > 0) {
                 searchRedirect(searchValue);
             }
             e.preventDefault();
         }
+    }).on('input', (e) => {
+        let searchValue = $('#search').val();
+        $('.search-btn').attr('href', `${rootUrl}results?search_query=${searchValue}`);
     });
 
-    $('#reload-btn').on('click', function () {
+    $('#reload-btn').on('click', () => {
         localStorage.clear();
         Cookies.remove('theme');
         window.location.reload(true);
     });
 
-    $('#theme-change').on('click', function (e) {
+    $('#theme-change').on('click', (e) => {
         toggleTheme();
         e.preventDefault();
     });
@@ -47,17 +50,50 @@ function initHeader() {
     if (typeof loadTopVideos === "function") {
         loadTopVideos();
     }
+
+    return true;
 }
 
 function onSiteLoaded() {
-    initTooltips();
+    if (!hasTouch()) {
+        initTooltips();
+    }
     initRippleEffect();
+    initParallax();
+}
+
+function hasTouch() {
+    return 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
 }
 
 function initTooltips() {
     $('[vt-tooltip]').on('mouseenter', (e) => {
         let tooltip = new Tooltip(e.currentTarget);
         tooltip.show();
+    });
+}
+
+function initParallax() {
+    $('.content-container').on('scroll', (e) => {
+        $('.parallax').each((index, element) => {
+            if (isVisible(element)) {
+                let offsetTop = ($(element).parent('.parallax-container').offset().top - 60) / -2;
+                console.log(offsetTop);
+                $(element).css('transform', `translateY(${offsetTop}px)`);
+            }
+        });
+    });
+}
+
+async function loadShowMore(target) {
+    let compontent = await getComponent('vt-show-more');
+    let showMoreBtn = $(compontent).insertAfter(target);
+    $(showMoreBtn).find('.show-more-btn').on('click', (e) => {
+        $(target).css('height', '100%');
+        $(showMoreBtn).addClass('hidden');
+        e.preventDefault();
     });
 }
 
@@ -74,7 +110,7 @@ function Tooltip(target) {
         let offsetTop = $(this.target).offset().top + $(tooltipHtml).outerHeight();
         let offsetLeft = $(this.target).offset().left + ($(this.target).outerWidth() / 2) - ($(tooltipHtml).outerWidth() / 2);
         if ((offsetLeft + $(tooltipHtml).outerWidth()) > $(window).width()) {
-            offsetLeft = $(window).width() - $(tooltipHtml).outerWidth();
+            offsetLeft = $(window).width() - $(tooltipHtml).outerWidth() - 10;
         }
         if (offsetLeft < 0) {
             offsetLeft = 0;
@@ -145,6 +181,12 @@ function searchRedirect(searchValue) {
     let searchUrl = `${rootUrl}results?search_query=${searchValue}`;
 
     window.location.href = searchUrl;
+}
+
+function isVisible(element) {
+    let rect = element.getBoundingClientRect();
+    let viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 }
 
 function numberWithSeparators(x) {

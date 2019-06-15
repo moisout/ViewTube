@@ -25,31 +25,34 @@
 
 <body>
     <vt-header></vt-header>
-    <div class="channel-panel loading">
-        <div class="channel-banner">
-            <img id="channel-banner-image" src="#" alt="Channel banner image">
-        </div>
-        <div class="channel-title">
-            <div class="channel-thmb">
-                <img id="channel-thmb-image" src="#" alt="Channel profile image">
+    <div class="content-container">
+        <div class="channel-panel loading">
+            <div class="channel-banner parallax-container">
+                <div id="channel-banner-image" class="parallax"></div>
             </div>
-            <div class="channel-info">
-                <h1 class="channel-info-name">{{ author }}</h1>
-                <div class="channel-info-numbers">
-                    <span class="channel-info-subcount"></span>
-                    <span class="channel-info-viewcount"></span>
+            <div class="channel-title">
+                <div class="channel-thmb">
+                    <img id="channel-thmb-image" src="#" alt="Channel profile image">
+                </div>
+                <div class="channel-info">
+                    <h1 class="channel-info-name">{{ author }}</h1>
+                    <div class="channel-info-numbers">
+                        <span class="channel-info-subcount"></span>
+                        <span class="channel-info-viewcount"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="channel-description">
-        </div>
-        <div class="video-section-title">
-            <h2>Uploads</h2>
-            <span class="video-section-separator"></span>
-        </div>
-        <div class="channel-videos-container">
+            <div class="channel-description">
+            </div>
+            <div class="video-section-title">
+                <h2>Uploads</h2>
+                <span class="video-section-separator"></span>
+            </div>
+            <div class="channel-videos-container">
+            </div>
         </div>
     </div>
+
     <vt-loader-overlay></vt-loader-overlay>
 
 </body>

@@ -21,6 +21,9 @@
         </a>
     </div>
 </div>
-<script type="text/javascript">
-    initHeader();
+<script type="text/javascript" class="headerScript">
+    let result = initHeader();
+    if (result) {
+        $('.headerScript').remove();
+    }
 </script>

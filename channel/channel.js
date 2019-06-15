@@ -27,7 +27,7 @@ function loadChannel(channelId) {
             let viewCountString = `${numberWithSeparators(response.totalViews)} total views`;
             let descriptionHtml = response.descriptionHtml;
 
-            $('#channel-banner-image').attr('src', channelBanner);
+            $('#channel-banner-image').css('background-image', `url(${channelBanner})`);
             $('#channel-thmb-image').attr('src', channelThmb);
             $('.channel-info-subcount').text(subCountString);
             $('.channel-info-viewcount').text(viewCountString);
@@ -55,6 +55,9 @@ function loadChannel(channelId) {
 
             $('.loader-buffer').removeClass('buffering');
             $('.channel-panel').removeClass('loading');
+
+            loadShowMore('.channel-description');
+
             onSiteLoaded();
         }
     });

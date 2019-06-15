@@ -6,13 +6,14 @@ const components = [
     'vt-loader-overlay',
     'vt-loader',
     'vt-tooltip',
-    'vt-play-btn'
+    'vt-play-btn',
+    'vt-show-more'
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/worker.js').then(function(registration) {
+      navigator.serviceWorker.register(`${rootUrl}/worker.js`).then(function(registration) {
         // Registration was successful
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
       }, function(err) {
@@ -68,11 +69,17 @@ function getComponent(name) {
 function getRootUrl() {
     if (isLocalhost()) {
         return 'http://localhost/ViewTube/';
-    } else {
+    } else if(isProd()){
         return '/';
+    } else {
+        return '/ViewTube/'
     }
 }
 
 function isLocalhost() {
     return window.location.href.match(/^(.*localhost.*)$/);
+}
+
+function isProd(){
+    return window.location.href.match(/^(.*viewtube.eu*)$/);
 }
