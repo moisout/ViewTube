@@ -6,7 +6,8 @@ function loadTopVideos() {
             fields: 'title,videoId,videoThumbnails,lengthSeconds,viewCount,author,authorId,publishedText'
         },
         dataType: "JSON",
-        success: async function (response) {
+        timeout: requestTimeout,
+        success: async (response) => {
             let template = await getComponent('vt-video-entry');
             response.forEach(element => {
                 let html = Mustache.to_html(template, element);
@@ -26,6 +27,17 @@ function loadTopVideos() {
             });
             onSiteLoaded();
             $('.spinner').hide();
+        },
+        error: async (jqXHR, textStatus, exception) => {
+            let error = await getComponent('vt-error');
+            $('.spinner').replaceWith(error);
+
+            $('.loading-retry-btn').on('click', (e) =>{
+                window.location.reload();
+                e.preventDefault();
+            });
+
+            onSiteLoaded();
         }
     });
 }

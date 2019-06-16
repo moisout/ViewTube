@@ -58,17 +58,31 @@
             }
         }
 
-        #search {
+        label {
             width: 100%;
-            background: none;
-            border: none;
-            color: $title-color;
-            font-size: 1rem;
             margin: 0 0 0 10px;
-            min-width: 0px;
+            padding: 0;
+            background-color: transparent;
 
-            &:target {
-                all: unset;
+            #search {
+                width: 100%;
+                height: 100%;
+                background: none;
+                border: none;
+                color: $title-color;
+                font-size: 1rem;
+                margin: 0;
+                min-width: 0px;
+                visibility: visible;
+                background-color: transparent;
+
+                &:target {
+                    all: unset;
+                }
+
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }
@@ -88,10 +102,28 @@
             user-select: none;
             border-radius: 50%;
             padding: 3px;
+            width: 24px;
+            height: 24px;
 
             i {
                 margin: auto;
                 height: 100%;
+            }
+        }
+
+        #open-in-yt{
+
+            .yt-logo{
+                width: 100%;
+                fill: #fff;
+
+                .st0 {
+                    fill: $theme-color;
+                }
+
+                .st1 {
+                    fill: $header-bgcolor;
+                }
             }
         }
 

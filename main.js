@@ -16,7 +16,6 @@ function initHeader() {
     $('#search').on('keypress', (e) => {
         let searchValue = $('#search').val();
         if (e.which == 13) {
-
             if (searchValue.length > 0) {
                 searchRedirect(searchValue);
             }
@@ -38,8 +37,18 @@ function initHeader() {
         e.preventDefault();
     });
 
+    $('#open-in-yt').on('click', (e) => {
+        if (e.altKey) {
+            openInInVidious();
+        } else {
+            openInYoutube();
+        }
+        e.preventDefault();
+    });
+
     $('.logo-link').attr('href', `${rootUrl}`);
     $('.logo-small').attr('src', `${rootUrl}images/icon-192.png`);
+    $('.yt-logo').attr('src', `${rootUrl}images/logos/youtube-icon.svg`);
 
     if (typeof loadSearchResultPage === "function") {
         loadSearchResultPage();
@@ -61,7 +70,7 @@ function onSiteLoaded() {
     initRippleEffect();
     initParallax();
 
-    $('.ripple').on('dragstart', (e) => e.preventDefault());
+    $('.ripple').on('dragstart', (e) => e.preventDefault()).on('contextmenu', (e) => e.preventDefault());;
 }
 
 function hasTouch() {
@@ -197,6 +206,26 @@ function toggleTheme() {
             expires: 365
         });
     }
+}
+
+function openInYoutube() {
+    let page = parseUrlToYT(window.location);
+    window.open(`https://youtube.com/${page}`);
+}
+
+function openInInVidious() {
+    let page = parseUrlToYT(window.location);
+    window.open(`https://invidio.us/${page}`);
+}
+
+function parseUrlToYT(location) {
+    let url = location.href;
+    let page = url.replace(`${location.origin}${rootUrl}`, '');
+    if (page.match(/^(.*channel.*)$/)) {
+        let channelId = new URLSearchParams(location.search).getAll('id')[0];
+        page = `channel/${channelId}`;
+    }
+    return page;
 }
 
 function searchRedirect(searchValue) {

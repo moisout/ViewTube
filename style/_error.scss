@@ -1,0 +1,42 @@
+.loading-error-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0000009c;
+    z-index: 200;
+    user-select: none;
+    display: flex;
+}
+
+.loading-error {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    font-size: 1rem;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    align-items: center;
+
+    .loading-error-icon {
+        padding: 10px;
+
+        i{
+            font-size: 3rem;
+        }
+    }
+    .loading-error-text {
+        font-family: $default-font;
+        margin: 5px 0 10px 0;
+    }
+    .loading-retry-btn {
+        font-family: $default-font;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 2px;
+        color: #fff;
+    }
+}

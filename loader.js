@@ -10,19 +10,20 @@ const components = [
     'vt-show-more'
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
+const requestTimeout = 6000;
 
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register(`${rootUrl}/worker.js`).then(function(registration) {
-        // Registration was successful
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        // registration failed :(
-        console.log('ServiceWorker registration failed: ', err);
-      });
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register(`${rootUrl}worker.js`).then(function (registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+        });
     });
-  }
-  
+}
+
 
 $(() => {
     $.ajax({
@@ -51,24 +52,25 @@ function getComponent(name) {
     return new Promise((resolve, reject) => {
         if (localStorage.getItem(name) !== null) {
             resolve(localStorage.getItem(name));
+        } else {
+            $.ajax({
+                type: "GET",
+                url: `${rootUrl}components/${name}.html`,
+                dataType: "html"
+            }).done((response) => {
+                localStorage.setItem(name, response);
+                resolve(response);
+            }).fail((jqhxr, settings, exception) => {
+                reject(exception);
+            });
         }
-        $.ajax({
-            type: "GET",
-            url: `${rootUrl}components/${name}.html`,
-            dataType: "html"
-        }).done((response) => {
-            localStorage.setItem(name, response);
-            resolve(response);
-        }).fail((jqhxr, settings, exception) => {
-            reject(exception);
-        });
     });
 }
 
 function getRootUrl() {
     if (isLocalhost()) {
-        return 'http://localhost/ViewTube/';
-    } else if(isProd()){
+        return '/ViewTube/';
+    } else if (isProd()) {
         return '/';
     } else {
         return '/ViewTube/'
@@ -79,6 +81,6 @@ function isLocalhost() {
     return window.location.href.match(/^(.*localhost.*)$/);
 }
 
-function isProd(){
-    return window.location.href.match(/^(.*viewtube.eu*)$/);
+function isProd() {
+    return window.location.href.match(/^(.*viewtube.eu.*)$/);
 }

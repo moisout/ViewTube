@@ -5,6 +5,8 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 html.light-theme {
@@ -33,7 +35,7 @@ html.light-theme .loader-buffer.buffering {
 }
 
 html.light-theme .spinner {
-  margin: auto auto;
+  margin: auto;
   width: 50px;
   height: 40px;
   text-align: center;
@@ -218,18 +220,32 @@ html.light-theme .header .search-box .search-btn i {
   margin: auto;
 }
 
-html.light-theme .header .search-box #search {
+html.light-theme .header .search-box label {
   width: 100%;
+  margin: 0 0 0 10px;
+  padding: 0;
+  background-color: transparent;
+}
+
+html.light-theme .header .search-box label #search {
+  width: 100%;
+  height: 100%;
   background: none;
   border: none;
   color: #080808;
   font-size: 1rem;
-  margin: 0 0 0 10px;
+  margin: 0;
   min-width: 0px;
+  visibility: visible;
+  background-color: transparent;
 }
 
-html.light-theme .header .search-box #search:target {
+html.light-theme .header .search-box label #search:target {
   all: unset;
+}
+
+html.light-theme .header .search-box label #search:focus {
+  outline: none;
 }
 
 html.light-theme .header .nav {
@@ -260,11 +276,26 @@ html.light-theme .header .nav a {
           user-select: none;
   border-radius: 50%;
   padding: 3px;
+  width: 24px;
+  height: 24px;
 }
 
 html.light-theme .header .nav a i {
   margin: auto;
   height: 100%;
+}
+
+html.light-theme .header .nav #open-in-yt .yt-logo {
+  width: 100%;
+  fill: #fff;
+}
+
+html.light-theme .header .nav #open-in-yt .yt-logo .st0 {
+  fill: #ff7b3b;
+}
+
+html.light-theme .header .nav #open-in-yt .yt-logo .st1 {
+  fill: #fff;
 }
 
 html.light-theme .header .nav #settings-btn {
@@ -602,6 +633,66 @@ html.light-theme .ripple * {
   pointer-events: none !important;
 }
 
+html.light-theme .loading-error-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0000009c;
+  z-index: 200;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+html.light-theme .loading-error {
+  margin: auto;
+  width: 300px;
+  text-align: center;
+  font-size: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #fff;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+html.light-theme .loading-error .loading-error-icon {
+  padding: 10px;
+}
+
+html.light-theme .loading-error .loading-error-icon i {
+  font-size: 3rem;
+}
+
+html.light-theme .loading-error .loading-error-text {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 5px 0 10px 0;
+}
+
+html.light-theme .loading-error .loading-retry-btn {
+  font-family: Roboto, Arial, sans-serif;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 2px;
+  color: #fff;
+}
+
 html.light-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -614,7 +705,6 @@ html.light-theme body {
       -ms-flex-pack: start;
           justify-content: flex-start;
   background-color: #fff;
-  overscroll-behavior: contain;
 }
 
 html.light-theme p,
@@ -626,6 +716,10 @@ html.light-theme h5,
 html.light-theme h6,
 html.light-theme a {
   margin: 0;
+}
+
+html.light-theme .invisible {
+  visibility: hidden;
 }
 
 html.light-theme a {
@@ -647,6 +741,10 @@ html.light-theme a:visited:not(.ripple) {
 
 html.light-theme a.ripple {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html.light-theme a.ripple:active {
+  background-color: transparent !important;
 }
 
 @media screen and (max-width: 500px) {
@@ -716,7 +814,8 @@ html.light-theme .show-more {
   height: 30px;
 }
 
-html.light-theme .show-more .show-more-btn, html.light-theme .show-more .show-less-btn {
+html.light-theme .show-more .show-more-btn,
+html.light-theme .show-more .show-less-btn {
   margin-left: -40px;
   text-align: center;
   text-decoration: none;
@@ -730,7 +829,8 @@ html.light-theme .show-more .show-more-btn, html.light-theme .show-more .show-le
   width: 80px;
 }
 
-html.light-theme .show-more .show-more-btn.hidden, html.light-theme .show-more .show-less-btn.hidden {
+html.light-theme .show-more .show-more-btn.hidden,
+html.light-theme .show-more .show-less-btn.hidden {
   visibility: hidden;
 }
 
@@ -741,7 +841,7 @@ html.light-theme .channel-videos-container {
   max-width: 1200px;
   margin: 0 auto;
   z-index: 10;
-  margin-top: 120px;
+  margin-top: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -760,7 +860,6 @@ html.light-theme .video-list-container .video-entry,
 html.light-theme .results-panel .video-entry,
 html.light-theme .channel-videos-container .video-entry {
   width: 220px;
-  height: 220px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -808,7 +907,7 @@ html.light-theme .channel-videos-container .video-entry .video-entry-thmb .video
 html.light-theme .video-list-container .video-entry .video-entry-info,
 html.light-theme .results-panel .video-entry .video-entry-info,
 html.light-theme .channel-videos-container .video-entry .video-entry-info {
-  padding: 10px 0;
+  padding: 0 0 10px 0;
   font-family: Roboto, Arial, sans-serif;
   overflow: hidden;
   display: -webkit-box;
@@ -818,6 +917,9 @@ html.light-theme .channel-videos-container .video-entry .video-entry-info {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
 }
 
 html.light-theme .video-list-container .video-entry .video-entry-info .video-entry-title,
@@ -830,13 +932,14 @@ html.light-theme .channel-videos-container .video-entry .video-entry-info .video
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #080808;
+  padding: 6px 0 4px 0;
 }
 
 html.light-theme .video-list-container .video-entry .video-entry-info .video-entry-channel,
 html.light-theme .results-panel .video-entry .video-entry-info .video-entry-channel,
 html.light-theme .channel-videos-container .video-entry .video-entry-info .video-entry-channel {
   text-decoration: none;
-  margin: 8px 0 0 0;
+  padding: 3px 0 4px 0;
   font-size: 0.8rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1279,7 +1382,7 @@ html.dark-theme .loader-buffer.buffering {
 }
 
 html.dark-theme .spinner {
-  margin: auto auto;
+  margin: auto;
   width: 50px;
   height: 40px;
   text-align: center;
@@ -1438,18 +1541,32 @@ html.dark-theme .header .search-box .search-btn i {
   margin: auto;
 }
 
-html.dark-theme .header .search-box #search {
+html.dark-theme .header .search-box label {
   width: 100%;
+  margin: 0 0 0 10px;
+  padding: 0;
+  background-color: transparent;
+}
+
+html.dark-theme .header .search-box label #search {
+  width: 100%;
+  height: 100%;
   background: none;
   border: none;
   color: #ebebeb;
   font-size: 1rem;
-  margin: 0 0 0 10px;
+  margin: 0;
   min-width: 0px;
+  visibility: visible;
+  background-color: transparent;
 }
 
-html.dark-theme .header .search-box #search:target {
+html.dark-theme .header .search-box label #search:target {
   all: unset;
+}
+
+html.dark-theme .header .search-box label #search:focus {
+  outline: none;
 }
 
 html.dark-theme .header .nav {
@@ -1480,11 +1597,26 @@ html.dark-theme .header .nav a {
           user-select: none;
   border-radius: 50%;
   padding: 3px;
+  width: 24px;
+  height: 24px;
 }
 
 html.dark-theme .header .nav a i {
   margin: auto;
   height: 100%;
+}
+
+html.dark-theme .header .nav #open-in-yt .yt-logo {
+  width: 100%;
+  fill: #fff;
+}
+
+html.dark-theme .header .nav #open-in-yt .yt-logo .st0 {
+  fill: #ff7b3b;
+}
+
+html.dark-theme .header .nav #open-in-yt .yt-logo .st1 {
+  fill: #272727;
 }
 
 html.dark-theme .header .nav #settings-btn {
@@ -1822,6 +1954,66 @@ html.dark-theme .ripple * {
   pointer-events: none !important;
 }
 
+html.dark-theme .loading-error-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0000009c;
+  z-index: 200;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+html.dark-theme .loading-error {
+  margin: auto;
+  width: 300px;
+  text-align: center;
+  font-size: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #fff;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+html.dark-theme .loading-error .loading-error-icon {
+  padding: 10px;
+}
+
+html.dark-theme .loading-error .loading-error-icon i {
+  font-size: 3rem;
+}
+
+html.dark-theme .loading-error .loading-error-text {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 5px 0 10px 0;
+}
+
+html.dark-theme .loading-error .loading-retry-btn {
+  font-family: Roboto, Arial, sans-serif;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 2px;
+  color: #fff;
+}
+
 html.dark-theme body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1834,7 +2026,6 @@ html.dark-theme body {
       -ms-flex-pack: start;
           justify-content: flex-start;
   background-color: #121212;
-  overscroll-behavior: contain;
 }
 
 html.dark-theme p,
@@ -1846,6 +2037,10 @@ html.dark-theme h5,
 html.dark-theme h6,
 html.dark-theme a {
   margin: 0;
+}
+
+html.dark-theme .invisible {
+  visibility: hidden;
 }
 
 html.dark-theme a {
@@ -1867,6 +2062,10 @@ html.dark-theme a:visited:not(.ripple) {
 
 html.dark-theme a.ripple {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html.dark-theme a.ripple:active {
+  background-color: transparent !important;
 }
 
 @media screen and (max-width: 500px) {
@@ -1936,7 +2135,8 @@ html.dark-theme .show-more {
   height: 30px;
 }
 
-html.dark-theme .show-more .show-more-btn, html.dark-theme .show-more .show-less-btn {
+html.dark-theme .show-more .show-more-btn,
+html.dark-theme .show-more .show-less-btn {
   margin-left: -40px;
   text-align: center;
   text-decoration: none;
@@ -1950,7 +2150,8 @@ html.dark-theme .show-more .show-more-btn, html.dark-theme .show-more .show-less
   width: 80px;
 }
 
-html.dark-theme .show-more .show-more-btn.hidden, html.dark-theme .show-more .show-less-btn.hidden {
+html.dark-theme .show-more .show-more-btn.hidden,
+html.dark-theme .show-more .show-less-btn.hidden {
   visibility: hidden;
 }
 
@@ -1961,7 +2162,7 @@ html.dark-theme .channel-videos-container {
   max-width: 1200px;
   margin: 0 auto;
   z-index: 10;
-  margin-top: 120px;
+  margin-top: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1980,7 +2181,6 @@ html.dark-theme .video-list-container .video-entry,
 html.dark-theme .results-panel .video-entry,
 html.dark-theme .channel-videos-container .video-entry {
   width: 220px;
-  height: 220px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2028,7 +2228,7 @@ html.dark-theme .channel-videos-container .video-entry .video-entry-thmb .video-
 html.dark-theme .video-list-container .video-entry .video-entry-info,
 html.dark-theme .results-panel .video-entry .video-entry-info,
 html.dark-theme .channel-videos-container .video-entry .video-entry-info {
-  padding: 10px 0;
+  padding: 0 0 10px 0;
   font-family: Roboto, Arial, sans-serif;
   overflow: hidden;
   display: -webkit-box;
@@ -2038,6 +2238,9 @@ html.dark-theme .channel-videos-container .video-entry .video-entry-info {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
 }
 
 html.dark-theme .video-list-container .video-entry .video-entry-info .video-entry-title,
@@ -2050,13 +2253,14 @@ html.dark-theme .channel-videos-container .video-entry .video-entry-info .video-
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #ebebeb;
+  padding: 6px 0 4px 0;
 }
 
 html.dark-theme .video-list-container .video-entry .video-entry-info .video-entry-channel,
 html.dark-theme .results-panel .video-entry .video-entry-info .video-entry-channel,
 html.dark-theme .channel-videos-container .video-entry .video-entry-info .video-entry-channel {
   text-decoration: none;
-  margin: 8px 0 0 0;
+  padding: 3px 0 4px 0;
   font-size: 0.8rem;
   overflow: hidden;
   text-overflow: ellipsis;

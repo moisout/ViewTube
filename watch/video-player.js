@@ -3,6 +3,9 @@ $(function () {
 
     $('.video-buffer').addClass('buffering');
 
+    $('.video-player-overlay').removeClass('hovering');
+                $('.player-viewport').css('cursor', 'none');
+
     let moved = false;
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
@@ -50,9 +53,7 @@ $(function () {
         }
     });
 
-    $('#video').on('touchstart', (e) => {
-        e.preventDefault();
-    });
+    $('#video').on('touchstart', (e) => e.preventDefault());
 });
 
 function setVideo(state) {
@@ -194,7 +195,7 @@ function syncAudioVideo() {
         if (video.playing) {
             buffering = false;
             playingAfter = true;
-            if (playingAfter == playingBefore) {} else {
+            if (playingAfter == playingBefore) { } else {
                 audio.play();
                 playingBefore = true;
                 let currentTime = video.currentTime;
@@ -239,7 +240,7 @@ function updateVideoOverlay() {
         let videoLength = video.duration;
         let videoProgress = video.currentTime;
         let videoProgressPercentage = (videoProgress / videoLength) * 100;
-        
+
         if (!isNaN(videoProgressPercentage)) {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
             $('.video-time').text(`${formattedTime(videoProgress)} / ${formattedTime(videoLength)}`);
