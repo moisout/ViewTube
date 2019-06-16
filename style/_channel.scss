@@ -13,7 +13,7 @@
 
         .channel-banner {
             width: 100%;
-            height: calc(100vw / 6);
+            height: calc(100vw / 4);
             min-height: 150px;
             overflow: hidden;
 
@@ -50,12 +50,15 @@
                 padding: 0 10px 10px 10px;
 
                 .channel-info-name {
-                    font-size: 1.2rem;
+                    font-size: 1.5rem;
+                    font-weight: normal;
+                    margin: 0 0 5px 0;
                 }
 
                 .channel-info-numbers {
                     display: flex;
                     flex-direction: column;
+                    color: $subtitle-color;
                 }
             }
         }

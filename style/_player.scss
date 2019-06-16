@@ -61,11 +61,33 @@
 
         .video-controls {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             height: $video-seekbar-height - $video-seekbar-line-height;
 
-            .video-time-display{
-                
+            .video-time-display {
+                margin: auto 0;
+                color: #fff;
+                font-family: $default-font;
+            }
+
+            .audio-bar {
+                margin: auto 0;
+                display: flex;
+                box-sizing: border-box;
+                position: relative;
+                cursor: pointer;
+                height: 5px;
+                width: 50px;
+                background-color: rgba(255, 255, 255, 0.2);
+
+                .audio-bar-volume {
+                    width: 100%;
+                    height: 5px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background-color: $theme-color;
+                }
             }
         }
     }

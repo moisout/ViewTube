@@ -239,8 +239,10 @@ function updateVideoOverlay() {
         let videoLength = video.duration;
         let videoProgress = video.currentTime;
         let videoProgressPercentage = (videoProgress / videoLength) * 100;
+        
         if (!isNaN(videoProgressPercentage)) {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
+            $('.video-time').text(`${formattedTime(videoProgress)} / ${formattedTime(videoLength)}`);
         }
         let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
         $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
@@ -249,7 +251,7 @@ function updateVideoOverlay() {
 }
 
 function animatePlayButton(state) {
-    let animationTime = 200;
+    let animationTime = 100;
     let animationSteps = 7;
     if (state == "playing") {
         setTimeout(() => {

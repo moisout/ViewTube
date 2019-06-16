@@ -50,7 +50,6 @@ function loadComponents(components) {
 function getComponent(name) {
     return new Promise((resolve, reject) => {
         if (localStorage.getItem(name) !== null) {
-            console.log('cached');
             resolve(localStorage.getItem(name));
         }
         $.ajax({

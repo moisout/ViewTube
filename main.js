@@ -90,14 +90,34 @@ function initParallax() {
 
 async function loadShowMore(target) {
     let compontent = await getComponent('vt-show-more');
-    let showMoreBtn = $(compontent).insertAfter(target);
-    $(showMoreBtn).find('.show-more-btn').on('click', (e) => {
+    let showMore = $(compontent).insertAfter(target);
+    let defaultHeight = 20;
+    let showMoreBtn = $(showMore).find('.show-more-btn');
+    let showLessBtn = $(showMore).find('.show-less-btn');
+
+    $(showMoreBtn).on('click', (e) => {
         let height = $(target).children().outerHeight();
+        defaultHeight = $(target).height();
         $(target).css('height', `${height}px`);
-        $(showMoreBtn).addClass('hidden');
+        setTimeout(() => {
+            $(showMoreBtn).addClass('hidden');
+            $(showLessBtn).removeClass('hidden');
+        }, 300);
+
+        e.preventDefault();
+    });
+
+    $(showLessBtn).on('click', (e) => {
+        $(target).css('height', `${defaultHeight}px`);
+        setTimeout(() => {
+            $(showLessBtn).addClass('hidden');
+            $(showMoreBtn).removeClass('hidden');
+        }, 300);
+
         e.preventDefault();
     });
 }
+
 
 function Tooltip(target) {
     this.target = target;
