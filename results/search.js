@@ -48,6 +48,7 @@ function loadSearchResults(params) {
         url: `${baseUrl}search`,
         dataType: "JSON",
         data: params,
+        timeout: requestTimeout,
         success: async function (response) {
             let videoTemplate = await $.get(`${rootUrl}components/vt-video-entry.html`);
             let channelTemplate = await $.get(`${rootUrl}components/vt-channel-entry.html`);
@@ -102,6 +103,11 @@ function loadSearchResults(params) {
 
                 }
             });
+            onSiteLoaded();
+        },
+        error: async (jqXHR, textStatus, exception) => {
+            await showLoadingError();
+
             onSiteLoaded();
         }
     });

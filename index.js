@@ -29,13 +29,7 @@ function loadTopVideos() {
             $('.spinner').hide();
         },
         error: async (jqXHR, textStatus, exception) => {
-            let error = await getComponent('vt-error');
-            $('.spinner').replaceWith(error);
-
-            $('.loading-retry-btn').on('click', (e) =>{
-                window.location.reload();
-                e.preventDefault();
-            });
+            await showLoadingError();
 
             onSiteLoaded();
         }

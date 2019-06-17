@@ -16,6 +16,7 @@ function loadChannel(channelId) {
             fields: 'author,authorId,authorBanners,authorThumbnails,subCount,totalViews,joined,descriptionHtml,latestVideos'
         },
         dataType: "JSON",
+        timeout: requestTimeout,
         success: async function (response) {
             let html = Mustache.to_html($('.channel-panel')[0].outerHTML, response);
             let videoTemplate = await $.get(`${rootUrl}components/vt-video-entry.html`);
@@ -57,6 +58,11 @@ function loadChannel(channelId) {
             $('.channel-panel').removeClass('loading');
 
             await loadShowMore('.channel-description');
+
+            onSiteLoaded();
+        },
+        error: async (jqXHR, textStatus, exception) => {
+            await showLoadingError();
 
             onSiteLoaded();
         }

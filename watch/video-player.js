@@ -4,7 +4,7 @@ $(function () {
     $('.video-buffer').addClass('buffering');
 
     $('.video-player-overlay').removeClass('hovering');
-                $('.player-viewport').css('cursor', 'none');
+    $('.player-viewport').css('cursor', 'none');
 
     let moved = false;
     $('.player-viewport').on('mousemove', (e) => {
@@ -122,6 +122,7 @@ function loadVideo() {
                 fields: 'title,videoId,videoThumbnails,descriptionHtml,viewCount,likeCount,dislikeCount,author,authorId,authorThumbnails,subCountText,lengthSeconds,adaptiveFormats,formatStreams'
             },
             dataType: "JSON",
+            timeout: requestTimeout,
             success: function (response) {
                 document.title = `${response.title} - ViewTube`;
                 $('head').append(`<meta property="og:title" content="${response.title} - ViewTube">`);
@@ -137,6 +138,11 @@ function loadVideo() {
                 }
                 $('.video-mp4').attr('src', currentVideo);
                 $('.video-buffer').removeClass('buffering');
+                onSiteLoaded();
+            },
+            error: async (jqXHR, textStatus, exception) => {
+                await showLoadingError();
+
                 onSiteLoaded();
             }
         });

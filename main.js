@@ -208,6 +208,15 @@ function toggleTheme() {
     }
 }
 
+async function showLoadingError() {
+    let error = await getComponent('vt-error');
+    $('.spinner').replaceWith(error);
+    $('.loading-retry-btn').on('click', (e) => {
+        window.location.reload();
+        e.preventDefault();
+    });
+}
+
 function openInYoutube() {
     let page = parseUrlToYT(window.location);
     window.open(`https://youtube.com/${page}`);
