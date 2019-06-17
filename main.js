@@ -13,18 +13,83 @@ function initHeader() {
         e.preventDefault();
     });
 
-    $('#search').on('keypress', (e) => {
+    let selectedAutocompleteEntry = 0;
+    $('#search').on('keydown', (e) => {
         let searchValue = $('#search').val();
-        if (e.which == 13) {
+        let autocompleteEntryCount = $('.search-autocomplete-container').children().length;
+        if (e.which === 13) {
             if (searchValue.length > 0) {
                 searchRedirect(searchValue);
             }
+            e.preventDefault();
+        } else if (e.which === 40) {
+            if (selectedAutocompleteEntry >= 0 && selectedAutocompleteEntry < autocompleteEntryCount) {
+                selectedAutocompleteEntry++;
+            }
+            selectedAutocompleteEntry = selectAutocompleteEntry(selectedAutocompleteEntry);
+            e.preventDefault();
+        } else if (e.which === 38) {
+            if (selectedAutocompleteEntry >= 0 && selectedAutocompleteEntry <= autocompleteEntryCount) {
+                selectedAutocompleteEntry--;
+            }
+            selectedAutocompleteEntry = selectAutocompleteEntry(selectedAutocompleteEntry);
             e.preventDefault();
         }
     }).on('input', (e) => {
         let searchValue = $('#search').val();
         $('.search-btn').attr('href', `${rootUrl}results?search_query=${searchValue}`);
+
+        $.ajax({
+            type: "GET",
+            url: autocompleteUrl,
+            data: {
+                q: searchValue,
+                cl: 'youtube'
+            },
+            dataType: "TEXT",
+            success: function (response) {
+                $('.search-autocomplete-container').empty();
+                let resultString = response.replace('window.google.ac.h(', '').slice(0, -1);
+                let rawResults = JSON.parse(resultString);
+                let searchValue = $('#search').val().toLowerCase();
+                if (searchValue.length > 0) {
+                    let firstEntry = `<a href="${rootUrl}results?search_query=${searchValue}" class="search-autocomplete-entry">${searchValue}</a>`;
+                    $(firstEntry).appendTo('.search-autocomplete-container');
+                }
+                rawResults[1].forEach((value, index) => {
+                    const entryValue = value[0];
+                    let autoCompleteEntry = `<a href="${rootUrl}results?search_query=${entryValue}" class="search-autocomplete-entry">${entryValue}</a>`;
+                    $(autoCompleteEntry).appendTo('.search-autocomplete-container');
+                });
+            },
+            error: function (jqXHR, textStatus, exception) {}
+        });
     });
+
+    $('body').on('click', (e) => {
+        if ($('#search').is(":focus")) {
+            $('.search-autocomplete-container').removeClass('hidden');
+        } else {
+            $('.search-autocomplete-container').addClass('hidden');
+        }
+    });
+
+    function selectAutocompleteEntry(index) {
+        let autocompleteEntryCount = $('.search-autocomplete-container').children().length;
+        if (index > autocompleteEntryCount) {
+            index = autocompleteEntryCount - 1;
+        } else if (index <= 0) {
+            index = 1;
+        }
+        console.log(autocompleteEntryCount, index);
+        $('.search-autocomplete-entry').removeClass('selected');
+        selectedEntry = $(`.search-autocomplete-entry:nth-of-type(${index})`);
+        selectedEntry.addClass('selected');
+        if (index > 0) {
+            $('#search').val(selectedEntry.text());
+        }
+        return index;
+    }
 
     $('#reload-btn').on('click', () => {
         localStorage.clear();
@@ -59,6 +124,9 @@ function initHeader() {
     if (typeof loadTopVideos === "function") {
         loadTopVideos();
     }
+    if (typeof initErrorPage === "function") {
+        initErrorPage();
+    }
 
     return true;
 }
@@ -74,9 +142,9 @@ function onSiteLoaded() {
 }
 
 function hasTouch() {
-    return 'ontouchstart' in document.documentElement
-        || navigator.maxTouchPoints > 0
-        || navigator.msMaxTouchPoints > 0;
+    return 'ontouchstart' in document.documentElement ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0;
 }
 
 function initTooltips() {

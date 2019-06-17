@@ -76,6 +76,19 @@ a {
             display: block !important;
         }
     }
+
+    .search-autocomplete-container{
+        position: fixed !important;
+        margin-top: $header-height !important;
+
+        .search-autocomplete-entry {
+            padding: 8px 0 8px 10px !important;
+        }
+    }
+}
+
+.header-font{
+    font-family: $header-font;
 }
 
 .tooltip-overlay {

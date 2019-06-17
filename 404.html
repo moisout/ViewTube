@@ -21,22 +21,24 @@
     <script src="bin/js.cookie.js"></script>
     <script src="bin/mustache.js"></script>
     <script src="bin/ripple.min.js"></script>
-    <title>ViewTube</title>
+    <title>404 - ViewTube</title>
 </head>
 
 <body>
     <h1 class="invisible">ViewTube</h1>
     <h2 class="invisible">An alternative YouTube frontend using the invidio.us API.</h2>
     <vt-header></vt-header>
-    <div class="video-list-container">
-        <div class="video-section-title">
-            <h2>Top</h2>
-            <span class="video-section-separator"></span>
+    <div class="loading-error-container">
+        <div class="loading-error">
+            <span class="loading-error-icon">
+                <i class="header-font">404</i>
+            </span>
+            <span class="loading-error-text">page not found</span>
+            <a class="loading-retry-btn ripple" href="#">retry</a>
         </div>
     </div>
-    <vt-loader></vt-loader>
     <script src="loader.js"></script>
-    <script src="index.js"></script>
+    <script src="404.js"></script>
 </body>
 
 </html>

@@ -200,6 +200,7 @@ html.light-theme .header .search-box {
       -ms-flex-pack: end;
           justify-content: flex-end;
   background-color: rgba(128, 128, 128, 0.37);
+  position: relative;
 }
 
 html.light-theme .header .search-box .search-btn {
@@ -218,6 +219,40 @@ html.light-theme .header .search-box .search-btn {
 
 html.light-theme .header .search-box .search-btn i {
   margin: auto;
+}
+
+html.light-theme .header .search-box .search-autocomplete-container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 30px;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+html.light-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry {
+  padding: 5px 0 5px 10px;
+  cursor: default;
+  color: #080808;
+  text-decoration: none;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+html.light-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry:hover, html.light-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry.selected {
+  background-color: #fff;
+}
+
+html.light-theme .header .search-box .search-autocomplete-container.hidden {
+  display: none;
 }
 
 html.light-theme .header .search-box label {
@@ -763,6 +798,17 @@ html.light-theme a.ripple:active {
   html.light-theme .logo-link .logo-small {
     display: block !important;
   }
+  html.light-theme .search-autocomplete-container {
+    position: fixed !important;
+    margin-top: 60px !important;
+  }
+  html.light-theme .search-autocomplete-container .search-autocomplete-entry {
+    padding: 8px 0 8px 10px !important;
+  }
+}
+
+html.light-theme .header-font {
+  font-family: "Righteous", "Open Sans", sans-serif;
 }
 
 html.light-theme .tooltip-overlay {
@@ -1521,6 +1567,7 @@ html.dark-theme .header .search-box {
       -ms-flex-pack: end;
           justify-content: flex-end;
   background-color: rgba(128, 128, 128, 0.37);
+  position: relative;
 }
 
 html.dark-theme .header .search-box .search-btn {
@@ -1539,6 +1586,40 @@ html.dark-theme .header .search-box .search-btn {
 
 html.dark-theme .header .search-box .search-btn i {
   margin: auto;
+}
+
+html.dark-theme .header .search-box .search-autocomplete-container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 30px;
+  background-color: #272727;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+html.dark-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry {
+  padding: 5px 0 5px 10px;
+  cursor: default;
+  color: #ebebeb;
+  text-decoration: none;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+html.dark-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry:hover, html.dark-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry.selected {
+  background-color: #121212;
+}
+
+html.dark-theme .header .search-box .search-autocomplete-container.hidden {
+  display: none;
 }
 
 html.dark-theme .header .search-box label {
@@ -2084,6 +2165,17 @@ html.dark-theme a.ripple:active {
   html.dark-theme .logo-link .logo-small {
     display: block !important;
   }
+  html.dark-theme .search-autocomplete-container {
+    position: fixed !important;
+    margin-top: 60px !important;
+  }
+  html.dark-theme .search-autocomplete-container .search-autocomplete-entry {
+    padding: 8px 0 8px 10px !important;
+  }
+}
+
+html.dark-theme .header-font {
+  font-family: "Righteous", "Open Sans", sans-serif;
 }
 
 html.dark-theme .tooltip-overlay {

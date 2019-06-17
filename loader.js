@@ -10,6 +10,7 @@ const components = [
     'vt-show-more'
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
+const autocompleteUrl = 'https://autocomplete.mcdn.ch';
 const requestTimeout = 6000;
 
 if ('serviceWorker' in navigator) {
