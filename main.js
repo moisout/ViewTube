@@ -46,19 +46,16 @@ function initHeader() {
                 q: searchValue,
                 cl: 'youtube'
             },
-            dataType: "TEXT",
+            dataType: "JSON",
             success: function (response) {
                 $('.search-autocomplete-container').empty();
-                let resultString = response.replace('window.google.ac.h(', '').slice(0, -1);
-                let rawResults = JSON.parse(resultString);
                 let searchValue = $('#search').val().toLowerCase();
                 if (searchValue.length > 0) {
                     let firstEntry = `<a href="${rootUrl}results?search_query=${searchValue}" class="search-autocomplete-entry">${searchValue}</a>`;
                     $(firstEntry).appendTo('.search-autocomplete-container');
                 }
-                rawResults[1].forEach((value, index) => {
-                    const entryValue = value[0];
-                    let autoCompleteEntry = `<a href="${rootUrl}results?search_query=${entryValue}" class="search-autocomplete-entry">${entryValue}</a>`;
+                response.forEach((value, index) => {
+                    let autoCompleteEntry = `<a href="${rootUrl}results?search_query=${value}" class="search-autocomplete-entry">${value}</a>`;
                     $(autoCompleteEntry).appendTo('.search-autocomplete-container');
                 });
             },

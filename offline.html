@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style/main.css">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="images/icon-192.jpg" type="image/x-icon">
-    <link rel="preload" href="https://proxy.mcdn.ch" crossorigin>
-    <link rel="preload" href="https://invidio.us/api" crossorigin>
+    <link rel="preload" href="https://proxy.mcdn.ch">
+    <link rel="preload" href="https://invidio.us/api">
     <meta property="og:title" content="ViewTube">
     <meta property="og:type" content="website">
     <meta property="og:image:secure_url" itemprop="image" content="https://viewtube.eu/images/icon-256.png">
@@ -21,22 +21,24 @@
     <script src="bin/js.cookie.js"></script>
     <script src="bin/mustache.js"></script>
     <script src="bin/ripple.min.js"></script>
-    <title>ViewTube</title>
+    <title>offline - ViewTube</title>
 </head>
 
 <body>
     <h1 class="invisible">ViewTube</h1>
     <h2 class="invisible">An alternative YouTube frontend using the invidio.us API.</h2>
     <vt-header></vt-header>
-    <div class="video-list-container">
-        <div class="video-section-title">
-            <h2>Top</h2>
-            <span class="video-section-separator"></span>
+    <div class="loading-error-container">
+        <div class="loading-error">
+            <span class="loading-error-icon">
+                <i class="material-icons">sentiment_very_dissatisfied</i>
+            </span>
+            <span class="loading-error-text">you are offline</span>
+            <a class="loading-retry-btn ripple" href="index.html">retry</a>
         </div>
     </div>
-    <vt-loader></vt-loader>
     <script src="loader.js"></script>
-    <script src="index.js"></script>
+    <script src="404.js"></script>
 </body>
 
 </html>

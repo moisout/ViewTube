@@ -7,7 +7,8 @@ const components = [
     'vt-loader',
     'vt-tooltip',
     'vt-play-btn',
-    'vt-show-more'
+    'vt-show-more',
+    'vt-error'
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 const autocompleteUrl = 'https://autocomplete.mcdn.ch';
@@ -29,8 +30,9 @@ if ('serviceWorker' in navigator) {
 $(() => {
     $.ajax({
         url: `${rootUrl}main.js`,
-        crossDomain: true,
+        type: 'GET',
         dataType: "script",
+        cache: true
     }).done(async () => {
         await loadComponents(components);
         initMain();
@@ -51,20 +53,16 @@ function loadComponents(components) {
 
 function getComponent(name) {
     return new Promise((resolve, reject) => {
-        if (localStorage.getItem(name) !== null) {
-            resolve(localStorage.getItem(name));
-        } else {
-            $.ajax({
-                type: "GET",
-                url: `${rootUrl}components/${name}.html`,
-                dataType: "html"
-            }).done((response) => {
-                localStorage.setItem(name, response);
-                resolve(response);
-            }).fail((jqhxr, settings, exception) => {
-                reject(exception);
-            });
-        }
+        $.ajax({
+            type: "GET",
+            url: `${rootUrl}components/${name}.html`,
+            dataType: "html"
+        }).done((response) => {
+            localStorage.setItem(name, response);
+            resolve(response);
+        }).fail((jqhxr, settings, exception) => {
+            reject(exception);
+        });
     });
 }
 
