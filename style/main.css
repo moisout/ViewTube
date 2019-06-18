@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("../font/google-fonts.css");
 html,
 body {
@@ -687,7 +688,7 @@ html.light-theme .loading-error-container {
 
 html.light-theme .loading-error {
   margin: auto;
-  width: 300px;
+  width: 400px;
   text-align: center;
   font-size: 1rem;
   -webkit-user-select: none;
@@ -713,6 +714,28 @@ html.light-theme .loading-error .loading-error-icon {
 
 html.light-theme .loading-error .loading-error-icon i {
   font-size: 3rem;
+}
+
+html.light-theme .loading-error .loading-error-reasons {
+  margin: 5px 0 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+}
+
+html.light-theme .loading-error .loading-error-reasons .loading-error-reason {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+html.light-theme .loading-error .loading-error-reasons .loading-error-reason:before {
+  content: "·";
+  margin: 0 10px;
+  font-weight: bold;
 }
 
 html.light-theme .loading-error .loading-error-text {
@@ -2054,7 +2077,7 @@ html.dark-theme .loading-error-container {
 
 html.dark-theme .loading-error {
   margin: auto;
-  width: 300px;
+  width: 400px;
   text-align: center;
   font-size: 1rem;
   -webkit-user-select: none;
@@ -2080,6 +2103,28 @@ html.dark-theme .loading-error .loading-error-icon {
 
 html.dark-theme .loading-error .loading-error-icon i {
   font-size: 3rem;
+}
+
+html.dark-theme .loading-error .loading-error-reasons {
+  margin: 5px 0 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+}
+
+html.dark-theme .loading-error .loading-error-reasons .loading-error-reason {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+html.dark-theme .loading-error .loading-error-reasons .loading-error-reason:before {
+  content: "·";
+  margin: 0 10px;
+  font-weight: bold;
 }
 
 html.dark-theme .loading-error .loading-error-text {

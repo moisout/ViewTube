@@ -12,7 +12,7 @@
 
 .loading-error {
     margin: auto;
-    width: 300px;
+    width: 400px;
     text-align: center;
     font-size: 1rem;
     user-select: none;
@@ -24,14 +24,33 @@
     .loading-error-icon {
         padding: 10px;
 
-        i{
+        i {
             font-size: 3rem;
         }
     }
+
+    .loading-error-reasons {
+        margin: 5px 0 10px 0;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+
+        .loading-error-reason{
+            font-family: $default-font;
+
+            &:before{
+                content: "·";
+                margin: 0 10px;
+                font-weight: bold;
+            }
+        }
+    }
+
     .loading-error-text {
         font-family: $default-font;
         margin: 5px 0 10px 0;
     }
+
     .loading-retry-btn {
         font-family: $default-font;
         text-decoration: none;
