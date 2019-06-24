@@ -1,4 +1,5 @@
 let cacheName = 'viewtube-cache-v1';
+let offlineUrl = '/offline.html';
 let cacheUrls = [
     "404.html",
     "404.js",
@@ -40,39 +41,44 @@ let cacheUrls = [
     "watch/index.html",
     "watch/video-player.js",
     "worker.js",
-    "offline.html"
+    "/offline.html"
 ]
 
 self.addEventListener('install', e => {
     e.waitUntil(
         caches.open(cacheName)
-            .then(cache => {
-                return cache.addAll(cacheUrls.map(value => value.url));
-            })
+        .then(cache => {
+            return cache.addAll(cacheUrls);
+        })
     );
 });
 
 self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request)
-            .then(response => {
-                if (response) {
+        .then(response => {
+            if (response) {
+                console.log('respons1e ', response);
+                return response;
+            }
+            return fetch(e.request)
+                .then(response => {
+                    let responseToCache = response.clone();
+
+                    caches.open(cacheName)
+                        .then(cache => cache.put(e.request, responseToCache));
+
+                    console.log('respons2e ', response);
                     return response;
-                }
-                return fetch(e.request)
-                    .then(response => {
-                        let responseToCache = response.clone();
-
-                        caches.open(cacheName)
-                            .then(cache => cache.put(e.request, responseToCache));
-
-                        return response;
-                    })
-            })
-            .catch(() => {
-                return caches.match('offline.html');
-            })
-    )
+                })
+                .catch(() => {
+                    console.log('respons3e ', caches.match(offlineUrl), offlineUrl);
+                    if (e.request.mode === 'navigate') {
+                        return caches.match(offlineUrl);
+                    }
+                });
+        })
+    );
 });
 
 self.addEventListener('activate', e => {

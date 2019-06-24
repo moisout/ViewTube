@@ -192,7 +192,6 @@ async function loadShowMore(target) {
     });
 }
 
-
 function Tooltip(target) {
     this.target = target;
     this.tooltipText = $(this.target).attr('vt-tooltip');
@@ -203,7 +202,7 @@ function Tooltip(target) {
         let tooltipHtml = $(tooltip).appendTo('body');
         $(tooltipHtml).find('.tooltip-title').text(this.tooltipText);
 
-        let offsetTop = $(this.target).offset().top + $(tooltipHtml).outerHeight();
+        let offsetTop = $(this.target).offset().top + $(tooltipHtml).outerHeight() + 15;
         let offsetLeft = $(this.target).offset().left + ($(this.target).outerWidth() / 2) - ($(tooltipHtml).outerWidth() / 2);
         if ((offsetLeft + $(tooltipHtml).outerWidth()) > $(window).width()) {
             offsetLeft = $(window).width() - $(tooltipHtml).outerWidth() - 10;
