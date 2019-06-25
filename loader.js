@@ -12,7 +12,7 @@ const components = [
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 const autocompleteUrl = 'https://autocomplete.mcdn.ch';
-const requestTimeout = 6000;
+const requestTimeout = 10000;
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {

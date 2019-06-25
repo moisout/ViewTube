@@ -1,4 +1,4 @@
-$(function () {
+$(async () => {
     loadVideo();
 
     $('.video-buffer').addClass('buffering');
@@ -10,9 +10,9 @@ $(function () {
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
         $('.player-viewport').css('cursor', 'auto');
-        updateVideoOverlay();
 
         if (moved == false) {
+            updateVideoOverlay();
             setTimeout(() => {
                 $('.video-player-overlay').removeClass('hovering');
                 $('.player-viewport').css('cursor', 'none');
@@ -23,6 +23,7 @@ $(function () {
     });
 
     progressBarSelection();
+    volumeSelection();
 
     setInterval(() => {
         updateVideoOverlay();
@@ -37,41 +38,79 @@ $(function () {
         if (!videoInitialized) {
             $('.video-thumbnail').fadeOut(300);
             $('.video-buffer').css('z-index', 200);
+            $('.play-click-area').css('z-index', 200);
             let video = $('#video')[0];
             let audio = $('#audio')[0];
             video.load();
             audio.load();
             syncAudioVideo();
             videoInitialized = true;
+            initKeyboardControls();
         }
         setVideo('play');
     });
 
-    $('#video').on('mousedown', (e) => {
+    $('#video').on('click', (e) => {
         if (video.playing) {
             setVideo('pause');
+        } else {
+            setVideo('play');
         }
+    }).on('dblclick', (e) => {
+        toggleFullScreen();
     });
 
-    $('#video').on('touchstart', (e) => e.preventDefault());
+    $('.video-fullscreen-btn').on('click', (e) => {
+        toggleFullScreen();
+    });
+
+    // $('#video').on('touchstart', (e) => e.preventDefault());
 });
+
+function toggleFullScreen() {
+    if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+    ) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        $('.video-fullscreen-btn-icon').text('fullscreen');
+    } else {
+        element = $('.player-viewport')[0];
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+        $('.video-fullscreen-btn-icon').text('fullscreen_exit');
+    }
+}
 
 function setVideo(state) {
     let video = $('#video')[0];
     if (state === 'play' || (!video.playing && state === 'toggle')) {
         video.play();
         animatePlayButton("playing");
+        $('.play-click-area').addClass('zoom-out');
         setTimeout(() => {
-            $('.play-click-area').addClass('zoom-out');
             $('.play-click-area').fadeOut(300);
         }, 300);
     } else if (state === 'pause' || (video.playing && state === 'toggle')) {
         video.pause();
-        $('.play-click-area').removeClass('zoom-out');
-        $('.play-click-area').fadeIn(300);
-        setTimeout(() => {
-            animatePlayButton("paused");
-        }, 300);
+        animatePlayButton("paused");
     }
 }
 
@@ -149,6 +188,41 @@ function loadVideo() {
     }
 }
 
+function initKeyboardControls() {
+    $('body').on('keydown', (e) => {
+        let video = $('#video')[0];
+        let audio = $('#audio')[0];
+        if (e.key === ' ') {
+            setVideo('toggle');
+            e.preventDefault();
+        }
+        if (e.key === 'ArrowRight') {
+            video.currentTime += 5;
+            e.preventDefault();
+        }
+        if (e.key === 'ArrowLeft') {
+            video.currentTime -= 5;
+            e.preventDefault();
+        }
+        if (e.key === 'ArrowUp') {
+            if (audio.volume < 1) {
+                audio.volume += 0.1;
+            }
+            refreshAudioDisplay(audio.volume * 100);
+            e.preventDefault();
+        }
+        if (e.key === 'ArrowDown') {
+            if (audio.volume > 0) {
+                audio.volume -= 0.1;
+                audio.volume = Math.floor(audio.volume * 10) / 10;
+            }
+            console.log(audio.volume);
+            refreshAudioDisplay(audio.volume * 100);
+            e.preventDefault();
+        }
+    });
+}
+
 function progressBarSelection() {
     let progressSelection = false;
     $('.video-seekbar').on('mousedown', (e) => {
@@ -173,6 +247,60 @@ function progressBarSelection() {
     }
 }
 
+function volumeSelection() {
+    let audioSelection = false;
+    $('.audio-bar').on('mousedown', (e) => {
+        audioSelection = true;
+    }).on('click', (e) => {
+        seekAudio(e);
+    });
+
+    $('body').on('mousemove', (e) => {
+        if (audioSelection) {
+            seekAudio(e);
+        }
+    }).on('mouseup', () => {
+        audioSelection = false;
+    });
+
+    let previousVolume = 1;
+    $('.video-audio-btn').on('click', (e) => {
+        if (audio.volume == 0) {
+            audio.volume = previousVolume;
+        } else {
+            previousVolume = audio.volume;
+            audio.volume = 0;
+        }
+        setAudioIcon(audio.volume * 100);
+    });
+
+    function seekAudio(e) {
+        let audio = $('#audio')[0];
+        let audioVolume = ((e.pageX - $('.audio-bar').offset().left) / $('.audio-bar').width()) * 100;
+        if (audioVolume > 100) {
+            audioVolume = 100;
+        }
+        if (audioVolume < 0) {
+            audioVolume = 0;
+        }
+        audio.volume = audioVolume / 100;
+        refreshAudioDisplay(audioVolume);
+    }
+}
+
+function refreshAudioDisplay(volume) {
+    $('.audio-bar-volume').removeClass('mute');
+    if (volume > 50) {
+        $('.video-audio-btn-icon').text('volume_up');
+    } else if (volume > 0 && volume < 50) {
+        $('.video-audio-btn-icon').text('volume_down');
+    } else if (volume == 0) {
+        $('.video-audio-btn-icon').text('volume_mute');
+        $('.audio-bar-volume').addClass('mute');
+    }
+    $('.audio-bar-volume').css('width', `${volume}%`);
+}
+
 function syncAudioVideo() {
     let me = this;
     let playingBefore = false;
@@ -185,23 +313,20 @@ function syncAudioVideo() {
     let video = $('#video')[0];
     let audio = $('#audio')[0];
     setInterval(() => {
-        console.log(audio.playing);
         if (videoWaitingForAudio && !buffering && !audioBuffering) {
             videoWaitingForAudio = false;
             audio.volume = audioVolume;
             buffering = false;
-            console.log('audioNotBuffering');
         }
         if (audioBuffering) {
             videoWaitingForAudio = true;
             audio.volume = 0;
             buffering = true;
-            console.log('audioBuffering');
         }
         if (video.playing) {
             buffering = false;
             playingAfter = true;
-            if (playingAfter == playingBefore) { } else {
+            if (playingAfter == playingBefore) {} else {
                 audio.play();
                 playingBefore = true;
                 let currentTime = video.currentTime;
@@ -251,10 +376,11 @@ function updateVideoOverlay() {
             $('.seekbar-line-progress').css('width', `${videoProgressPercentage}%`);
             $('.video-time').text(`${formattedTime(videoProgress)} / ${formattedTime(videoLength)}`);
         }
-        let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
-        $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
+        if (!isNaN(videoLength)) {
+            let loadedContent = (video.buffered.end(video.buffered.length - 1) / videoLength) * 100;
+            $('.seekbar-line-loaded').css('width', `${loadedContent}%`);
+        }
     }
-
 }
 
 function animatePlayButton(state) {
@@ -300,7 +426,6 @@ function animatePlayButton(state) {
                 $(`.video-play-btn-${i - 1}`)
                     .show();
             }, animationTime * (index / animationSteps));
-            console.log(i);
             index++;
         }
 

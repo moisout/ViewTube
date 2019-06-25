@@ -17,18 +17,18 @@ function initHeader() {
     $('#search').on('keydown', (e) => {
         let searchValue = $('#search').val();
         let autocompleteEntryCount = $('.search-autocomplete-container').children().length;
-        if (e.which === 13) {
+        if (e.key === 'Enter') {
             if (searchValue.length > 0) {
                 searchRedirect(searchValue);
             }
             e.preventDefault();
-        } else if (e.which === 40) {
+        } else if (e.key === 'ArrowDown') {
             if (selectedAutocompleteEntry >= 0 && selectedAutocompleteEntry < autocompleteEntryCount) {
                 selectedAutocompleteEntry++;
             }
             selectedAutocompleteEntry = selectAutocompleteEntry(selectedAutocompleteEntry);
             e.preventDefault();
-        } else if (e.which === 38) {
+        } else if (e.key === 'ArrowUp') {
             if (selectedAutocompleteEntry >= 0 && selectedAutocompleteEntry <= autocompleteEntryCount) {
                 selectedAutocompleteEntry--;
             }
@@ -209,6 +209,13 @@ function Tooltip(target) {
         }
         if (offsetLeft < 0) {
             offsetLeft = 0;
+        }
+        console.log((offsetTop + $(tooltipHtml).outerHeight()), $(window).height());
+        if ((offsetTop + $(tooltipHtml).outerHeight()) > $(window).height()) {
+            offsetTop = $(window).height() - $(tooltipHtml).outerHeight() - 15;
+        }
+        if (offsetTop < 0) {
+            offsetTop = 0;
         }
         if ($(tooltipHtml).outerWidth() > $(window).width()) {
             $(tooltipHtml).css('width', `${$(window).width() - 20}px`);
