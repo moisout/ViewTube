@@ -7,13 +7,16 @@ $(async () => {
     $('.player-viewport').css('cursor', 'none');
 
     let moved = false;
+    let settingsVisible = false;
+    let overlayHideTimeout;
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
         $('.player-viewport').css('cursor', 'auto');
 
-        if (moved == false) {
+        if (!moved && !settingsVisible) {
+            console.log(settingsVisible);
             updateVideoOverlay();
-            setTimeout(() => {
+            overlayHideTimeout = setTimeout(() => {
                 $('.video-player-overlay').removeClass('hovering');
                 $('.player-viewport').css('cursor', 'none');
                 moved = false;
@@ -62,6 +65,17 @@ $(async () => {
 
     $('.video-fullscreen-btn').on('click', (e) => {
         toggleFullScreen();
+    });
+
+    $('.video-settings-btn').on('click', (e) => {
+        if (settingsVisible) {
+            settingsVisible = false;
+            $('.video-settings-container').removeClass('opened');
+        } else {
+            settingsVisible = true;
+            clearTimeout(overlayHideTimeout);
+            $('.video-settings-container').addClass('opened');
+        }
     });
 
     // $('#video').on('touchstart', (e) => e.preventDefault());
@@ -271,7 +285,7 @@ function volumeSelection() {
             previousVolume = audio.volume;
             audio.volume = 0;
         }
-        setAudioIcon(audio.volume * 100);
+        refreshAudioDisplay(audio.volume * 100);
     });
 
     function seekAudio(e) {

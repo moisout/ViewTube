@@ -140,6 +140,7 @@
             .right-controls-container {
                 display: flex;
                 flex-direction: row;
+                position: relative;
 
                 .video-settings-btn,
                 .video-fullscreen-btn {
@@ -151,6 +152,27 @@
 
                     i {
                         margin: auto;
+                    }
+                }
+
+                .video-settings-container {
+                    position: absolute;
+                    right: 0;
+                    bottom: $video-controls-height + 20px;
+                    height: 300px;
+                    width: 200px;
+                    background-color: $bgcolor-main;
+                    transform: scale(0.8);
+                    opacity: 0;
+                    transition: transform 300ms $intro-easing, opacity 300ms $intro-easing;
+
+                    .video-settings {
+                        .video-quality-settings {}
+                    }
+
+                    &.opened {
+                        transform: scale(1);
+                        opacity: 1;
                     }
                 }
 
