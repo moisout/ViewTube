@@ -43,72 +43,68 @@ function SearchParamManager(urlParams) {
 
 function loadSearchResults(params) {
     params.fields = 'type,title,videoId,author,authorId,videoThumbnails,viewCount,publishedText,lengthSeconds,videoCount,videos,authorThumbnails,subCount,videoCount'
-    $.ajax({
-        type: "GET",
-        url: `${baseUrl}search`,
-        dataType: "JSON",
-        data: params,
-        timeout: requestTimeout,
-        success: async function (response) {
-            let videoTemplate = await $.get(`${rootUrl}components/vt-video-entry.html`);
-            let channelTemplate = await $.get(`${rootUrl}components/vt-channel-entry.html`);
-            let playlistTemplate = await $.get(`${rootUrl}components/vt-playlist-entry.html`);
 
-            response.forEach(element => {
-                if (element.type === 'video') {
-                    let html = Mustache.to_html(videoTemplate, element);
+    apiRequest({
+        url: `search`,
+        data: params
+    }).then(async response => {
+        let videoTemplate = await getComponent('vt-video-entry');
+        let channelTemplate = await getComponent('vt-channel-entry');
+        let playlistTemplate = await getComponent('vt-playlist-entry');
 
-                    let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
-                    let linkUrl = `${rootUrl}watch?v=${element.videoId}`;
-                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
-                    let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
-                    let videoLength = formattedTime(element.lengthSeconds);
+        response.forEach(element => {
+            if (element.type === 'video') {
+                let html = Mustache.to_html(videoTemplate, element);
 
-                    let searchResultEntry = $(html).appendTo('.results-panel');
+                let imgSrc = `${proxyUrl}${element.videoThumbnails[4].url}`;
+                let linkUrl = `${rootUrl}watch?v=${element.videoId}`;
+                let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
+                let viewCountString = `${numberWithSeparators(element.viewCount)} Views`;
+                let videoLength = formattedTime(element.lengthSeconds);
 
-                    $(searchResultEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
-                    $(searchResultEntry).find('.video-entry-thmb').attr('href', linkUrl);
-                    $(searchResultEntry).find('.video-entry-title').attr('href', linkUrl);
-                    $(searchResultEntry).find('.video-entry-channel').attr('href', channelUrl);
-                    $(searchResultEntry).find('.video-entry-views').text(viewCountString);
-                    $(searchResultEntry).find('.video-entry-length').text(videoLength);
+                let searchResultEntry = $(html).appendTo('.results-panel');
 
-                } else if (element.type === 'playlist') {
-                    let html = Mustache.to_html(playlistTemplate, element);
+                $(searchResultEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.video-entry-thmb').attr('href', linkUrl);
+                $(searchResultEntry).find('.video-entry-title').attr('href', linkUrl);
+                $(searchResultEntry).find('.video-entry-channel').attr('href', channelUrl);
+                $(searchResultEntry).find('.video-entry-views').text(viewCountString);
+                $(searchResultEntry).find('.video-entry-length').text(videoLength);
 
-                    let imgSrc = `${proxyUrl}${element.videos[0].videoThumbnails[4].url}`;
-                    let linkUrl = `${rootUrl}watch?v=${element.videos[0].videoId}&list=${element.playlistId}`;
-                    let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
+            } else if (element.type === 'playlist') {
+                let html = Mustache.to_html(playlistTemplate, element);
 
-                    let searchResultEntry = $(html).appendTo('.results-panel');
+                let imgSrc = `${proxyUrl}${element.videos[0].videoThumbnails[4].url}`;
+                let linkUrl = `${rootUrl}watch?v=${element.videos[0].videoId}&list=${element.playlistId}`;
+                let channelUrl = `${rootUrl}channel?id=${element.authorId}`;
 
-                    $(searchResultEntry).find('.playlist-entry-thmb-image').attr('src', imgSrc);
-                    $(searchResultEntry).find('.playlist-entry-thmb').attr('href', linkUrl);
-                    $(searchResultEntry).find('.playlist-entry-title').attr('href', linkUrl);
-                    $(searchResultEntry).find('.playlist-entry-channel').attr('href', channelUrl);
+                let searchResultEntry = $(html).appendTo('.results-panel');
 
-                } else if (element.type === 'channel') {
-                    let html = Mustache.to_html(channelTemplate, element);
+                $(searchResultEntry).find('.playlist-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.playlist-entry-thmb').attr('href', linkUrl);
+                $(searchResultEntry).find('.playlist-entry-title').attr('href', linkUrl);
+                $(searchResultEntry).find('.playlist-entry-channel').attr('href', channelUrl);
 
-                    let imgSrc = `${proxyUrl}${element.authorThumbnails[4].url}`;
-                    let linkUrl = `${rootUrl}channel?id=${element.authorId}`;
-                    let subCountString = `${numberWithSeparators(element.subCount)} subscribers`;
+            } else if (element.type === 'channel') {
+                let html = Mustache.to_html(channelTemplate, element);
 
-                    let searchResultEntry = $(html).appendTo('.results-panel');
+                let imgSrc = `${proxyUrl}${element.authorThumbnails[4].url}`;
+                let linkUrl = `${rootUrl}channel?id=${element.authorId}`;
+                let subCountString = `${numberWithSeparators(element.subCount)} subscribers`;
 
-                    $(searchResultEntry).find('.channel-entry-thmb-image').attr('src', imgSrc);
-                    $(searchResultEntry).find('.channel-entry-thmb').attr('href', linkUrl);
-                    $(searchResultEntry).find('.channel-entry-title').attr('href', linkUrl);
-                    $(searchResultEntry).find('.channel-entry-subcount').text(subCountString);
+                let searchResultEntry = $(html).appendTo('.results-panel');
 
-                }
-            });
-            onSiteLoaded();
-        },
-        error: async (jqXHR, textStatus, exception) => {
-            await showLoadingError();
+                $(searchResultEntry).find('.channel-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.channel-entry-thmb').attr('href', linkUrl);
+                $(searchResultEntry).find('.channel-entry-title').attr('href', linkUrl);
+                $(searchResultEntry).find('.channel-entry-subcount').text(subCountString);
 
-            onSiteLoaded();
-        }
+            }
+        });
+        onSiteLoaded();
+    }, async error => {
+        await showLoadingError();
+
+        onSiteLoaded();
     });
 }

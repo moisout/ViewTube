@@ -78,7 +78,6 @@ function initHeader() {
         } else if (index <= 0) {
             index = 1;
         }
-        console.log(autocompleteEntryCount, index);
         $('.search-autocomplete-entry').removeClass('selected');
         selectedEntry = $(`.search-autocomplete-entry:nth-of-type(${index})`);
         selectedEntry.addClass('selected');
@@ -88,9 +87,11 @@ function initHeader() {
         return index;
     }
 
-    $('#reload-btn').on('click', () => {
+    $('#reload-btn').on('click', async () => {
         localStorage.clear();
         Cookies.remove('theme');
+        await localforage.clear();
+        await serviceWorkerRegistration.unregister();
         window.location.reload(true);
     });
 
@@ -210,9 +211,8 @@ function Tooltip(target) {
         if (offsetLeft < 0) {
             offsetLeft = 0;
         }
-        console.log((offsetTop + $(tooltipHtml).outerHeight()), $(window).height());
         if ((offsetTop + $(tooltipHtml).outerHeight()) > $(window).height()) {
-            offsetTop = $(window).height() - $(tooltipHtml).outerHeight() - 15;
+            offsetTop = $(this.target).offset().top - $(tooltipHtml).outerHeight() - 15;
         }
         if (offsetTop < 0) {
             offsetTop = 0;

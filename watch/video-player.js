@@ -14,7 +14,6 @@ $(async () => {
         $('.player-viewport').css('cursor', 'auto');
 
         if (!moved && !settingsVisible) {
-            console.log(settingsVisible);
             updateVideoOverlay();
             overlayHideTimeout = setTimeout(() => {
                 $('.video-player-overlay').removeClass('hovering');
@@ -167,37 +166,32 @@ function loadVideo() {
     if (urlParams.has('v')) {
         let videoId = urlParams.getAll('v');
 
-        $.ajax({
-            type: "GET",
-            url: `${baseUrl}videos/${videoId}`,
+        apiRequest({
+            url: `videos/${videoId}`,
             data: {
                 region: defaultRegion,
                 fields: 'title,videoId,videoThumbnails,descriptionHtml,viewCount,likeCount,dislikeCount,author,authorId,authorThumbnails,subCountText,lengthSeconds,adaptiveFormats,formatStreams'
-            },
-            dataType: "JSON",
-            timeout: requestTimeout,
-            success: function (response) {
-                document.title = `${response.title} - ViewTube`;
-                $('head').append(`<meta property="og:title" content="${response.title} - ViewTube">`);
-                loadInfo(response);
-                let currentVideo = response.formatStreams[0].url;
-                if (response.adaptiveFormats != undefined) {
-                    let audioUrls = resolveAudioFormats(response.adaptiveFormats);
-                    let currentAudio = audioUrls[audioUrls.length - 1].url;
-                    $('#audio').attr('src', currentAudio);
-
-                    let videoUrls = resolveVideoFormats(response.adaptiveFormats);
-                    currentVideo = videoUrls[0].url;
-                }
-                $('.video-mp4').attr('src', currentVideo);
-                $('.video-buffer').removeClass('buffering');
-                onSiteLoaded();
-            },
-            error: async (jqXHR, textStatus, exception) => {
-                await showLoadingError();
-
-                onSiteLoaded();
             }
+        }).then(response => {
+            document.title = `${response.title} - ViewTube`;
+            $('head').append(`<meta property="og:title" content="${response.title} - ViewTube">`);
+            loadInfo(response);
+            let currentVideo = response.formatStreams[0].url;
+            if (response.adaptiveFormats != undefined) {
+                let audioUrls = resolveAudioFormats(response.adaptiveFormats);
+                let currentAudio = audioUrls[audioUrls.length - 1].url;
+                $('#audio').attr('src', currentAudio);
+
+                let videoUrls = resolveVideoFormats(response.adaptiveFormats);
+                currentVideo = videoUrls[0].url;
+            }
+            $('.video-mp4').attr('src', currentVideo);
+            $('.video-buffer').removeClass('buffering');
+            onSiteLoaded();
+        }, async error => {
+            await showLoadingError();
+
+            onSiteLoaded();
         });
     }
 }
@@ -230,7 +224,6 @@ function initKeyboardControls() {
                 audio.volume -= 0.1;
                 audio.volume = Math.floor(audio.volume * 10) / 10;
             }
-            console.log(audio.volume);
             refreshAudioDisplay(audio.volume * 100);
             e.preventDefault();
         }

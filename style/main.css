@@ -254,7 +254,7 @@ html.light-theme .header .search-box .search-autocomplete-container .search-auto
 }
 
 html.light-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry:hover, html.light-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry.selected {
-  background-color: #fff;
+  background-color: #e2e2e2;
 }
 
 html.light-theme .header .search-box .search-autocomplete-container.hidden {
@@ -741,6 +741,7 @@ html.light-theme .video-thumbnail {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #fff;
   z-index: 300;
 }
 
@@ -1756,7 +1757,7 @@ html.dark-theme .header .search-box .search-autocomplete-container .search-autoc
 }
 
 html.dark-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry:hover, html.dark-theme .header .search-box .search-autocomplete-container .search-autocomplete-entry.selected {
-  background-color: #121212;
+  background-color: #484848;
 }
 
 html.dark-theme .header .search-box .search-autocomplete-container.hidden {
@@ -2243,6 +2244,7 @@ html.dark-theme .video-thumbnail {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #121212;
   z-index: 300;
 }
 

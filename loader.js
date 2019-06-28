@@ -12,11 +12,23 @@ const components = [
 ];
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 const autocompleteUrl = 'https://autocomplete.mcdn.ch';
-const requestTimeout = 10000;
+const requestTimeout = 12000;
+
+let serviceWorkerRegistration;
+
+let date = new Date();
+let dbVersion = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}`;
+
+localforage.config({
+    name: 'ViewTube',
+    version: dbVersion
+});
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register(`${rootUrl}worker.js`).then(function (registration) {
+
+            serviceWorkerRegistration = registration;
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }, function (err) {
@@ -59,6 +71,31 @@ function getComponent(name) {
             dataType: "html"
         }).done((response) => {
             localStorage.setItem(name, response);
+            resolve(response);
+        }).fail((jqhxr, settings, exception) => {
+            reject(exception);
+        });
+    });
+}
+
+async function apiRequest(args) {
+    const requestUrl = `${baseUrl}${args.url}`;
+    const requestData = args.data;
+    let requestKey = requestUrl + JSON.stringify(requestData);
+
+    if (await localforage.getItem(requestKey)) {
+        return localforage.getItem(requestKey);
+    }
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: requestUrl,
+            dataType: "JSON",
+            data: requestData,
+            timeout: requestTimeout,
+        }).done((response) => {
+            localforage.setItem(requestKey, response);
             resolve(response);
         }).fail((jqhxr, settings, exception) => {
             reject(exception);

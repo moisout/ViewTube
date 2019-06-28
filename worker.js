@@ -58,7 +58,6 @@ self.addEventListener('fetch', e => {
         caches.match(e.request)
         .then(response => {
             if (response) {
-                console.log('respons1e ', response);
                 return response;
             }
             return fetch(e.request)
@@ -67,12 +66,9 @@ self.addEventListener('fetch', e => {
 
                     caches.open(cacheName)
                         .then(cache => cache.put(e.request, responseToCache));
-
-                    console.log('respons2e ', response);
                     return response;
                 })
                 .catch(() => {
-                    console.log('respons3e ', caches.match(offlineUrl), offlineUrl);
                     if (e.request.mode === 'navigate') {
                         return caches.match(offlineUrl);
                     }
