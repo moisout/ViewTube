@@ -7,13 +7,12 @@ function initVideoPlayer() {
     $('.player-viewport').css('cursor', 'none');
 
     let moved = false;
-    let settingsVisible = false;
     let overlayHideTimeout;
     $('.player-viewport').on('mousemove', (e) => {
         $('.video-player-overlay').addClass('hovering');
         $('.player-viewport').css('cursor', 'auto');
 
-        if (!moved && !settingsVisible) {
+        if (!moved) {
             updateVideoOverlay();
             overlayHideTimeout = setTimeout(() => {
                 $('.video-player-overlay').removeClass('hovering');
@@ -66,19 +65,32 @@ function initVideoPlayer() {
         toggleFullScreen();
     });
 
+    let settingsVisible = false;
     $('.video-settings-btn').on('click', (e) => {
         if (settingsVisible) {
             settingsVisible = false;
             $('.video-settings-container').removeClass('opened');
         } else {
             settingsVisible = true;
-            clearTimeout(overlayHideTimeout);
             $('.video-settings-container').addClass('opened');
         }
+        e.preventDefault();
     });
 
     // $('#video').on('touchstart', (e) => e.preventDefault());
 };
+
+function initQualitySelection() {
+    $('.quality-combined-entry').on('click', (e) => {
+
+        let url = $(e.target).attr('video-url');
+
+        switchVideoUrl(url);
+        $('.video-settings-container').removeClass('opened');
+
+        e.preventDefault();
+    });
+}
 
 function toggleFullScreen() {
     if (
@@ -178,6 +190,15 @@ function loadVideo() {
             loadInfo(response);
 
             let currentVideo = response.formatStreams[0].url;
+
+            response.formatStreams.forEach(element => {
+                $('.video-quality-selection-combined')
+                    .append(`<a href="#" class="quality-combined-entry" video-url="${element.url}">
+                    ${element.qualityLabel}${element.fps} - ${element.container}</a>`);
+            });
+
+            initQualitySelection();
+
             if (response.adaptiveFormats != undefined) {
                 let audioUrls = resolveAudioFormats(response.adaptiveFormats);
                 let currentAudio = audioUrls[audioUrls.length - 1].url;
@@ -195,6 +216,25 @@ function loadVideo() {
             onSiteLoaded();
         });
     }
+}
+
+function switchVideoUrl(url) {
+    syncedFormat = false;
+    let video = $('#video')[0];
+    let audio = $('#audio')[0];
+
+    let currentTime = video.currentTime;
+
+    console.log(url);
+
+    $('.video-mp4').attr('src', url);
+    $('#audio').attr('src', '#');
+
+    video.load();
+    audio.load();
+
+    video.currentTime = currentTime;
+    video.play();
 }
 
 function initKeyboardControls() {
@@ -256,6 +296,9 @@ function progressBarSelection() {
 }
 
 function volumeSelection() {
+    let audio = $('#audio')[0];
+    let video = $('#video')[0];
+
     let audioSelection = false;
     $('.audio-bar').on('mousedown', (e) => {
         audioSelection = true;
@@ -275,15 +318,16 @@ function volumeSelection() {
     $('.video-audio-btn').on('click', (e) => {
         if (audio.volume == 0) {
             audio.volume = previousVolume;
+            video.volume = previousVolume;
         } else {
             previousVolume = audio.volume;
             audio.volume = 0;
+            video.volume = 0;
         }
         refreshAudioDisplay(audio.volume * 100);
     });
 
     function seekAudio(e) {
-        let audio = $('#audio')[0];
         let audioVolume = ((e.pageX - $('.audio-bar').offset().left) / $('.audio-bar').width()) * 100;
         if (audioVolume > 100) {
             audioVolume = 100;
@@ -292,6 +336,7 @@ function volumeSelection() {
             audioVolume = 0;
         }
         audio.volume = audioVolume / 100;
+        video.volume = audioVolume / 100;
         refreshAudioDisplay(audioVolume);
     }
 }
@@ -309,6 +354,8 @@ function refreshAudioDisplay(volume) {
     $('.audio-bar-volume').css('width', `${volume}%`);
 }
 
+let syncedFormat = true;
+
 function syncAudioVideo() {
     let me = this;
     let playingBefore = false;
@@ -320,41 +367,43 @@ function syncAudioVideo() {
 
     let video = $('#video')[0];
     let audio = $('#audio')[0];
-    setInterval(() => {
-        if (videoWaitingForAudio && !buffering && !audioBuffering) {
-            videoWaitingForAudio = false;
-            audio.volume = audioVolume;
-            buffering = false;
-        }
-        if (audioBuffering) {
-            videoWaitingForAudio = true;
-            audio.volume = 0;
-            buffering = true;
-        }
-        if (video.playing) {
-            buffering = false;
-            playingAfter = true;
-            if (playingAfter == playingBefore) {} else {
-                audio.play();
-                playingBefore = true;
-                let currentTime = video.currentTime;
-                audio.currentTime = currentTime;
+    if (syncedFormat) {
+        setInterval(() => {
+            if (videoWaitingForAudio && !buffering && !audioBuffering) {
+                videoWaitingForAudio = false;
+                audio.volume = audioVolume;
+                buffering = false;
             }
-            if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
-                let currentTime = video.currentTime;
-                audio.currentTime = currentTime;
+            if (audioBuffering) {
+                videoWaitingForAudio = true;
+                audio.volume = 0;
+                buffering = true;
             }
-        } else if (!video.playing && !videoWaitingForAudio) {
-            playingBefore = false;
-            audio.pause();
-        }
+            if (video.playing) {
+                buffering = false;
+                playingAfter = true;
+                if (playingAfter == playingBefore) {} else {
+                    audio.play();
+                    playingBefore = true;
+                    let currentTime = video.currentTime;
+                    audio.currentTime = currentTime;
+                }
+                if (Math.abs(audio.currentTime - video.currentTime) > 0.2) {
+                    let currentTime = video.currentTime;
+                    audio.currentTime = currentTime;
+                }
+            } else if (!video.playing && !videoWaitingForAudio) {
+                playingBefore = false;
+                audio.pause();
+            }
 
-        if (buffering == true) {
-            $('.video-buffer').addClass('buffering');
-        } else {
-            $('.video-buffer').removeClass('buffering');
-        }
-    }, 100);
+            if (buffering == true) {
+                $('.video-buffer').addClass('buffering');
+            } else {
+                $('.video-buffer').removeClass('buffering');
+            }
+        }, 100);
+    }
 
     video.onwaiting = function () {
         buffering = true;

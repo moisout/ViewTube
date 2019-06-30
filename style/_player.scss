@@ -62,7 +62,6 @@
         .video-controls {
             display: flex;
             flex-direction: row;
-            $video-controls-height: $video-seekbar-height - $video-seekbar-line-height;
             height: $video-controls-height;
             justify-content: space-between;
 
@@ -155,27 +154,6 @@
                     }
                 }
 
-                .video-settings-container {
-                    position: absolute;
-                    right: 0;
-                    bottom: $video-controls-height + 20px;
-                    height: 300px;
-                    width: 200px;
-                    background-color: $bgcolor-main;
-                    transform: scale(0.8);
-                    opacity: 0;
-                    transition: transform 300ms $intro-easing, opacity 300ms $intro-easing;
-
-                    .video-settings {
-                        .video-quality-settings {}
-                    }
-
-                    &.opened {
-                        transform: scale(1);
-                        opacity: 1;
-                    }
-                }
-
                 .video-fullscreen-btn {
                     i {
                         font-size: 1.9rem;
@@ -187,6 +165,70 @@
 
     &.hovering {
         opacity: 1;
+    }
+}
+
+.video-settings-container {
+    position: absolute;
+    right: 20px;
+    bottom: $video-controls-height + 20px;
+    width: 200px;
+    background-color: $bgcolor-main;
+    transform: translateY(100px);
+    transform-origin: 50% 200%;
+    opacity: 0;
+    transition: transform 300ms $intro-easing, opacity 300ms $intro-easing;
+    box-shadow: $medium-shadow;
+    border-radius: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 205;
+
+    .video-settings {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .video-quality-settings {
+            color: $theme-color;
+            font-family: $default-font;
+            font-size: 1rem;
+            text-align: center;
+
+            h4 {
+                padding: 10px 0;
+            }
+
+            .video-quality-selection-combined {
+                display: flex;
+                flex-direction: column;
+
+                .quality-combined-entry {
+                    color: $title-color;
+                    font-family: $default-font;
+                    text-decoration: none;
+                    text-align: left;
+                    padding: 8px;
+
+                    &:hover {
+                        background-color: $header-bgcolor;
+                    }
+
+                    &:active {
+                        background-color: $bgcolor-alt;
+                    }
+                }
+            }
+        }
+
+    }
+
+    &.opened {
+        transform: translateY(0px);
+        opacity: 1;
+        pointer-events: all;
     }
 }
 
@@ -248,5 +290,148 @@ svg.video-play-btn-svg {
 
     .video-play-btn-paused {
         display: initial;
+    }
+}
+
+.view-panel {
+    width: 100%;
+    margin-top: $header-height;
+
+    .player-viewport {
+        width: 100%;
+        height: $player-height;
+        max-height: calc(100vh - 169px);
+        background-color: #000;
+        display: flex;
+        position: relative;
+
+        #video {
+            height: 100%;
+            width: 100%;
+        }
+
+        #audio {
+            position: absolute;
+            visibility: hidden;
+        }
+
+        .video-buffer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #0000008a;
+            display: none;
+            z-index: 400;
+
+            &.buffering {
+                display: flex;
+            }
+        }
+    }
+
+    .video-infobox {
+        width: 100%;
+        max-width: $main-width;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        box-sizing: border-box;
+        opacity: 1;
+        transition: opacity 300ms $intro-easing;
+
+        .video-infobox-title {
+            color: $title-color;
+            font-family: $default-font;
+            font-size: 1.4rem;
+            margin: 20px 0 10px 0;
+        }
+
+        .video-infobox-stats {
+            display: flex;
+            flex-direction: row;
+            margin: 0 0 20px 0;
+
+            .infobox-views {
+                color: $subtitle-color;
+                font-family: $default-font;
+                margin: 0 30px 0 0;
+                font-size: 1.1rem;
+            }
+
+            .infobox-likes,
+            .infobox-dislikes {
+                color: $subtitle-color;
+                font-family: $default-font;
+                display: flex;
+                flex-direction: row;
+                margin: 0 30px 0 0;
+
+                p {
+                    text-align: center;
+                }
+
+                i {
+                    font-size: 1.2rem;
+                    margin: 0 5px 0 0;
+                }
+            }
+        }
+
+        .video-infobox-channel {
+            display: flex;
+            flex-direction: row;
+
+            .infobox-channel-image {
+                width: 50px;
+                height: 50px;
+                margin: 0 10px 0 0;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .infobox-channel-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                .infobox-channel-name {
+                    text-decoration: none;
+                    color: $title-color;
+                    font-family: $default-font;
+                }
+
+                .infobox-channel-subcount {
+                    color: $subtitle-color;
+                    font-family: $default-font;
+                }
+            }
+        }
+
+        .video-infobox-description {
+            margin: 20px 0 0 0;
+            color: $title-color;
+            font-family: $default-font;
+            line-height: 1.2rem;
+
+            a {
+                text-decoration: underline;
+                color: $title-color;
+            }
+
+            .favicon-link {
+                height: 13px;
+                margin: 0 4px;
+            }
+        }
+
+        &.loading {
+            opacity: 0;
+        }
     }
 }
