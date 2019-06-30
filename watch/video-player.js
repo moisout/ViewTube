@@ -1,4 +1,4 @@
-$(async () => {
+function initVideoPlayer() {
     loadVideo();
 
     $('.video-buffer').addClass('buffering');
@@ -78,7 +78,7 @@ $(async () => {
     });
 
     // $('#video').on('touchstart', (e) => e.preventDefault());
-});
+};
 
 function toggleFullScreen() {
     if (
@@ -176,6 +176,7 @@ function loadVideo() {
             document.title = `${response.title} - ViewTube`;
             $('head').append(`<meta property="og:title" content="${response.title} - ViewTube">`);
             loadInfo(response);
+
             let currentVideo = response.formatStreams[0].url;
             if (response.adaptiveFormats != undefined) {
                 let audioUrls = resolveAudioFormats(response.adaptiveFormats);

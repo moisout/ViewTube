@@ -125,6 +125,9 @@ function initHeader() {
     if (typeof initErrorPage === "function") {
         initErrorPage();
     }
+    if (typeof initVideoPlayer === "function") {
+        initVideoPlayer();
+    }
 
     return true;
 }
