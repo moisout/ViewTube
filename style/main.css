@@ -681,8 +681,8 @@ html.light-theme .video-settings-container {
   bottom: 60px;
   width: 200px;
   background-color: #fff;
-  -webkit-transform: translateY(100px);
-          transform: translateY(100px);
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
   -webkit-transform-origin: 50% 200%;
           transform-origin: 50% 200%;
   opacity: 0;
@@ -2239,8 +2239,8 @@ html.dark-theme .video-settings-container {
   bottom: 60px;
   width: 200px;
   background-color: #121212;
-  -webkit-transform: translateY(100px);
-          transform: translateY(100px);
+  -webkit-transform: translateY(30px);
+          transform: translateY(30px);
   -webkit-transform-origin: 50% 200%;
           transform-origin: 50% 200%;
   opacity: 0;
