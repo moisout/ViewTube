@@ -1285,6 +1285,7 @@ html.light-theme .channel-videos-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 60px;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2876,6 +2877,7 @@ html.dark-theme .channel-videos-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 60px;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;

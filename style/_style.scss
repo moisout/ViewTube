@@ -155,6 +155,7 @@ a {
     width: 100%;
     max-width: $main-width;
     margin: 0 auto;
+    margin-top: $header-height;
     z-index: 10;
     display: flex;
     flex-direction: row;
