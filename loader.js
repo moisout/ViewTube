@@ -1,4 +1,4 @@
-const baseUrl = `https://invidio.us/api/v1/`;
+const baseUrl = `https://invidious.snopyta.org/api/v1/`;
 const rootUrl = getRootUrl();
 const defaultRegion = 'US';
 const components = [

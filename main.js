@@ -119,8 +119,8 @@ function initHeader() {
     if (typeof loadChannelContent === "function") {
         loadChannelContent();
     }
-    if (typeof loadTopVideos === "function") {
-        loadTopVideos();
+    if (typeof loadFrontPage === "function") {
+        loadFrontPage();
     }
     if (typeof initErrorPage === "function") {
         initErrorPage();

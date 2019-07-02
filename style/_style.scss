@@ -53,6 +53,7 @@ a {
 }
 
 @media screen and (max-width: 500px) {
+
     .video-entry,
     .channel-entry,
     .playlist-entry {
@@ -68,12 +69,13 @@ a {
         .logo {
             display: none !important;
         }
+
         .logo-small {
             display: block !important;
         }
     }
 
-    .search-autocomplete-container{
+    .search-autocomplete-container {
         position: fixed !important;
         margin-top: $header-height !important;
 
@@ -83,7 +85,7 @@ a {
     }
 }
 
-.header-font{
+.header-font {
     font-family: $header-font;
 }
 
@@ -111,8 +113,7 @@ a {
         white-space: nowrap;
         text-overflow: ellipsis;
 
-        .tooltip-title {
-        }
+        .tooltip-title {}
     }
 
     &.visible {
@@ -155,7 +156,6 @@ a {
     max-width: $main-width;
     margin: 0 auto;
     z-index: 10;
-    margin-top: #{$header-height};
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -345,6 +345,10 @@ a {
             }
         }
     }
+
+    &.loading {
+        display: none;
+    }
 }
 
 .video-section-title {
@@ -367,12 +371,14 @@ a {
     .video-section-separator {
         background-color: $theme-color;
         height: 1px;
-        width: 100%;
+        flex-grow: 1;
         margin: auto 20px auto 20px;
     }
 
     h2 {
         margin: auto 0;
         color: $title-color;
+        overflow: hidden;
+        white-space: nowrap;
     }
 }

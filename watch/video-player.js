@@ -272,26 +272,41 @@ function initKeyboardControls() {
 }
 
 function progressBarSelection() {
+    let video = $('#video')[0];
     let progressSelection = false;
     $('.video-seekbar').on('mousedown', (e) => {
         progressSelection = true;
+        $('.seekbar-timestamp').addClass('visible');
     }).on('click', (e) => {
         seekVideo(e);
     });
+
+    let seekPosition;
 
     $('body').on('mousemove', (e) => {
         if (progressSelection) {
             seekVideo(e);
         }
     }).on('mouseup', function () {
-        progressSelection = false;
+        if (progressSelection) {
+            progressSelection = false;
+            video.currentTime = seekPosition;
+            $('.seekbar-timestamp').removeClass('visible');
+        }
+    });
+
+    $('.video-seekbar').on('mousemove', (e) => {
+        let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
+        $('.seekbar-timestamp').css('left', `${progressPos}%`);
+        $('.seekbar-timestamp').text(formattedTime((video.duration / 100) * progressPos));
     });
 
     function seekVideo(e) {
-        let video = $('#video')[0];
         let progressPos = ((e.pageX - $('.seekbar-line').offset().left) / $('.seekbar-line').width()) * 100;
         $('.seekbar-line-progress').css('width', `${progressPos}%`);
-        video.currentTime = (video.duration / 100) * progressPos;
+        $('.seekbar-timestamp').css('left', `${progressPos}%`);
+        $('.seekbar-timestamp').text(formattedTime(video.currentTime));
+        seekPosition = (video.duration / 100) * progressPos;
     }
 }
 
