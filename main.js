@@ -133,7 +133,20 @@ function initHeader() {
 }
 
 function onSiteLoaded() {
-    const observer = lozad();
+    const observer = lozad('.lozad', {
+        load: (el) => {
+            $(el).css('opacity', 0);
+            setTimeout(() => {
+                el.src = el.getAttribute('data-src');
+            }, 200);
+            el.onload = () => $(el).css('opacity', 1);
+        },
+        // loaded: (el) => {
+        //     setTimeout(() => {
+        //         $(el).css('opacity', 1);
+        //     }, 400);
+        // }
+    });
     observer.observe();
     if (!hasTouch()) {
         initTooltips();

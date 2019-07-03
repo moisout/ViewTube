@@ -176,6 +176,7 @@ a {
 
             .video-entry-thmb-image {
                 width: 100%;
+                transition: opacity 200ms $intro-easing;
             }
 
             .video-entry-length {
