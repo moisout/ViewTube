@@ -133,6 +133,8 @@ function initHeader() {
 }
 
 function onSiteLoaded() {
+    const observer = lozad();
+    observer.observe();
     if (!hasTouch()) {
         initTooltips();
     }

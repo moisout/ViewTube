@@ -83,7 +83,7 @@
                 }
             }
 
-            &.hidden{
+            &.hidden {
                 display: none;
             }
         }
@@ -155,10 +155,6 @@
                     fill: $header-bgcolor;
                 }
             }
-        }
-
-        #settings-btn {
-            display: none;
         }
     }
 }

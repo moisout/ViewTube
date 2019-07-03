@@ -43,7 +43,7 @@ function loadChannel(channelId) {
 
             let searchResultEntry = $(videoHtml).appendTo('.channel-videos-container');
 
-            $(searchResultEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
+            $(searchResultEntry).find('.video-entry-thmb-image').attr('data-src', imgSrc);
             $(searchResultEntry).find('.video-entry-thmb').attr('href', linkUrl);
             $(searchResultEntry).find('.video-entry-title').attr('href', linkUrl);
             $(searchResultEntry).find('.video-entry-channel').css('display', 'none');

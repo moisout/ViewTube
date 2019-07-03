@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="style/main.css">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="images/icon-192.jpg" type="image/x-icon">
-    <link rel="preload" href="https://proxy.mcdn.ch" crossorigin>
-    <link rel="preload" href="https://invidio.us/api" crossorigin>
+    <link rel="preconnect" href="https://proxy.mcdn.ch" crossorigin>
+    <link rel="preconnect" href="https://invidio.snoopyta.org/api" crossorigin>
     <meta property="og:title" content="ViewTube">
     <meta property="og:type" content="website">
-    <meta property="og:image:secure_url" itemprop="image" content="https://viewtube.eu/images/icon-256.png">
+    <meta property="og:image" itemprop="image" content="https://viewtube.eu/images/icon-256.png">
     <meta property="og:description" content="An alternative YouTube frontend using the invidio.us API.">
     <meta property="og:locale" content="en_US">
     <meta name="theme-color" content="#121212">
@@ -30,6 +30,7 @@
     <script src="bin/mustache.js"></script>
     <script src="bin/localforage.min.js"></script>
     <script src="bin/kuzzle.min.js"></script>
+    <script src="bin/lozad.min.js"></script>
     <script src="bin/ripple.min.js"></script>
     <script src="loader.js"></script>
     <script src="index.js"></script>

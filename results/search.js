@@ -64,7 +64,7 @@ function loadSearchResults(params) {
 
                 let searchResultEntry = $(html).appendTo('.results-panel');
 
-                $(searchResultEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.video-entry-thmb-image').attr('data-src', imgSrc);
                 $(searchResultEntry).find('.video-entry-thmb').attr('href', linkUrl);
                 $(searchResultEntry).find('.video-entry-title').attr('href', linkUrl);
                 $(searchResultEntry).find('.video-entry-channel').attr('href', channelUrl);
@@ -80,7 +80,7 @@ function loadSearchResults(params) {
 
                 let searchResultEntry = $(html).appendTo('.results-panel');
 
-                $(searchResultEntry).find('.playlist-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.playlist-entry-thmb-image').attr('data-src', imgSrc);
                 $(searchResultEntry).find('.playlist-entry-thmb').attr('href', linkUrl);
                 $(searchResultEntry).find('.playlist-entry-title').attr('href', linkUrl);
                 $(searchResultEntry).find('.playlist-entry-channel').attr('href', channelUrl);
@@ -94,7 +94,7 @@ function loadSearchResults(params) {
 
                 let searchResultEntry = $(html).appendTo('.results-panel');
 
-                $(searchResultEntry).find('.channel-entry-thmb-image').attr('src', imgSrc);
+                $(searchResultEntry).find('.channel-entry-thmb-image').attr('data-src', imgSrc);
                 $(searchResultEntry).find('.channel-entry-thmb').attr('href', linkUrl);
                 $(searchResultEntry).find('.channel-entry-title').attr('href', linkUrl);
                 $(searchResultEntry).find('.channel-entry-subcount').text(subCountString);

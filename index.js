@@ -72,7 +72,7 @@ function loadVideoSection(section, sectionData, index) {
                 let videoLength = formattedTime(element.lengthSeconds);
 
                 let videoEntry = $(html).appendTo(`.video-list-container-${index}`);
-                $(videoEntry).find('.video-entry-thmb-image').attr('src', imgSrc);
+                $(videoEntry).find('.video-entry-thmb-image').attr('data-src', imgSrc);
                 $(videoEntry).find('.video-entry-thmb').attr('href', linkUrl);
                 $(videoEntry).find('.video-entry-title').attr('href', linkUrl);
                 $(videoEntry).find('.video-entry-channel').attr('href', channelUrl);

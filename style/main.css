@@ -339,10 +339,6 @@ html.light-theme .header .nav #open-in-yt .yt-logo .st1 {
   fill: #fff;
 }
 
-html.light-theme .header .nav #settings-btn {
-  display: none;
-}
-
 html.light-theme .content-container {
   overflow: auto;
   margin-top: 60px;
@@ -1929,10 +1925,6 @@ html.dark-theme .header .nav #open-in-yt .yt-logo .st0 {
 
 html.dark-theme .header .nav #open-in-yt .yt-logo .st1 {
   fill: #272727;
-}
-
-html.dark-theme .header .nav #settings-btn {
-  display: none;
 }
 
 html.dark-theme .content-container {
