@@ -215,6 +215,8 @@ function Tooltip(target) {
     this.target = target;
     this.tooltipText = $(this.target).attr('vt-tooltip');
 
+    this.visibilityInterval;
+
     this.show = async () => {
         const me = this;
         const tooltip = await getComponent('vt-tooltip');
@@ -243,7 +245,7 @@ function Tooltip(target) {
             top: offsetTop,
             left: offsetLeft
         });
-        setTimeout(() => {
+        this.visibilityInterval = setTimeout(() => {
             $(tooltipHtml).addClass('visible');
         }, 600);
 
@@ -263,6 +265,7 @@ function Tooltip(target) {
     }
 
     this.destroy = (targetHtml) => {
+        clearInterval(this.visibilityInterval);
         $(targetHtml).removeClass('visible');
         setTimeout(() => {
             $(targetHtml).remove();
