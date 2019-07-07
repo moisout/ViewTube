@@ -77,6 +77,7 @@ function progressBarSelection() {
         $('.seekbar-line-progress').css('width', `${progressPos}%`);
         $('.seekbar-timestamp').css('left', `${progressPos}%`);
         seekPosition = (video.duration / 100) * progressPos;
+        video.currentTime = seekPosition;
     }
 }
 
