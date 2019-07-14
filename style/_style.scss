@@ -53,7 +53,6 @@ a {
 }
 
 @media screen and (max-width: 500px) {
-
     .video-entry,
     .channel-entry,
     .playlist-entry {
@@ -113,7 +112,8 @@ a {
         white-space: nowrap;
         text-overflow: ellipsis;
 
-        .tooltip-title {}
+        .tooltip-title {
+        }
     }
 
     &.visible {
@@ -155,202 +155,209 @@ a {
     width: 100%;
     max-width: $main-width;
     margin: 0 auto;
-    margin-top: $header-height;
     z-index: 10;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
 
-    .video-entry {
-        width: 220px;
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
-        justify-content: start;
+.results-panel,
+.channel-videos-container {
+    margin-top: $header-height;
+}
+
+.video-entry {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    justify-content: start;
+    overflow: hidden;
+
+    .video-entry-thmb {
+        width: 100%;
+        height: calc((100% / 16) * 9);
         overflow: hidden;
+        position: relative;
 
-        .video-entry-thmb {
+        .video-entry-thmb-image {
             width: 100%;
-            position: relative;
-
-            .video-entry-thmb-image {
-                width: 100%;
-                transition: opacity 200ms $intro-easing;
-            }
-
-            .video-entry-length {
-                text-decoration: none;
-                color: $video-thmb-overlay-textcolor;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                padding: 2px 4px;
-                margin: 8px 4px;
-                background-color: $video-thmb-overlay-bgcolor;
-                box-sizing: border-box;
-                border-radius: 2px;
-                font-family: $default-font;
-            }
+            opacity: 0;
+            transition: opacity 200ms $intro-easing;
         }
 
-        .video-entry-info {
-            padding: 0 0 10px 0;
+        .video-entry-length {
+            text-decoration: none;
+            color: $video-thmb-overlay-textcolor;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 2px 4px;
+            margin: 8px 4px;
+            background-color: $video-thmb-overlay-bgcolor;
+            box-sizing: border-box;
+            border-radius: 2px;
             font-family: $default-font;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-
-            .video-entry-title {
-                text-decoration: none;
-                margin: 0;
-                font-size: 0.9rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                color: $title-color;
-                padding: 6px 0 4px 0;
-            }
-
-            .video-entry-channel {
-                text-decoration: none;
-                padding: 3px 0 4px 0;
-                font-size: 0.8rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                color: $subtitle-color;
-            }
-
-            .video-entry-stats {
-                color: $subtitle-color-light;
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                flex-direction: row;
-                font-size: 0.8rem;
-                margin: 5px 0 0 0;
-            }
         }
     }
 
-    .playlist-entry {
-        width: 220px;
-        height: 220px;
+    .video-entry-info {
+        padding: 0 0 10px 0;
+        font-family: $default-font;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        margin: 10px;
-        justify-content: start;
-        overflow: hidden;
+        align-items: left;
 
-        .playlist-entry-thmb {
+        .video-entry-title {
+            text-decoration: none;
+            margin: 0;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $title-color;
+            padding: 6px 0 4px 0;
+        }
+
+        .video-entry-channel {
+            text-decoration: none;
+            padding: 3px 0 4px 0;
+            font-size: 0.8rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $subtitle-color;
+        }
+
+        .video-entry-stats {
+            color: $subtitle-color-light;
+            display: flex;
             width: 100%;
-            position: relative;
+            justify-content: space-between;
+            flex-direction: row;
+            font-size: 0.8rem;
+            margin: 5px 0 0 0;
+        }
+    }
+}
 
-            .playlist-entry-thmb-image {
-                width: 100%;
-            }
+.playlist-entry {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    justify-content: start;
+    overflow: hidden;
 
-            .playlist-entry-count {
-                text-decoration: none;
-                color: $video-thmb-overlay-textcolor;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                padding: 2px 4px;
-                margin: 8px 4px;
-                background-color: $video-thmb-overlay-bgcolor;
-                box-sizing: border-box;
-                border-radius: 2px;
-                font-family: $default-font;
-            }
+    .playlist-entry-thmb {
+        width: 100%;
+        position: relative;
+
+        .playlist-entry-thmb-image {
+            width: 100%;
         }
 
-        .playlist-entry-info {
-            padding: 10px 0;
+        .playlist-entry-count {
+            text-decoration: none;
+            color: $video-thmb-overlay-textcolor;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 2px 4px;
+            margin: 8px 4px;
+            background-color: $video-thmb-overlay-bgcolor;
+            box-sizing: border-box;
+            border-radius: 2px;
             font-family: $default-font;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-
-            .playlist-entry-title {
-                text-decoration: none;
-                margin: 0;
-                font-size: 0.9rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                color: $title-color;
-            }
-
-            .playlist-entry-channel {
-                text-decoration: none;
-                margin: 8px 0 0 0;
-                font-size: 0.8rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                color: $subtitle-color;
-            }
         }
     }
 
-    .channel-entry {
-        width: 220px;
-        height: 220px;
+    .playlist-entry-info {
+        padding: 10px 0;
+        font-family: $default-font;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        margin: 10px;
-        justify-content: start;
-        overflow: hidden;
 
-        .channel-entry-thmb {
-            height: calc((220px * 9) / 16);
-            position: relative;
-            margin: 0 auto;
-
-            .channel-entry-thmb-image {
-                height: 100%;
-            }
-        }
-
-        .channel-entry-info {
-            padding: 10px 0;
-            font-family: $default-font;
+        .playlist-entry-title {
+            text-decoration: none;
+            margin: 0;
+            font-size: 0.9rem;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $title-color;
+        }
 
-            .channel-entry-title {
-                text-decoration: none;
-                margin: 0;
-                font-size: 0.9rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                color: $title-color;
-            }
+        .playlist-entry-channel {
+            text-decoration: none;
+            margin: 8px 0 0 0;
+            font-size: 0.8rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $subtitle-color;
+        }
+    }
+}
 
-            .channel-entry-stats {
-                color: $subtitle-color-light;
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                flex-direction: column;
-                font-size: 0.8rem;
-                margin: 5px 0 0 0;
+.channel-entry {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    justify-content: start;
+    overflow: hidden;
 
-                p {
-                    margin: 0 0 5px 0;
-                }
-            }
+    .channel-entry-thmb {
+        height: calc((220px * 9) / 16);
+        position: relative;
+        margin: 0 auto;
+
+        .channel-entry-thmb-image {
+            height: 100%;
         }
     }
 
-    &.loading {
-        display: none;
+    .channel-entry-info {
+        padding: 10px 0;
+        font-family: $default-font;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .channel-entry-title {
+            text-decoration: none;
+            margin: 0;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $title-color;
+        }
+
+        .channel-entry-stats {
+            color: $subtitle-color-light;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            flex-direction: column;
+            font-size: 0.8rem;
+            margin: 5px 0 0 0;
+
+            p {
+                margin: 0 0 5px 0;
+            }
+        }
     }
+}
+
+&.loading {
+    display: none;
 }
 
 .video-section-title {

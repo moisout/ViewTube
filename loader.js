@@ -13,7 +13,6 @@ const components = [
 const proxyUrl = 'https://proxy.mcdn.ch/?q=';
 const autocompleteUrl = 'https://autocomplete.mcdn.ch';
 const requestTimeout = 12000;
-// const kuzzleUrl = 'wss://167.86.100.213';
 
 let serviceWorkerRegistration;
 
@@ -38,39 +37,6 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
-
-// let kuzzle = new KuzzleSDK.Kuzzle(
-//     new KuzzleSDK.WebSocket(kuzzleUrl)
-// );
-// let notificationFilter = {
-//     equals: {
-//         type: 'notification'
-//     }
-// }
-// let notificationCallback = (notification) => {
-//     if (notification.type === 'document' && notification.action === 'create') {
-//         console.log(notification.result);
-//     }
-// }
-
-// kuzzle.on('networkError', error => {
-//     console.error('Network Error: ', error);
-// });
-// kuzzle.on('connected', () => {
-//     console.log(`Connected to ${kuzzleUrl}`);
-// })
-
-// kuzzle.connect()
-//     .then(() => {
-//         kuzzle.realtime.subscribe('test-data', 'test-item', notificationFilter, callback);
-//     })
-//     .then(() => {
-//         console.log('subscribed');
-//     })
-//     .catch(error => {
-//         console.error(error);
-//         kuzzle.disconnect();
-//     });
 
 $(() => {
     $.ajax({

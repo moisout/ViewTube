@@ -41,7 +41,7 @@ let cacheUrls = [
     "watch/index.html",
     "watch/video-player.js",
     "worker.js",
-    "/offline.html"
+    "offline.html"
 ]
 
 self.addEventListener('install', e => {

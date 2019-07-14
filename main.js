@@ -87,12 +87,13 @@ function initHeader() {
         return index;
     }
 
-    $('#reload-btn').on('click', async () => {
+    $('#reload-btn').on('click', async (e) => {
         localStorage.clear();
         Cookies.remove('theme');
         await localforage.clear();
         await serviceWorkerRegistration.unregister();
         window.location.reload(true);
+        e.preventDefault();
     });
 
     $('#theme-change').on('click', (e) => {
@@ -135,17 +136,11 @@ function initHeader() {
 function onSiteLoaded() {
     const observer = lozad('.lozad', {
         load: (el) => {
-            $(el).css('opacity', 0);
             setTimeout(() => {
                 el.src = el.getAttribute('data-src');
             }, 200);
             el.onload = () => $(el).css('opacity', 1);
-        },
-        // loaded: (el) => {
-        //     setTimeout(() => {
-        //         $(el).css('opacity', 1);
-        //     }, 400);
-        // }
+        }
     });
     observer.observe();
     if (!hasTouch()) {
