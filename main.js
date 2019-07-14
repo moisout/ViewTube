@@ -91,7 +91,9 @@ function initHeader() {
         localStorage.clear();
         Cookies.remove('theme');
         await localforage.clear();
-        await serviceWorkerRegistration.unregister();
+        if (serviceWorkerRegistration) {
+            await serviceWorkerRegistration.unregister();
+        }
         window.location.reload(true);
         e.preventDefault();
     });
@@ -145,6 +147,14 @@ function onSiteLoaded() {
     observer.observe();
     if (!hasTouch()) {
         initTooltips();
+    }
+    if (screen.width < 500) {
+        debugger;
+        $.ajax({
+            url: `${rootUrl}touch-interaction.js`,
+            type: 'GET',
+            dataType: "script"
+        })
     }
     initRippleEffect();
     initParallax();

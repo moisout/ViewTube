@@ -24,7 +24,7 @@ localforage.config({
     version: dbVersion
 });
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && !isLocalhost()) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register(`${rootUrl}worker.js`).then(function (registration) {
 

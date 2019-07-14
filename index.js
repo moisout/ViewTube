@@ -1,30 +1,32 @@
 async function loadFrontPage() {
 
     let sectionsToLoad = [{
-        name: 'top'
-    }, {
-        name: 'trending',
-        data: {
-            type: 'gaming'
-        }
-    }, {
-        name: 'trending',
-        data: {
-            type: 'music'
-        }
-    }, {
-        name: 'trending',
-        data: {
-            type: 'news'
-        }
-    }, {
-        name: 'trending',
-        data: {
-            type: 'movies'
-        }
-    }, {
-        name: 'popular'
-    }];
+            name: 'top'
+        },
+        // {
+        //     name: 'trending',
+        //     data: {
+        //         type: 'gaming'
+        //     }
+        // }, {
+        //     name: 'trending',
+        //     data: {
+        //         type: 'music'
+        //     }
+        // }, {
+        //     name: 'trending',
+        //     data: {
+        //         type: 'news'
+        //     }
+        // }, {
+        //     name: 'trending',
+        //     data: {
+        //         type: 'movies'
+        //     }
+        // }, {
+        //     name: 'popular'
+        // }
+    ];
 
     await Promise.all(sectionsToLoad.map((element, index) => {
         return loadVideoSection(element.name, element.data, index);
