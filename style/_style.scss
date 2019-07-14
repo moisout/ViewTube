@@ -160,6 +160,10 @@ a {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+
+    &.loading {
+        display: none;
+    }
 }
 
 .results-panel,
@@ -354,10 +358,6 @@ a {
             }
         }
     }
-}
-
-&.loading {
-    display: none;
 }
 
 .video-section-title {

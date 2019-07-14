@@ -27,7 +27,6 @@ async function loadFrontPage() {
     }];
 
     await Promise.all(sectionsToLoad.map((element, index) => {
-        console.log(element);
         return loadVideoSection(element.name, element.data, index);
     }));
 
