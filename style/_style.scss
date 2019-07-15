@@ -164,6 +164,11 @@ a {
     &.loading {
         display: none;
     }
+
+    &.hiding{
+        animation: slide-in-right-background 300ms $intro-easing;
+        animation-fill-mode: forwards;
+    }
 }
 
 .results-panel,

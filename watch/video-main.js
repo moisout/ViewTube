@@ -1,84 +1,106 @@
-function initVideoPlayer() {
-    loadVideo();
-
-    $('.video-buffer').addClass('buffering');
-
-    $('.video-player-overlay').removeClass('hovering');
-    $('.player-viewport').css('cursor', 'none');
-
-    let moved = false;
-    let overlayHideTimeout;
-    $('.player-viewport').on('mousemove', (e) => {
-        $('.video-player-overlay').addClass('hovering');
-        $('.player-viewport').css('cursor', 'auto');
-
-        if (!moved) {
-            updateVideoOverlay();
-            overlayHideTimeout = setTimeout(() => {
-                $('.video-player-overlay').removeClass('hovering');
-                $('.player-viewport').css('cursor', 'none');
-                moved = false;
-            }, 5000);
-            moved = true;
-        }
+function initVideoPlayer(videoId) {
+    let watchHtml = $.get('watch.html').done((response) => {
+        $('watch-content').replaceWith(response);
+        initVideoPage(false);
+    }).fail(() => {
+        initVideoPage(true, videoId);
     });
-
-    progressBarSelection();
-    volumeSelection();
-
-    setInterval(() => {
-        updateVideoOverlay();
-    }, 1000);
-
-    $('.video-play-btn').on('click', (e) => {
-        setVideo('toggle');
-    });
-
-    let videoInitialized = false;
-    $('.play-click-area').on('click', (e) => {
-        if (!videoInitialized) {
-            $('.video-thumbnail').fadeOut(300);
-            $('.video-buffer').css('z-index', 200);
-            $('.play-click-area').css('z-index', 200);
-            let video = $('#video')[0];
-            let audio = $('#audio')[0];
-            video.load();
-            audio.load();
-            syncAudioVideo();
-            videoInitialized = true;
-            initKeyboardControls();
-        }
-        setVideo('play');
-    });
-
-    $('#video').on('click', (e) => {
-        if (video.playing) {
-            setVideo('pause');
-        } else {
-            setVideo('play');
-        }
-    }).on('dblclick', (e) => {
-        toggleFullScreen();
-    });
-
-    $('.video-fullscreen-btn').on('click', (e) => {
-        toggleFullScreen();
-    });
-
-    let settingsVisible = false;
-    $('.video-settings-btn').on('click', (e) => {
-        if (settingsVisible) {
-            settingsVisible = false;
-            $('.video-settings-container').removeClass('opened');
-        } else {
-            settingsVisible = true;
-            $('.video-settings-container').addClass('opened');
-        }
-        e.preventDefault();
-    });
-
-    // $('#video').on('touchstart', (e) => e.preventDefault());
 };
+
+function initVideoPage(isDynamicPage, videoId) {
+    loadComponents(components).then(() => {
+        if (isDynamicPage) {
+            if (videoId !== undefined) {
+                loadVideo(videoId.replace('watch?v=', ''));
+            }
+        } else {
+            let url = window.location.search;
+            let urlParams = new URLSearchParams(url);
+            if (urlParams.has('v')) {
+                let videoId = urlParams.getAll('v');
+                loadVideo(videoId);
+            }
+        }
+
+        $('.video-buffer').addClass('buffering');
+
+        $('.video-player-overlay').removeClass('hovering');
+        $('.player-viewport').css('cursor', 'none');
+
+        let moved = false;
+        let overlayHideTimeout;
+        $('.player-viewport').on('mousemove', (e) => {
+            $('.video-player-overlay').addClass('hovering');
+            $('.player-viewport').css('cursor', 'auto');
+
+            if (!moved) {
+                updateVideoOverlay();
+                overlayHideTimeout = setTimeout(() => {
+                    $('.video-player-overlay').removeClass('hovering');
+                    $('.player-viewport').css('cursor', 'none');
+                    moved = false;
+                }, 5000);
+                moved = true;
+            }
+        });
+
+        progressBarSelection();
+        volumeSelection();
+
+        setInterval(() => {
+            updateVideoOverlay();
+        }, 1000);
+
+        $('.video-play-btn').on('click', (e) => {
+            setVideo('toggle');
+        });
+
+        let videoInitialized = false;
+        $('.play-click-area').on('click', (e) => {
+            if (!videoInitialized) {
+                $('.video-thumbnail').fadeOut(300);
+                $('.video-buffer').css('z-index', 200);
+                $('.play-click-area').css('z-index', 200);
+                let video = $('#video')[0];
+                let audio = $('#audio')[0];
+                video.load();
+                audio.load();
+                syncAudioVideo();
+                videoInitialized = true;
+                initKeyboardControls();
+            }
+            setVideo('play');
+        });
+
+        $('#video').on('click', (e) => {
+            if (video.playing) {
+                setVideo('pause');
+            } else {
+                setVideo('play');
+            }
+        }).on('dblclick', (e) => {
+            toggleFullScreen();
+        });
+
+        $('.video-fullscreen-btn').on('click', (e) => {
+            toggleFullScreen();
+        });
+
+        let settingsVisible = false;
+        $('.video-settings-btn').on('click', (e) => {
+            if (settingsVisible) {
+                settingsVisible = false;
+                $('.video-settings-container').removeClass('opened');
+            } else {
+                settingsVisible = true;
+                $('.video-settings-container').addClass('opened');
+            }
+            e.preventDefault();
+        });
+
+        // $('#video').on('touchstart', (e) => e.preventDefault());
+    });
+}
 
 function setVideo(state) {
     let video = $('#video')[0];

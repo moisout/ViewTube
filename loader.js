@@ -24,19 +24,19 @@ localforage.config({
     version: dbVersion
 });
 
-if ('serviceWorker' in navigator && !isLocalhost()) {
-    window.addEventListener('load', function () {
-        navigator.serviceWorker.register(`${rootUrl}worker.js`).then(function (registration) {
+// if ('serviceWorker' in navigator && !isLocalhost()) {
+//     window.addEventListener('load', function () {
+//         navigator.serviceWorker.register(`${rootUrl}worker.js`).then(function (registration) {
 
-            serviceWorkerRegistration = registration;
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function (err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-}
+//             serviceWorkerRegistration = registration;
+//             // Registration was successful
+//             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+//         }, function (err) {
+//             // registration failed :(
+//             console.log('ServiceWorker registration failed: ', err);
+//         });
+//     });
+// }
 
 $(() => {
     $.ajax({
@@ -75,6 +75,24 @@ function getComponent(name) {
             reject(exception);
         });
     });
+}
+
+function loadScripts(scripts) {
+    let promisesArray = [];
+    scripts.forEach(element => {
+        promisesArray.push(new Promise((resolve, reject) => {
+            $.ajax({
+                type: "GET",
+                url: `${rootUrl}${element}.js`,
+                dataType: "script"
+            }).done((response) => {
+                resolve(response);
+            }).fail((jqhxr, settings, exception) => {
+                reject(exception);
+            });
+        }));
+    });
+    return Promise.all(promisesArray);
 }
 
 async function apiRequest(args) {

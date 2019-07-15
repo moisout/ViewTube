@@ -3,6 +3,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0px);
@@ -10,12 +11,34 @@
 }
 
 @keyframes sk-stretchdelay {
+
     0%,
     40%,
     100% {
         transform: scaleY(0.4);
     }
+
     20% {
         transform: scaleY(1);
+    }
+}
+
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slide-in-right-background {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-20%);
     }
 }

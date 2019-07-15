@@ -1,8 +1,5 @@
-function loadVideo() {
-    let url = window.location.search;
-    let urlParams = new URLSearchParams(url);
-    if (urlParams.has('v')) {
-        let videoId = urlParams.getAll('v');
+function loadVideo(videoId) {
+    
 
         apiRequest({
             url: `videos/${videoId}`,
@@ -41,7 +38,6 @@ function loadVideo() {
 
             onSiteLoaded();
         });
-    }
 }
 
 function switchVideoUrl(url) {

@@ -136,6 +136,14 @@ function initHeader() {
 }
 
 function onSiteLoaded() {
+    $.ajax({
+        url: `${rootUrl}pages-manager.js`,
+        type: 'GET',
+        dataType: "script"
+    }).done(() => {
+        initPagesManager();
+    });
+
     const observer = lozad('.lozad', {
         load: (el) => {
             setTimeout(() => {
@@ -147,13 +155,6 @@ function onSiteLoaded() {
     observer.observe();
     if (!hasTouch()) {
         initTooltips();
-    }
-    if (screen.width < 500) {
-        $.ajax({
-            url: `${rootUrl}touch-interaction.js`,
-            type: 'GET',
-            dataType: "script"
-        })
     }
     initRippleEffect();
     initParallax();
