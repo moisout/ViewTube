@@ -13,15 +13,25 @@
 
         .channel-banner {
             width: 100%;
-            height: calc(100vw / 4);
+            height: calc(100vw / 3.5);
             min-height: 150px;
             overflow: hidden;
+            position: relative;
 
-            #channel-banner-image {
+            #channel-banner-image, #channel-banner-image-blur {
                 height: 100%;
                 width: 100%;
                 background-position: center;
                 background-size: cover;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            #channel-banner-image-blur {
+                filter: blur(10px);
+                opacity: 0;
+                z-index: 10;    
             }
         }
 

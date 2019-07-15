@@ -361,16 +361,27 @@ html.light-theme .content-container .channel-panel.loading {
 
 html.light-theme .content-container .channel-panel .channel-banner {
   width: 100%;
-  height: calc(100vw / 4);
+  height: calc(100vw / 3.5);
   min-height: 150px;
   overflow: hidden;
+  position: relative;
 }
 
-html.light-theme .content-container .channel-panel .channel-banner #channel-banner-image {
+html.light-theme .content-container .channel-panel .channel-banner #channel-banner-image, html.light-theme .content-container .channel-panel .channel-banner #channel-banner-image-blur {
   height: 100%;
   width: 100%;
   background-position: center;
   background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+html.light-theme .content-container .channel-panel .channel-banner #channel-banner-image-blur {
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
+  opacity: 0;
+  z-index: 10;
 }
 
 html.light-theme .content-container .channel-panel .channel-title {
@@ -1296,6 +1307,12 @@ html.light-theme .channel-videos-container {
           justify-content: space-evenly;
 }
 
+html.light-theme .video-list-container.loading,
+html.light-theme .results-panel.loading,
+html.light-theme .channel-videos-container.loading {
+  display: none;
+}
+
 html.light-theme .results-panel,
 html.light-theme .channel-videos-container {
   margin-top: 60px;
@@ -1543,10 +1560,6 @@ html.light-theme .channel-entry .channel-entry-info .channel-entry-stats {
 
 html.light-theme .channel-entry .channel-entry-info .channel-entry-stats p {
   margin: 0 0 5px 0;
-}
-
-html.light-theme.loading {
-  display: none;
 }
 
 html.light-theme .video-section-title {
@@ -1912,16 +1925,27 @@ html.dark-theme .content-container .channel-panel.loading {
 
 html.dark-theme .content-container .channel-panel .channel-banner {
   width: 100%;
-  height: calc(100vw / 4);
+  height: calc(100vw / 3.5);
   min-height: 150px;
   overflow: hidden;
+  position: relative;
 }
 
-html.dark-theme .content-container .channel-panel .channel-banner #channel-banner-image {
+html.dark-theme .content-container .channel-panel .channel-banner #channel-banner-image, html.dark-theme .content-container .channel-panel .channel-banner #channel-banner-image-blur {
   height: 100%;
   width: 100%;
   background-position: center;
   background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+html.dark-theme .content-container .channel-panel .channel-banner #channel-banner-image-blur {
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
+  opacity: 0;
+  z-index: 10;
 }
 
 html.dark-theme .content-container .channel-panel .channel-title {
@@ -2847,6 +2871,12 @@ html.dark-theme .channel-videos-container {
           justify-content: space-evenly;
 }
 
+html.dark-theme .video-list-container.loading,
+html.dark-theme .results-panel.loading,
+html.dark-theme .channel-videos-container.loading {
+  display: none;
+}
+
 html.dark-theme .results-panel,
 html.dark-theme .channel-videos-container {
   margin-top: 60px;
@@ -3094,10 +3124,6 @@ html.dark-theme .channel-entry .channel-entry-info .channel-entry-stats {
 
 html.dark-theme .channel-entry .channel-entry-info .channel-entry-stats p {
   margin: 0 0 5px 0;
-}
-
-html.dark-theme.loading {
-  display: none;
 }
 
 html.dark-theme .video-section-title {

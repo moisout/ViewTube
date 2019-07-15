@@ -26,6 +26,7 @@ function loadChannel(channelId) {
         let descriptionHtml = response.descriptionHtml;
 
         $('#channel-banner-image').css('background-image', `url(${channelBanner})`);
+        $('#channel-banner-image-blur').css('background-image', `url(${channelBanner})`);
         $('#channel-thmb-image').attr('src', channelThmb);
         $('.channel-info-subcount').text(subCountString);
         $('.channel-info-viewcount').text(viewCountString);

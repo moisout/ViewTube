@@ -149,7 +149,6 @@ function onSiteLoaded() {
         initTooltips();
     }
     if (screen.width < 500) {
-        debugger;
         $.ajax({
             url: `${rootUrl}touch-interaction.js`,
             type: 'GET',
@@ -179,8 +178,16 @@ function initParallax() {
     $('.content-container').on('scroll', (e) => {
         $('.parallax').each((index, element) => {
             if (isVisible(element)) {
-                let offsetTop = ($(element).parent('.parallax-container').offset().top - 60) / -2;
-                $(element).css('transform', `translateY(${offsetTop}px)`);
+                let offsetTop = $(element).parent('.parallax-container').offset().top - 60;
+                let parallaxOffsetTop = offsetTop / -2;
+                let opacity = (offsetTop / $(element).parent('.parallax-container').height()) * -1.5;
+                let scaling = ((offsetTop / $(element).parent('.parallax-container').height()) / -5) + 1;
+
+                $('#channel-banner-image-blur').css({
+                    'opacity': opacity,
+                    'transform': `translateY(${parallaxOffsetTop}px) scale(${scaling})`,
+                });
+                $(element).css('transform', `translateY(${parallaxOffsetTop}px) scale(${scaling})`);
             }
         });
     });
